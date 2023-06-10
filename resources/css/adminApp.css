@@ -1,0 +1,33 @@
+nav{
+    padding-top: 30px;
+}
+
+.nav-link, .navbar-brand, .header-content{
+    font-size: 20px;
+}
+
+.main-section{
+    padding-top: 30px;
+}
+
+.table-list-header{
+    padding: 10px 0;
+}
+
+.table-list-header span{
+    font-size: 20px;
+}
+
+.link{
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.name-field{
+    font-size: 16px;
+}
+
+.value-field{
+    font-size: 18px;
+}

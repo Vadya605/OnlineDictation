@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('dictations', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('video_link');
-            $table->boolean('is_active');
-            $table->text('description');
-            $table->dateTime('start_date_time');
-            $table->dateTime('end_date_time');
+            $table->text('video_link')->nullable();
+            $table->boolean('is_active')->nullable();
+            $table->text('description')->nullable();
+            $table->dateTime('from_date_time')->nullable();
+            $table->dateTime('to_date_time')->nullable();
             $table->timestamps();
         });
     }

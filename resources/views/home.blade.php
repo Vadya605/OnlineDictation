@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,4 +42,23 @@
         </div>
     </header>
 </body>
-</html>
+</html> --}}
+
+@extends('layouts.app')
+@section('content')
+@vite(['resources/css/main.css'])
+<div class="offer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <h1 class="text-center text-black">
+                    Добро пожаловать в "Мастер слова": 
+                    Онлайн диктанты для совершенствования вашего письменного и 
+                    грамматического навыка,
+                    перед написанием диктанта Вам необходимо войти в систему или зарегистрироваться
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

@@ -3,76 +3,71 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Dictation;
 use Illuminate\Http\Request;
-use App\Services\DictationService;
-use App\Http\Requests\Admin\StoreUserRequest;
-use App\Http\Requests\Admin\UpdateUserRequest;
-use App\Http\Request\TestRequest;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Response;
+use App\Http\Requests\Admin\Dictation\StoreDictationRequest;
+use App\Http\Requests\Admin\Dictation\UpdateDictationRequest;
+use App\Http\Requests\Admin\Dictation\GetAllDictationRequest;
+use App\Services\Admin\DictationService;
+use App\Http\Resources\Dictation\DictationResource;
+use App\Http\Resources\Dictation\DictationCollection;
+
 
 class DictationController extends Controller
 {
     private $dictationService;
-    public function __construct(DictationService $dictationService){
+
+    public function __construct(DictationService $dictationService)
+    {
         $this->dictationService = $dictationService;
     }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {   
-        return $this->dictationService->getAll();
+
+    public function index(GetAllDictationRequest $request)
+    { 
+        $request->validated();
+        $columnSort = $request->input('column_sort', 'id');
+        $optionSort = $request->input('option_sort', 'asc');
+
+        return view('admin.dictation.allDictation', ['dictations' => new DictationCollection(
+            $this->dictationService->getAll($columnSort, $optionSort)
+        )]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.dictation.createDictation');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreUserRequest $request)
+    public function store(StoreDictationRequest $request)
     {
         $validData = $request->validated();
-        return $this->dictationService->create($validData);
-        return response()->json($this->dictationService->create($validData), 200);
+        $this->dictationService->create($validData);
+
+        return back()->with('message', 'Запись успешно добавлена')
+                ->setStatusCode(Response::HTTP_CREATED);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Dictation $dictation)
+    public function edit($id)
     {
-        //
+        return view('admin.dictation.editDictation', ['dictation' => new DictationResource(
+            $this->dictationService->getById($id)
+        )]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Dictation $dictation)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateDictationRequest $request)
     {
         $validData = $request->validated();
-        return response()->json($this->dictationService->update($validData, $id), 200);
+        $this->dictationService->update($validData);
+        
+        return back()->with('message', 'Запись успешно обновлена')
+                ->setStatusCode(Response::HTTP_OK);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function delete($id)
     {
-        return $this->dictationService->delete($id);
+        $this->dictationService->delete($id);
+
+        return back()->with('message', 'Запись успешно удалена')
+                ->setStatusCode(Response::HTTP_NO_CONTENT);
     }
 }

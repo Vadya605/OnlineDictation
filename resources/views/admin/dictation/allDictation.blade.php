@@ -1,6 +1,5 @@
 @extends('layouts.adminApp')
 @section('content')
-@vite(['resources/css/dictation/allDictation.css'])
 @if ($errors->any())
         <ul>
             @foreach ($errors->all() as $error)

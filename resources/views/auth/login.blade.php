@@ -56,14 +56,7 @@
                                 <button type="submit" class="btn btn-dark">
                                     {{ __('Войти') }}
                                 </button>
-
-                                {{-- @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif --}}
-                                <a class="btn btn-link" href="{{ route('vk.auth') }}">Войти с помощью VK</a>
-
+                                <a class="btn btn-link" href="{{ route('vkAuth') }}">Войти с помощью VK</a>
                             </div>
                         </div>
                     </form>

@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->group(function(){
-    Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index']);
+Route::prefix('admin')->middleware('admin')->group(function(){
+    Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin');
 
     Route::get('/dictations', [App\Http\Controllers\Admin\DictationController::class, 'index'])->name('allDictations');
     Route::get('/dictation/create', [App\Http\Controllers\Admin\DictationController::class, 'create'])->name('createDictation');

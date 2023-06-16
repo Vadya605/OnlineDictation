@@ -19,10 +19,9 @@
         </div>
         <div class="row flex-row-reverse justify-content-between">
             <div class="col-lg-4">
-                {{-- <div class="embed-responsive embed-responsive-16by9 d-flex justify-content-md-start justify-content-lg-end mb-3">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/etkNsCRoKNY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/etkNsCRoKNY" allowfullscreen></iframe>
-                </div> --}}
+                <div class="embed-responsive embed-responsive-16by9 d-flex justify-content-md-start justify-content-lg-end mb-3">
+                    <iframe class="embed-responsive-item" src="{{ $activeDictation->video_link }}" allowfullscreen></iframe>
+                </div>
             </div>
             <div class="col-lg-8">
                 <form class="dictation-form" action="{{ route('saveDictationResult') }}" method="post">

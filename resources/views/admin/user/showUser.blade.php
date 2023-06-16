@@ -6,7 +6,14 @@
         <div class="col-12">
             <span class="header-content">Пользователь {{ $user->name }}</span>
         </div>
-    </div>  
+    </div> 
+    
+    <div class="row mt-3">
+        <div class="col-12">
+            <x-errors.session-error />
+            <x-messages.message-success />
+        </div>
+    </div>
 
     <div class="row mt-3">
         <div class="col-12">
@@ -36,11 +43,7 @@
     </div>
     <div class="row mt-3 mb-3">
         <div class="col-3">
-            <form class="form-delete row mt-3" action="{{ route('deleteUser', ['id' => $user->id]) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger text-white">Удалить</button>
-            </form>
+            <x-delete-button :action="route('deleteUser', $user)" />
         </div>
     </div>
 </div>

@@ -23,7 +23,10 @@ class GetAllDictationRequest extends FormRequest
     {
         return [
             'column_sort' => 'nullable|in:id,created_at,from_date_time,to_date_time',
-            'option_sort' => 'nullable|in:asc,desc'
+            'option_sort' => 'nullable|in:asc,desc',
+            'column_filter' => 'nullable|in:is_active,id',
+            'option_filter' => 'nullable|in:<,>,=',
+            'value_filter' => 'nullable|boolean',
         ];
     }
 }

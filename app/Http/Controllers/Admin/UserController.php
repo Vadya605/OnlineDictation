@@ -10,6 +10,8 @@ use App\Http\Requests\Admin\User\StoreUserRequest;
 use App\Services\Admin\UserService;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserCollection;
+use App\Models\User;
+use Exception;
 
 
 class UserController extends Controller
@@ -32,18 +34,23 @@ class UserController extends Controller
         )]);
     }
 
-    public function show($id)
+    public function show(User $user)
     {
         return view('admin.user.showUser', ['user' => new UserResource(
-            $this->userService->getById($id)
+            $user
         )]);
     }
 
-    public function delete(Request $request)
+    public function delete(User $user)
     {
-        $this->userService->delete($request->id);
-
-        return redirect()->route('allUsers');
+        try{
+            $this->userService->delete($user);
+    
+            return redirect()->route('allUsers');
+        }catch(Exception $exp){
+            return back()->with('error', 'Ошибка при удалении записи')
+                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     

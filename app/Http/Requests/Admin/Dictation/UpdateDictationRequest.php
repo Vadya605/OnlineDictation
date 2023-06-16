@@ -38,10 +38,8 @@ class UpdateDictationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|integer',
             'title' => 'required|string|max:191',
-            // 'video_link' => 'required|active_url',
-            'video_link' => 'nullable|string',
+            'video_link' => 'nullable|string|active_url',
             'is_active' => 'nullable|boolean',
             'from_date_time' => 'nullable|date_format:Y-m-d H:i:s',
             'to_date_time' => 'nullable|date_format:Y-m-d H:i:s|

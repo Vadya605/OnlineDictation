@@ -7,17 +7,17 @@ Route::prefix('admin')->middleware('admin')->group(function(){
 
     Route::get('/dictations', [App\Http\Controllers\Admin\DictationController::class, 'index'])->name('allDictations');
     Route::get('/dictation/create', [App\Http\Controllers\Admin\DictationController::class, 'create'])->name('createDictation');
-    Route::get('/dictation/edit/{id}', [App\Http\Controllers\Admin\DictationController::class, 'edit'])->name('editDictation');
+    Route::get('/dictation/edit/{dictation}', [App\Http\Controllers\Admin\DictationController::class, 'edit'])->name('editDictation');
     Route::post('/dictation/store', [App\Http\Controllers\Admin\DictationController::class, 'store'])->name('storeDictation');
-    Route::put('/dictation/update', [App\Http\Controllers\Admin\DictationController::class, 'update'])->name('updateDictation');
+    Route::put('/dictation/update/{dictation}', [App\Http\Controllers\Admin\DictationController::class, 'update'])->name('updateDictation');
     
     Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('allUsers');
-    Route::get('/user/{id}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('showUser');
-    Route::delete('/user/delete/{id}', [App\Http\Controllers\Admin\UserController::class, 'delete'])->name('deleteUser');
+    Route::get('/user/{user}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('showUser');
+    Route::delete('/user/delete/{user}', [App\Http\Controllers\Admin\UserController::class, 'delete'])->name('deleteUser');
 
     Route::get('/dictationResults', [App\Http\Controllers\Admin\DictationResultController::class, 'index'])->name('allDictationResults');
-    Route::get('/dictationResult/{id}', [App\Http\Controllers\Admin\DictationResultController::class, 'show'])->name('showDictationResult');
-    Route::delete('dictationResults/delete/{id}', [App\Http\Controllers\Admin\DictationResultController::class, 'delete'])->name('deleteDictationResult');
+    Route::get('/dictationResult/{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'show'])->name('showDictationResult');
+    Route::delete('dictationResult/delete/{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'delete'])->name('deleteDictationResult');
 });
 
 Auth::routes();

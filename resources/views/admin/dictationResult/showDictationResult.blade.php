@@ -10,7 +10,12 @@
             </span>
         </div>
     </div>  
-
+    <div class="row mt-3">
+        <div class="col-12">
+            <x-errors.session-error />
+            <x-messages.message-success />
+        </div>
+    </div>
     <div class="row mt-3">
         <div class="col-12">
             <div class="field d-flex flex-column">
@@ -55,11 +60,7 @@
     </div>
     <div class="row mt-3">
         <div class="col-3">
-            <form class="form-delete row mt-3" action="{{ route('deleteDictationResult', ['id' => $dictationResult->id]) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger text-white">Удалить</button>
-            </form>
+            <x-delete-button :action="route('deleteDictationResult', $dictationResult)" />
         </div>
     </div>
 </div>

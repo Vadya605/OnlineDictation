@@ -11,6 +11,8 @@ use App\Http\Requests\Admin\Dictation\GetAllDictationRequest;
 use App\Services\Admin\DictationService;
 use App\Http\Resources\Dictation\DictationResource;
 use App\Http\Resources\Dictation\DictationCollection;
+use App\Models\Dictation;
+use Exception;
 
 
 class DictationController extends Controller
@@ -24,12 +26,16 @@ class DictationController extends Controller
 
     public function index(GetAllDictationRequest $request)
     { 
-        $request->validated();
-        $columnSort = $request->input('column_sort', 'id');
-        $optionSort = $request->input('option_sort', 'asc');
+        $outputValues = [
+            'column_sort' => $request->input('column_sort', 'id'),
+            'option_sort' => $request->input('option_sort', 'asc'),
+            'column_filter' => $request->input('column_filter', 'id'),
+            'option_filter' => $request->input('option_filter', '>'),
+            'value_filter' => $request->input('value_filter', '1'),
+        ];
 
         return view('admin.dictation.allDictation', ['dictations' => new DictationCollection(
-            $this->dictationService->getAll($columnSort, $optionSort)
+            $this->dictationService->getAll($outputValues)
         )]);
     }
 
@@ -40,34 +46,36 @@ class DictationController extends Controller
 
     public function store(StoreDictationRequest $request)
     {
-        $validData = $request->validated();
-        $this->dictationService->create($validData);
+        try{
+            $validData = $request->validated();
+            $this->dictationService->create($validData);
 
-        return back()->with('message', 'Запись успешно добавлена')
+            return back()->with('message', 'Запись успешно добавлена')
                 ->setStatusCode(Response::HTTP_CREATED);
+        }catch(Exception $exp){
+            return back()->with('error', 'Ошибка при добавлении записи')
+                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
-    public function edit($id)
+    public function edit(Dictation $dictation)
     {
         return view('admin.dictation.editDictation', ['dictation' => new DictationResource(
-            $this->dictationService->getById($id)
+            $dictation
         )]);
     }
 
-    public function update(UpdateDictationRequest $request)
+    public function update(UpdateDictationRequest $request, Dictation $dictation)
     {
-        $validData = $request->validated();
-        $this->dictationService->update($validData);
-        
-        return back()->with('message', 'Запись успешно обновлена')
-                ->setStatusCode(Response::HTTP_OK);
-    }
+        try{
+            $validData = $request->validated();
+            $this->dictationService->update($dictation, $validData);
 
-    public function delete($id)
-    {
-        $this->dictationService->delete($id);
-
-        return back()->with('message', 'Запись успешно удалена')
-                ->setStatusCode(Response::HTTP_NO_CONTENT);
+            return back()->with('message', 'Запись успешно обновлена')
+                    ->setStatusCode(Response::HTTP_OK);
+        }catch(Exception $exp){
+            return back()->with('error', 'Ошибка при обновлении записи')
+                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

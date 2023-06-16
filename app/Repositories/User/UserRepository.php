@@ -45,8 +45,8 @@ class UserRepository
         return $changedUser;
     }
 
-    public function deleteUser($id)
+    public function deleteUser(User $user)
     {
-        return User::destroy($id);
+        return $user->delete();
     }
 }

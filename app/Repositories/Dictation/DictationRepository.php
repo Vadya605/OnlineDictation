@@ -3,12 +3,15 @@
 namespace App\Repositories\Dictation;
 
 use App\Models\Dictation;
+use Carbon\Carbon;
 
 class DictationRepository
 {
-    public function getAllDictation($columnSort, $optionSort)
+    public function getAllDictation($outputValues)
     {
-        return Dictation::orderBy($columnSort, $optionSort)->paginate(2);
+        return Dictation::orderBy($outputValues['column_sort'], $outputValues['option_sort'])
+            ->where($outputValues['column_filter'], $outputValues['option_filter'], $outputValues['value_filter'])
+            ->paginate(2);
     }
 
     public function getDictationById($id)
@@ -32,19 +35,11 @@ class DictationRepository
         return $newDictation;
     }
 
-    public function updateDictation($dictationData)
-    {
-        $changedDictation = Dictation::where('id', $dictationData['id'])
-            ->first()
-            ->fill($dictationData);
-        
-        $changedDictation->save();
+    public function updateDictation(Dictation $dictation, $changeDictationData)
+    {  
+        $dictation->fill($changeDictationData);
+        $dictation->save();
 
-        return $changedDictation;
+        return $dictation;
     }
-
-    public function deleteDictation($id)
-    {
-        return Dictation::destroy($id);
-    } 
 }

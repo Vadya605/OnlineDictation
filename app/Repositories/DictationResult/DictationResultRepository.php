@@ -8,7 +8,7 @@ class DictationResultRepository
 {
     public function getAllDictationResults($columnSort, $optionSort)
     {
-        return DictationResult::orderBy($columnSort, $optionSort)->paginate(1);
+        return DictationResult::orderBy($columnSort, $optionSort)->paginate(2);
     }
 
     public function getDictationResultById($id)
@@ -16,8 +16,8 @@ class DictationResultRepository
         return DictationResult::find($id);
     }
 
-    public function deleteDictationResult($id)
+    public function deleteDictationResult($dictationResult)
     {
-        return DictationResult::destroy($id);
+        return $dictationResult->delete();
     }
 }

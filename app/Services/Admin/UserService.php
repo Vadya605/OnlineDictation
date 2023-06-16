@@ -5,7 +5,7 @@ namespace App\Services\Admin;
 
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Hash;
-
+use App\Models\User;
 
 class UserService
 {
@@ -26,8 +26,8 @@ class UserService
         return $this->userRepository->getUserById($id);
     }
 
-    public function delete($id)
+    public function delete(User $user)
     {
-        return $this->userRepository->deleteUser($id);
+        return $this->userRepository->deleteUser($user);
     }
 }

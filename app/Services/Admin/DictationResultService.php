@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 use App\Repositories\DictationResult\DictationResultRepository;
+use App\Models\DictationResult;
 
 class DictationResultService
 {
@@ -23,8 +24,8 @@ class DictationResultService
         return $this->dictationResultRepository->getDictationResultById($id);
     }
 
-    public function delete($id)
+    public function delete(DictationResult $dictationResult)
     {
-        return $this->dictationResultRepository->deleteDictationResult($id);
+        return $this->dictationResultRepository->deleteDictationResult($dictationResult);
     }
 }

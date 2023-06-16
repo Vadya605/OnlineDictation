@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 use App\Repositories\Dictation\DictationRepository;
+use App\Models\Dictation;
 
 class DictationService
 {
@@ -13,9 +14,9 @@ class DictationService
         $this->dictationRepository = $dictationRepository;
     }
     
-    public function getAll($columnSort, $optionSort)
+    public function getAll($outputValues)
     {
-        return $this->dictationRepository->getAllDictation($columnSort, $optionSort);
+        return $this->dictationRepository->getAllDictation($outputValues);
     }
 
     public function getById($id)
@@ -28,9 +29,9 @@ class DictationService
         return $this->dictationRepository->createDictation($data);
     }
 
-    public function update($data)
+    public function update(Dictation $dictation, $changeDictationData)
     {
-        return $this->dictationRepository->updateDictation($data);
+        return $this->dictationRepository->updateDictation($dictation, $changeDictationData);
     }
 
     public function delete($id)

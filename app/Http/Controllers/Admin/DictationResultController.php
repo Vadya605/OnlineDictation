@@ -9,6 +9,8 @@ use App\Http\Requests\Admin\DictationResult\GetDictationResultRequest;
 use App\Http\Resources\DictationResult\DictationResultResource;
 use App\Http\Resources\DictationResult\DictationResultCollection;
 use App\Services\Admin\DictationResultService;
+use App\Models\DictationResult;
+use Exception;
 
 class DictationResultController extends Controller
 {
@@ -30,17 +32,22 @@ class DictationResultController extends Controller
         )]);
     }
 
-    public function show(Request $request)
+    public function show(DictationResult $dictationResult)
     {
         return view('admin.dictationResult.showDictationResult', ['dictationResult' => new DictationResultResource(
-            $this->dictationResultService->getById($request->id)
+            $dictationResult
         )]);
     }
 
-    public function delete(Request $request)
+    public function delete(DictationResult $dictationResult)
     {
-        $this->dictationResultService->delete($request->id);
-
-        return redirect()->route('allDictationResults');
+        try{
+            $this->dictationResultService->delete($dictationResult);
+            
+            return redirect()->route('allDictationResults');
+        }catch(Exception $exp){
+            return back()->with('error', 'Ошибка при удалении записи')
+                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

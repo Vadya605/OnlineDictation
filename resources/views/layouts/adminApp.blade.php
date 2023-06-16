@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Админ панель</title>
     @vite(['resources/sass/app.scss', 'resources/css/adminApp.css', 'resources/js/app.js'])
 </head>
 <body>

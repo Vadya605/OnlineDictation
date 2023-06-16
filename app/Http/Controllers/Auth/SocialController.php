@@ -37,7 +37,7 @@ class SocialController extends Controller
             
         if($user = $this->socialService->save($userSocialite)){
             Auth::login($user);
-            return redirect()->route('home');
+            return redirect()->route('dictationWriting');
         }
         
         return back(400); 

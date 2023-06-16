@@ -19,6 +19,13 @@ class DictationRepository
         return Dictation::find($id);
     }
 
+    public function getActiveDictation()
+    {
+        return Dictation::where('is_active', true)
+            ->where('from_date_time', '<=', Carbon::now())
+            ->where('to_date_time', '>', Carbon::now())->first();
+    }
+
     public function createDictation($dictationData)
     {
         $newDictation = new Dictation;

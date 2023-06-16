@@ -29,4 +29,7 @@ Route::group(['middleware' => 'guest'], function(){
     Route::get('/vk/auth/callback', [App\Http\Controllers\Auth\SocialController::class, 'callback'])->name('vkCallback');
 });
 
-
+Route::middleware('auth')->group(function(){
+    Route::get('/writing', [App\Http\Controllers\DictationWritingController::class, 'index'])->name('dictationWriting');
+    Route::post('/saveDictationResult', [App\Http\Controllers\DictationWritingController::class, 'store'])->name('saveDictationResult');
+});

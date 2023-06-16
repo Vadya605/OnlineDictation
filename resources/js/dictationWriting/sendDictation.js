@@ -17,7 +17,6 @@ document.querySelector('.dictation-form').addEventListener('submit', (event) => 
         .then(result => {
             disabledForm(event.target)
             alert(result)
-
         })
         .catch(alert)
 })
@@ -34,7 +33,7 @@ function saveDictationResult(dictationResultData){
                 reject('Результат не удалось сохранить')
             })
             .catch(error => {
-                reject('Результат не удалось сохранить')
+                reject(error.response.data)
             });
     }) 
 }

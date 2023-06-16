@@ -7,6 +7,7 @@ use App\Services\DictationWritingService;
 use App\Http\Resources\Dictation\DictationResource;
 use App\Http\Requests\StoreDictationResultRequest;
 use Illuminate\Http\Response;
+use Exception;
 
 class DictationWritingController extends Controller
 {
@@ -31,9 +32,13 @@ class DictationWritingController extends Controller
 
     public function store(StoreDictationResultRequest $request)
     {
-        $validData = $request->validated();
-        $this->dictationWritingService->save($validData);
-    
-        return response()->json('Результат сохранен', Response::HTTP_CREATED);
+        try{
+            $validData = $request->validated();
+            $this->dictationWritingService->save($validData);
+        
+            return response()->json('Результат сохранен', Response::HTTP_CREATED);
+        }catch(Exception $exp){
+            return response()->json('Результат не удалось сохранить', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

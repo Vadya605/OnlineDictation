@@ -21,9 +21,11 @@ class DictationRepository
 
     public function getActiveDictation()
     {
+        $now = Carbon::now()->setTimezone('Europe/Minsk')->format('Y-m-d H:i:s');
+
         return Dictation::where('is_active', true)
-            ->where('from_date_time', '<=', Carbon::now())
-            ->where('to_date_time', '>', Carbon::now())->first();
+            ->where('from_date_time', '<=', $now)
+            ->where('to_date_time', '>', $now)->first();
     }
 
     public function createDictation($dictationData)

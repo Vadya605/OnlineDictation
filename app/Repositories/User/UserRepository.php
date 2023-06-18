@@ -34,17 +34,6 @@ class UserRepository
         return $newUser;
     }
 
-    public function updateUser($userData, $userId)
-    {
-        $changedUser = User::where('id', $userId)
-            ->first()   
-            ->fill($userData);
-
-        $changedUser->save();
-
-        return $changedUser;
-    }
-
     public function deleteUser(User $user)
     {
         return $user->delete();

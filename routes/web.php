@@ -24,7 +24,7 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => 'guest'], function(){
+Route::middleware('guest')->group(function(){
     Route::get('/vk/auth', [App\Http\Controllers\Auth\SocialController::class, 'index'])->name('vkAuth');
     Route::get('/vk/auth/callback', [App\Http\Controllers\Auth\SocialController::class, 'callback'])->name('vkCallback');
 });

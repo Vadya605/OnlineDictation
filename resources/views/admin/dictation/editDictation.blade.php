@@ -27,7 +27,6 @@
         </div>
         <div class="mb-3">
             <label for="video_link" class="form-label">Ссылка на видео</label>
-            {{$dictation->video_link}}
             <textarea value="{{ $dictation->video_link }}" class="form-control" name="video_link" id="video_link" cols="30" rows="5">{{$dictation->video_link}}</textarea>
         </div>
         <div class="mb-3 form-check">

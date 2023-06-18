@@ -12,8 +12,8 @@ class Dictation extends Model
         'video_link',
         'is_active',
         'description',
-        'start_date_time',
-        'end_date_time'
+        'from_date_time',
+        'to_date_time'
     ];
     use HasFactory;
 }

@@ -45,7 +45,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Пароль') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" title="Пароль должен содержать:&#10;&#8226; Русские или английские символы&#10;&#8226; Заглавные и строчные символы&#10;&#8226; Один спецсимвол&#10;&#8226; Длина минимум 6 символов">
                                 <div id="password-help" class="form-text"></div>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -54,6 +54,7 @@
                                 @enderror
                             </div>
                         </div>
+
 
                         <div class="row mb-3">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Повторите пароль') }}</label>

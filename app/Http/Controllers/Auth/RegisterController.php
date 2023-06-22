@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
-use App\Enums\User\UserRole;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Services\Auth\RegisterService;
 
 class RegisterController extends Controller
 {
@@ -31,17 +29,18 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::DICTATION_WRITING;
+    private $registerService;
 
-    private $userService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(RegisterService $registerService)
     {
         $this->middleware('guest');
+        $this->registerService = $registerService;
     }
 
     /**
@@ -55,7 +54,13 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:191'],
             'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'password' => [
+                'required',
+                'string',
+                'min:6',
+                'regex:/^(?=.*[a-zA-Zа-яА-Я])(?=.*\d)(?=.*[^\w\s]).*$/u',
+                'confirmed',
+            ],
         ]);
     }
 
@@ -67,11 +72,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'role' => UserRole::USER,
-            'password' => Hash::make($data['password']),
-        ]);
+        return $this->registerService->save($data);
     }
 }

@@ -17,9 +17,9 @@ class StoreDictationResultRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $date = $this->input('date');
-        $formattedDate = Carbon::parse($date)->format('Y-m-d');
-        $this->merge(['date' => $formattedDate]);
+        $dateTimeResult = $this->input('date_time_result');
+        $formatteddateTimeResult = Carbon::parse($dateTimeResult)->format('Y-m-d H:i:s');
+        $this->merge(['date_time_result' => $formatteddateTimeResult]);
     }
 
     /**
@@ -33,7 +33,17 @@ class StoreDictationResultRequest extends FormRequest
             'text_result' => 'required|string',
             'user_id' => 'required|exists:users,id',
             'dictation_id' => 'required|exists:dictations,id',
-            'date' => 'required|date_format:Y-m-d'
+            'date_time_result' => 'required|date_format:Y-m-d H:i:s'
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'text_result' => 'Текст диктанта',
+            'user_id' => 'Id пользователя',
+            'dictation_id' => 'Id диктанта',
+            'date_time_result' => 'Дата и время написания',
         ];
     }
 }

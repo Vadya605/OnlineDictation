@@ -32,6 +32,6 @@ class DictationWritingService
 
     public function save($dictationResultData)
     {
-        return $this->dictationResultRepository->saveDictationResult($dictationResultData);
+        return $this->dictationResultRepository->createDictationResult($dictationResultData);
     }
 }

@@ -1,11 +1,17 @@
 @extends('layouts.app')
 @section('content')
-@vite(['/resources/css/dictationWriting.css', '/resources/js/dictationWriting/sendDictation.js'])
+@vite(['/resources/css/dictationWriting.css', '/resources/js/dictationWriting/sendDictation.js', '/resources/js/dictationWriting/saveTextDictation.js'])
 <div class="container">
     <div class="row mt-3">
         <div class="col-12">
             <div class="date">
                 <span class="date">Дата</span>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-8">
+            <div class="message d-none alert">
             </div>
         </div>
     </div>

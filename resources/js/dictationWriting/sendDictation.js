@@ -16,9 +16,9 @@ document.querySelector('.dictation-form').addEventListener('submit', (event) => 
     saveDictationResult(dictationResultData)
         .then(result => {
             disabledForm(event.target)
-            alert(result)
+            showMessage({status: 'success', text: result})
         })
-        .catch(alert)
+        .catch(error => showMessage({status: 'error', text: error}))
 })
 
 
@@ -43,4 +43,19 @@ function disabledForm(form){
     form.querySelectorAll('*').forEach(element => {
         element.disabled = true
     })
+}
+
+function showMessage(message){
+    let messageBox = document.querySelector('.message')
+    
+    messageBox.classList.remove('d-none')
+    
+    if(message.status == 'error'){
+        messageBox.classList.add('alert-danger')
+    }else{
+        messageBox.classList.add('alert-success')
+    }
+    
+    console.log(messageBox)
+    messageBox.textContent = message.text
 }

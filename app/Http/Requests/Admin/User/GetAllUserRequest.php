@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Dictation;
+namespace App\Http\Requests\Admin\User;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Carbon\Carbon;
 
-class GetAllDictationRequest extends FormRequest
+class GetAllUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +22,10 @@ class GetAllDictationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'column_sort' => 'nullable|in:id,created_at,title,from_date_time,to_date_time,is_active',
-            'option_sort' => 'nullable|in:asc,desc',
-            'column_filter' => 'nullable|in:id,is_active,video_link,from_date_time,to_date_time,description',
-            'option_filter' => 'nullable|in:<,>,=,is,is not',
+            'column_sort' => 'nullable|in:id,created_at,role,name',
+            'option_sotr' => 'nullable|in:asc,desc',
+            'column_filter' => 'nullable|in:id,role,name,vk_id',
+            'option_filter' => 'nullable|in:<,>,=,is',
             'value_filter' => 'nullable|string',
             'search_value' => 'nullable|string'
         ];
@@ -43,9 +42,9 @@ class GetAllDictationRequest extends FormRequest
             'search_value' => 'Значение поиска',
         ];
     }
-
+    
     public function mergeDafault()
-    {   
+    {
         $this->merge([
             'column_sort' => $this->column_sort ?? 'id',
             'option_sort' => $this->option_sort ?? 'asc',

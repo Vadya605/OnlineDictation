@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Requests\Admin\DictationResult\GetDictationResultRequest;
+use App\Http\Requests\Admin\DictationResult\GetAllDictationResultRequest;
+use App\Http\Requests\Admin\DictationResult\UpdateDictationResultRequest;
+use App\Http\Requests\Admin\DictationResult\StoreDictationResultRequest;
 use App\Http\Resources\DictationResult\DictationResultResource;
 use App\Http\Resources\DictationResult\DictationResultCollection;
 use App\Services\Admin\DictationResultService;
@@ -21,22 +23,59 @@ class DictationResultController extends Controller
         $this->dictationResultService = $dictationResultService;
     }
 
-    public function index(GetDictationResultRequest $request)
+    public function index(GetAllDictationResultRequest $request)
     {
-        $request->validated();
-        $columnSort = $request->input('column_sort', 'id');
-        $optionSort = $request->input('option_sort', 'asc');
-
-        return view('admin.dictationResult.allDictationResult', ['dictationResults' => new DictationResultCollection(
-            $this->dictationResultService->getAll($columnSort, $optionSort)
-        )]);
+        try{
+            $request->validated();
+            $validData = $request->mergeDafault();
+    
+            return view('admin.dictationResult.allDictationResult', ['dictationResults' => new DictationResultCollection(
+                $this->dictationResultService->getAll($validData)
+            )]);
+        }catch(Exception $exp){
+            return back()->with('error', 'Ошибка при применении фильтров или поиска, проверьте параметры')
+                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
-    public function show(DictationResult $dictationResult)
+    public function create()
     {
-        return view('admin.dictationResult.showDictationResult', ['dictationResult' => new DictationResultResource(
-            $dictationResult
-        )]);
+        return view('admin.dictationResult.createDictationResult');
+    }
+
+    public function store(StoreDictationResultRequest $request)
+    {
+        try{
+            $validData = $request->validated();
+            $this->dictationResultService->create($validData);
+
+            return back()->with('message', 'Запись успешно добавлена')
+                ->setStatusCode(Response::HTTP_CREATED);
+        }catch(Exception $exp){
+            return back()->with('error', 'Ошибка при добавлении записи')
+                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function edit(DictationResult $dictationResult)
+    {
+        return view('admin.dictationResult.editDictationResult', ['dictationResult' => 
+            new DictationResultResource($dictationResult)
+        ]);
+    }
+
+    public function update(UpdateDictationResultRequest $request, DictationResult $dictationResult)
+    {
+        try{
+            $validData = $request->validated();
+            $this->dictationResultService->update($dictationResult, $validData);
+
+            return back()->with('message', 'Запись успешно обновлена')
+                ->setStatusCode(Response::HTTP_OK);
+        }catch(Exception $exp){
+            return back()->with('error', $exp->getMessage())
+                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     public function delete(DictationResult $dictationResult)
@@ -44,7 +83,8 @@ class DictationResultController extends Controller
         try{
             $this->dictationResultService->delete($dictationResult);
             
-            return redirect()->route('allDictationResults');
+            return back()->with('message', 'Запись успешно обновлена')
+                ->setStatusCode(Response::HTTP_OK);
         }catch(Exception $exp){
             return back()->with('error', 'Ошибка при удалении записи')
                 ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);

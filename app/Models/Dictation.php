@@ -16,4 +16,9 @@ class Dictation extends Model
         'to_date_time'
     ];
     use HasFactory;
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'dictation_results');
+    }
 }

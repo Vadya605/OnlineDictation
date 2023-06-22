@@ -8,6 +8,6 @@ use App\Http\Controllers\Controller;
 class HomeController extends Controller
 {
     public function index(Request $request){
-        return view('layouts.adminApp');
+        return view('admin.homeAdmin');
     }
 }

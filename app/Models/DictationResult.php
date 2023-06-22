@@ -9,6 +9,14 @@ class DictationResult extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'dictation_id',
+        'text_result',
+        'date_time_result',
+    ];
+
+
     public function user()
     {
         return $this->belongsTo(User::class);

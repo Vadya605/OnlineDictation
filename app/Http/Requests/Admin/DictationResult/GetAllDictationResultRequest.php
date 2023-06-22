@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Dictation;
+namespace App\Http\Requests\Admin\DictationResult;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Carbon\Carbon;
 
-class GetAllDictationRequest extends FormRequest
+class GetAllDictationResultRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +22,12 @@ class GetAllDictationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'column_sort' => 'nullable|in:id,created_at,title,from_date_time,to_date_time,is_active',
+            'column_sort' => 'nullable|
+            in:dictation_results.id,dictation_results.created_at,dictation_results.id,dictation_results.date_time_result,dictations.title,users.name',
             'option_sort' => 'nullable|in:asc,desc',
-            'column_filter' => 'nullable|in:id,is_active,video_link,from_date_time,to_date_time,description',
-            'option_filter' => 'nullable|in:<,>,=,is,is not',
-            'value_filter' => 'nullable|string',
+            'column_filter' => 'nullable|in:id,is_active,from_date_time,to_date_time',
+            'option_filter' => 'nullable|in:<,>,=',
+            'value_filter' => 'nullable|boolean',
             'search_value' => 'nullable|string'
         ];
     }
@@ -45,11 +45,12 @@ class GetAllDictationRequest extends FormRequest
     }
 
     public function mergeDafault()
-    {   
+    {
+        
         $this->merge([
-            'column_sort' => $this->column_sort ?? 'id',
+            'column_sort' => $this->column_sort ?? 'dictation_results.id',
             'option_sort' => $this->option_sort ?? 'asc',
-            'column_filter' => $this->column_filter ?? 'id',
+            'column_filter' => $this->column_filter ?? 'dictation_results.id',
             'option_filter' => $this->option_filter ?? '>',
             'value_filter' => $this->value_filter ?? '1',
             'search_value' => $this->search_value ?? null,

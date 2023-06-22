@@ -11,7 +11,6 @@ use App\Http\Requests\Admin\Dictation\GetAllDictationRequest;
 use App\Services\Admin\DictationService;
 use App\Http\Resources\Dictation\DictationResource;
 use App\Http\Resources\Dictation\DictationCollection;
-use App\Models\Dictation;
 use Exception;
 
 
@@ -26,17 +25,17 @@ class DictationController extends Controller
 
     public function index(GetAllDictationRequest $request)
     { 
-        $outputValues = [
-            'column_sort' => $request->input('column_sort', 'id'),
-            'option_sort' => $request->input('option_sort', 'asc'),
-            'column_filter' => $request->input('column_filter', 'id'),
-            'option_filter' => $request->input('option_filter', '>'),
-            'value_filter' => $request->input('value_filter', '1'),
-        ];
-
-        return view('admin.dictation.allDictation', ['dictations' => new DictationCollection(
-            $this->dictationService->getAll($outputValues)
-        )]);
+        try{
+            $request->validated();
+            $validData = $request->mergeDafault();
+    
+            return view('admin.dictation.allDictation', ['dictations' => new DictationCollection(
+                $this->dictationService->getAll($validData)
+            )]);
+        }catch(Exception $exp){
+            return back()->with('error', 'Ошибка при применении фильтров или поиска, проверьте параметры')
+                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     public function create()
@@ -75,6 +74,19 @@ class DictationController extends Controller
                     ->setStatusCode(Response::HTTP_OK);
         }catch(Exception $exp){
             return back()->with('error', 'Ошибка при обновлении записи')
+                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function delete(Dictation $dictation)
+    {
+        try{
+            $this->dictationService->delete($dictation);
+            
+            return back()->with('message', 'Запись успешно удалена')
+                ->setStatusCode(Response::HTTP_OK);
+        }catch(Exception $exception){
+            return back()->with('error', 'Ошибка при удалении записи')
                 ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

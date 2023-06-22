@@ -34,8 +34,8 @@ class DictationService
         return $this->dictationRepository->updateDictation($dictation, $changeDictationData);
     }
 
-    public function delete($id)
+    public function delete(Dictation $dictation)
     {
-        return $this->dictationRepository->deleteDictation($id);
+        return $this->dictationRepository->deleteDictation($dictation);
     }
 }

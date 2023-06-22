@@ -14,14 +14,24 @@ class DictationResultService
         $this->dictationResultRepository = $dictationResultRepository;
     }
     
-    public function getAll($columnSort, $optionSort)
+    public function getAll($outputValues)
     {
-        return $this->dictationResultRepository->getAllDictationResults($columnSort, $optionSort);
+        return $this->dictationResultRepository->getAllDictationResults($outputValues);
     }
 
     public function getById($id)
     {
         return $this->dictationResultRepository->getDictationResultById($id);
+    }
+
+    public function create($dictationResultData)
+    {
+        return $this->dictationResultRepository->createDictationResult($dictationResultData);
+    }
+
+    public function update(DictationResult $dictationResult, $dictationResultData)
+    {
+        return $this->dictationResultRepository->updateDictationResult($dictationResult, $dictationResultData);
     }
 
     public function delete(DictationResult $dictationResult)

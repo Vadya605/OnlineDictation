@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\DictationResult;
+namespace App\Http\Requests\Admin\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetDictationResultRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,16 @@ class GetDictationResultRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'column_sort' => 'nullable|in:id,created_at,date',
-            'option_sort' => 'nullable|in:asc,desc'
+            'name' => ['required', 'string', 'max:191'],
+            'email' => ['required', 'string', 'email', 'max:191'],
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'name' => 'Имя пользователя',
+            'email' => 'Email пользователя',
         ];
     }
 }

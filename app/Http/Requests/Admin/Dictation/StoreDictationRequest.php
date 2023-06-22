@@ -20,8 +20,8 @@ class StoreDictationRequest extends FormRequest
         $fromDateTime = $this->input('from_date_time');
         $toDateTime = $this->input('to_date_time');
 
-        $formattedFromDateTime = Carbon::parse($fromDateTime)->format('Y-m-d H:i:s');
-        $formattedToDateTime = Carbon::parse($toDateTime)->format('Y-m-d H:i:s');
+        $formattedFromDateTime = $fromDateTime ? Carbon::parse($fromDateTime)->format('Y-m-d H:i:s') : null;
+        $formattedToDateTime = $toDateTime ? Carbon::parse($toDateTime)->format('Y-m-d H:i:s') : null;
 
         $this->merge([
             'from_date_time' => $formattedFromDateTime,
@@ -39,7 +39,7 @@ class StoreDictationRequest extends FormRequest
         return [
             'title' => 'required|string|max:191',
             'video_link' => 'nullable|string|active_url',
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
             'description' => 'nullable|string',
             'from_date_time' => 'nullable|date_format:Y-m-d H:i:s',
             'to_date_time' => 'nullable|date_format:Y-m-d H:i:s|

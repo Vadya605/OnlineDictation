@@ -2,13 +2,22 @@
 
 namespace App\Repositories\User;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
 
 class UserRepository
 {
-    public function getAllUser($columnSort, $optionSort)
+    public function getAllUser($outputValues)
     {
-        return User::orderBy($columnSort, $optionSort)->paginate(1);
+        return User::orderBy($outputValues['column_sort'], $outputValues['option_sort'])
+            ->whereRaw("{$outputValues['column_filter']} {$outputValues['option_filter']} {$outputValues['value_filter']}")
+            ->when($outputValues['search_value'], function (Builder $query, $searchValue) {
+                $query->where('name', 'like', '%'.$searchValue.'%')
+                        ->orWhere('email', 'like', '%'.$searchValue.'%')
+                        ->orWhereRaw("DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') LIKE ?", ['%'.$searchValue.'%']);
+            })
+            ->paginate(10);
+
     }
 
     public function getUserById($id)
@@ -32,6 +41,14 @@ class UserRepository
         $newUser->save();
 
         return $newUser;
+    }
+
+    public function updateUser(User $user, $userData)
+    {
+        $user->fill($userData);
+        $user->save();
+
+        return $user;
     }
 
     public function deleteUser(User $user)

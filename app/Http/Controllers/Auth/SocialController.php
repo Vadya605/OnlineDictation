@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use GuzzleHttp\Client;
 use App\Services\Auth\SocialService;
+use Illuminate\Http\Response;
+use Exception;
 use Auth;
 
 
@@ -31,15 +33,22 @@ class SocialController extends Controller
 
     public function callback()
     {
-        $userSocialite = Socialite::driver('vkontakte')
-            ->setHttpClient($this->client)
-            ->user();
-            
-        if($user = $this->socialService->save($userSocialite)){
-            Auth::login($user);
-            return redirect()->route('dictationWriting');
+        try{
+            $userSocialite = Socialite::driver('vkontakte')
+                ->setHttpClient($this->client)
+                ->user();
+                
+            if($user = $this->socialService->save($userSocialite)){
+                Auth::login($user);
+                return redirect()->route('dictationWriting');
+            }
+            return back(Response::HTTP_BAD_REQUEST); 
+            //что можно веруть здесь
+
+        }catch(Exception $exp){
+            return redirect()->route('home');
+            //что можно веруть здесь
         }
         
-        return back(400); 
     }
 }

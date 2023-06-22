@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('dictation_id')->constrained();
             $table->text('text_result');
-            $table->date('date');
+            $table->dateTime('date_time_result');
             $table->timestamps();
         });
     }

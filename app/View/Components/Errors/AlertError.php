@@ -1,19 +1,22 @@
 <?php
 
-namespace App\View\Components\Errors;
+namespace App\View\Components\errors;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class SessionError extends Component
+class AlertError extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
+
+    public $error;
+    
+    public function __construct($error)
     {
-        //
+        $this->error = $error;
     }
 
     /**
@@ -21,6 +24,6 @@ class SessionError extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.errors.session-error');
+        return view('components.errors.alert-error');
     }
 }

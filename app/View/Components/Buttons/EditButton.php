@@ -1,19 +1,22 @@
 <?php
 
-namespace App\View\Components\Errors;
+namespace App\View\Components\buttons;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ValidationErrors extends Component
+class EditButton extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
+
+    public $action;
+
+    public function __construct($action)
     {
-        //
+        $this->action = $action;
     }
 
     /**
@@ -21,6 +24,6 @@ class ValidationErrors extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.errors.validation-errors');
+        return view('components.buttons.edit-button');
     }
 }

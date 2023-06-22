@@ -10,7 +10,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
         <div class="container">
-            <a class="navbar-brand text-white" href="#">Админ панель</a>
+            <a class="navbar-brand text-white" href="{{ route('admin') }}">Админ панель</a>
       
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -18,6 +18,16 @@
       
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link link-sections text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Разделы
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a href="{{ route('allUsers') }}" class="dropdown-item link-section">Пользователи</a>  
+                            <a href="{{ route('allDictations') }}" class="dropdown-item link-section">Диктанты</a>
+                            <a href="{{ route('allDictationResults') }}" class="dropdown-item link-section">Результаты диктантов</a>
+                        </div>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ route('home') }}">Открыть сайт</a>
                     </li>
@@ -35,51 +45,11 @@
     <main>
         <section class="main-section">
             <div class="container">
-                <div class="row justify-content-between">
-                    <div class="col-md-4">
-                        <div class="table-list pb-5">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="table-list-header text-center bg-primary">
-                                        <span class="text-white">Список таблиц</span>
-                                    </div>
-                                </div>
-                            </div>
-    
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <div class="item-list-table d-flex justify-content-between align-items-center">
-                                        <a href="{{ route('allDictations') }}" class="link">Диктанты</a>
-                                        <a href="{{ route('createDictation') }}" class="btn btn-primary text-white">Добавить</a>
-                                    </div>
-                                </div>
-                            </div>
-    
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <div class="item-list-table d-flex justify-content-between align-items-center">
-                                        <a href="{{ route('allUsers') }}" class="link">Пользователи</a>
-                                    </div>
-                                </div>
-                            </div>
-    
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <div class="item-list-table d-flex justify-content-between align-items-center">
-                                        <a href="{{ route('allDictationResults') }}" class="link">Результаты диктантов</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
+                <div class="content py-3">
                     @yield('content')
-                    
                 </div>
             </div>
         </section>
-    </main>
-      
-      
+    </main>   
 </body>
 </html>

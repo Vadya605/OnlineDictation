@@ -1,22 +1,22 @@
 <?php
 
-namespace App\View\Components\Messages;
+namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class MessageSuccess extends Component
+class Search extends Component
 {
     /**
      * Create a new component instance.
      */
 
-    public $message;
-
-    public function __construct($message)
+    public $inputPlaceholder;
+    
+    public function __construct($inputPlaceholder)
     {
-        $this->message = $message;
+        $this->inputPlaceholder = $inputPlaceholder;
     }
 
     /**
@@ -24,6 +24,6 @@ class MessageSuccess extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.messages.message-success');
+        return view('components.search');
     }
 }

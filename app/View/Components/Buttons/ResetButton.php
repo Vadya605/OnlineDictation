@@ -1,22 +1,22 @@
 <?php
 
-namespace App\View\Components\Messages;
+namespace App\View\Components\Buttons;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class MessageSuccess extends Component
+class ResetButton extends Component
 {
     /**
      * Create a new component instance.
      */
 
-    public $message;
+    public $action;
 
-    public function __construct($message)
+    public function __construct($action)
     {
-        $this->message = $message;
+        $this->action = $action;
     }
 
     /**
@@ -24,6 +24,6 @@ class MessageSuccess extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.messages.message-success');
+        return view('components.buttons.reset-button');
     }
 }

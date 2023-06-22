@@ -1,22 +1,21 @@
 <?php
 
-namespace App\View\Components\Messages;
+namespace App\View\Components\buttons;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class MessageSuccess extends Component
+class CreateButton extends Component
 {
     /**
      * Create a new component instance.
      */
+    public $action;
 
-    public $message;
-
-    public function __construct($message)
+    public function __construct($action)
     {
-        $this->message = $message;
+        $this->action = $action;
     }
 
     /**
@@ -24,6 +23,6 @@ class MessageSuccess extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.messages.message-success');
+        return view('components.buttons.create-button');
     }
 }

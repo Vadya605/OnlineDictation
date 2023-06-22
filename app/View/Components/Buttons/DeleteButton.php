@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\buttons;
 
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -24,6 +24,6 @@ class DeleteButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.delete-button');
+        return view('components.buttons.delete-button');
     }
 }

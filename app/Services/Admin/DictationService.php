@@ -14,9 +14,19 @@ class DictationService
         $this->dictationRepository = $dictationRepository;
     }
     
-    public function getAll($outputValues)
+    public function getAll($outputValues=null)
     {
         return $this->dictationRepository->getAllDictation($outputValues);
+    }
+
+    public function getCount()
+    {
+        return $this->dictationRepository->getCountDictation();
+    }
+
+    public function getResultsAutoCompleteSearch($searchValue)
+    {
+        return $this->dictationRepository->getResultsAutoCompleteSearch($searchValue);
     }
 
     public function getById($id)

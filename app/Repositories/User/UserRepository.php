@@ -32,6 +32,11 @@ class UserRepository
         return User::where('name', 'like', "%{$searchValue}%")->get();
     }
 
+    public function getCountUser()
+    {
+        return User::count();
+    }
+
     public function getUserById($id)
     {
         return User::find($id);

@@ -31,6 +31,11 @@ class DictationRepository
         return Dictation::where('title', 'like', "%{$searchValue}%")->get();
     }
 
+    public function getCountDictation()
+    {
+        return Dictation::count();
+    }
+
     public function getDictationById($id)
     {
         return Dictation::find($id);

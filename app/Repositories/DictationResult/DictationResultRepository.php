@@ -21,6 +21,11 @@ class DictationResultRepository
                 ->paginate(10);
     }
 
+    public function getCountDictationResult()
+    {
+        return DictationResult::count();
+    }
+
     public function getDictationResultById($id)
     {
         return DictationResult::find($id);

@@ -17,9 +17,19 @@ class UserService
         $this->userRepository = $userRepository;
     }
 
-    public function getAll($outputValues)
+    public function getAll($outputValues=null)
     {
         return $this->userRepository->getAllUser($outputValues);
+    }
+
+    public function getResultsAutoCompleteSearch($searchValue)
+    {
+        return $this->userRepository->getResultsAutoCompleteSearch($searchValue);
+    }
+
+    public function getCount()
+    {
+        return $this->userRepository->getCountUser();
     }
 
     public function getById($id)

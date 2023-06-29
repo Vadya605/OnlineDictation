@@ -19,6 +19,11 @@ class DictationResultService
         return $this->dictationResultRepository->getAllDictationResults($outputValues);
     }
 
+    public function getCount()
+    {
+        return $this->dictationResultRepository->getCountDictationResult();
+    }
+
     public function getById($id)
     {
         return $this->dictationResultRepository->getDictationResultById($id);

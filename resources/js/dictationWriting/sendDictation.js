@@ -1,5 +1,8 @@
 import axios from 'https://cdn.jsdelivr.net/npm/axios@1.3.5/+esm';
 
+const userId = document.querySelector('#user_id').value
+const dictationId = document.querySelector('#dictation_id').value
+
 document.querySelector('.date').textContent = new Date().toLocaleDateString()
 
 document.querySelector('.dictation-form').addEventListener('submit', (event) => {    
@@ -7,8 +10,8 @@ document.querySelector('.dictation-form').addEventListener('submit', (event) => 
 
     const dictationResultData = {
         _token: document.querySelector('meta[name="csrf-token"]').content,
-        user_id: document.querySelector('#user_id').value,
-        dictation_id: document.querySelector('#dictation_id').value,
+        user_id: userId,
+        dictation_id: dictationId,
         text_result: document.querySelector('#text_result').value,
         date: new Date()
     }
@@ -17,6 +20,7 @@ document.querySelector('.dictation-form').addEventListener('submit', (event) => 
         .then(result => {
             disabledForm(event.target)
             showMessage({status: 'success', text: result})
+            localStorage.removeItem(`textResult_${userId}_${dictationId}`)
         })
         .catch(error => showMessage({status: 'error', text: error}))
 })
@@ -57,5 +61,5 @@ function showMessage(message){
     }
     
     console.log(messageBox)
-    messageBox.textContent = message.text
+    messageBox.innerHTML += `<div>${message.text}</div>`
 }

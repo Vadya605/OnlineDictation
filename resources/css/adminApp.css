@@ -68,8 +68,12 @@ nav{
     background: url('../img/admin/add.png');
 }
 
-.sort-item:hover, .filter-item:hover{
+.filter-item:hover{
     cursor: pointer;
     background-color: #0d6efd;
     color: #fff;
+}
+
+.sort-item:hover{
+    cursor: pointer;
 }

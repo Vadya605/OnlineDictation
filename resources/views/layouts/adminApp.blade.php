@@ -10,7 +10,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
         <div class="container">
-            <a class="navbar-brand text-white" href="{{ route('admin') }}">Админ панель</a>
+            <a class="navbar-brand text-white" href="{{ route('admin.home') }}">Админ панель</a>
       
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -23,9 +23,9 @@
                             Разделы
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a href="{{ route('allUsers') }}" class="dropdown-item link-section">Пользователи</a>  
-                            <a href="{{ route('allDictations') }}" class="dropdown-item link-section">Диктанты</a>
-                            <a href="{{ route('allDictationResults') }}" class="dropdown-item link-section">Результаты диктантов</a>
+                            <a href="{{ route('admin.dictation.list') }}" class="dropdown-item link-section">Диктанты</a>
+                            <a href="{{ route('admin.user.list') }}" class="dropdown-item link-section">Пользователи</a>  
+                            <a href="{{ route('admin.dictationResult.list') }}" class="dropdown-item link-section">Результаты диктантов</a>
                         </div>
                     </li>
                     <li class="nav-item">

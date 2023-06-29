@@ -56,7 +56,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @can('access-admin-panel')
-                                        <a href="{{ route('admin') }}" class="dropdown-item">Админ панель</a>
+                                        <a href="{{ route('admin.home') }}" class="dropdown-item">Админ панель</a>
                                     @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

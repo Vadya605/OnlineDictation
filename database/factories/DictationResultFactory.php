@@ -18,12 +18,9 @@ class DictationResultFactory extends Factory
      */
     public function definition(): array
     {
-        $userIds = User::pluck('id')->toArray();
-        $dictationIds = Dictation::pluck('id')->toArray();
-
         return [
-            'user_id' => fake()->randomElement($userIds),
-            'dictation_id' => fake()->randomElement($dictationIds),
+            'user_id' => User::pluck('id')->random(),
+            'dictation_id' => Dictation::pluck('id')->random(),
             'text_result' => fake()->text,
             'date_time_result' => fake()->dateTimeBetween(),
         ];

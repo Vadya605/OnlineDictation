@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\DictationResult;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 
 class UpdateDictationResultRequest extends FormRequest
@@ -18,7 +19,7 @@ class UpdateDictationResultRequest extends FormRequest
     public function prepareForValidation()
     {
         $dateTimeResult = $this->input('date_time_result');
-        $formatteddateTimeResult = Carbon::parse($dateTimeResult)->format('Y-m-d H:i:s');
+        $formatteddateTimeResult = $dateTimeResult ? Carbon::parse($dateTimeResult)->format('Y-m-d H:i:s') : null;
         $this->merge(['date_time_result' => $formatteddateTimeResult]);
     }
 
@@ -31,8 +32,16 @@ class UpdateDictationResultRequest extends FormRequest
     {
         return [
             'text_result' => 'required|string',
-            'user_id' => 'required|exists:users,id',
-            'dictation_id' => 'required|exists:dictations,id',
+            'user_id' => [
+                'required',
+                Rule::unique('dictation_results')->where('dictation_id', $this->dictation_id)
+                    ->ignore($this->dictation_result_id)
+            ],
+            'dictation_id' => [
+                'required',
+                Rule::unique('dictation_results')->where('user_id', $this->user_id)
+                    ->ignore($this->dictation_result_id)
+            ],
             'date_time_result' => 'required|date_format:Y-m-d H:i:s'
         ];
     }

@@ -2,38 +2,47 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->middleware('admin')->group(function(){
-    Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin');
+Route::prefix('admin')->name('admin.')->middleware('admin')->group(function(){
+    Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
 
-    Route::get('/dictations', [App\Http\Controllers\Admin\DictationController::class, 'index'])->name('allDictations');
-    Route::get('/dictation/create', [App\Http\Controllers\Admin\DictationController::class, 'create'])->name('createDictation');
-    Route::get('/dictation/edit/{dictation}', [App\Http\Controllers\Admin\DictationController::class, 'edit'])->name('editDictation');
-    Route::post('/dictation/store', [App\Http\Controllers\Admin\DictationController::class, 'store'])->name('storeDictation');
-    Route::put('/dictation/update/{dictation}', [App\Http\Controllers\Admin\DictationController::class, 'update'])->name('updateDictation');
-    Route::delete('/dictation/delete/{dictation}', [App\Http\Controllers\Admin\DictationController::class, 'delete'])->name('deleteDictation');
-    
-    Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('allUsers');
-    Route::get('/user/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('createUser');
-    Route::get('/user/edit/{user}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('editUser');
-    Route::put('/user/update/{user}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('updateUser');
-    Route::post('/user/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('storeUser');
-    Route::delete('/user/delete/{user}', [App\Http\Controllers\Admin\UserController::class, 'delete'])->name('deleteUser');
+    Route::prefix('dictation')->name('dictation.')->group(function(){
+        Route::get('/', [App\Http\Controllers\Admin\DictationController::class, 'index'])->name('list');
+        Route::get('/autoCompleteSearch', [App\Http\Controllers\Admin\DictationController::class, 'autoCompleteSearch'])->name('autoCompleteDictationSearch');
+        Route::get('/create', [App\Http\Controllers\Admin\DictationController::class, 'create'])->name('create');
+        Route::get('/edit/{dictation}', [App\Http\Controllers\Admin\DictationController::class, 'edit'])->name('edit');
+        Route::post('/store', [App\Http\Controllers\Admin\DictationController::class, 'store'])->name('store');
+        Route::put('/update/{dictation}', [App\Http\Controllers\Admin\DictationController::class, 'update'])->name('update');
+        Route::delete('/delete/{dictation}', [App\Http\Controllers\Admin\DictationController::class, 'delete'])->name('delete');
+    });
 
-    Route::get('/dictationResults', [App\Http\Controllers\Admin\DictationResultController::class, 'index'])->name('allDictationResults');
-    Route::get('/dictationResult/create', [App\Http\Controllers\Admin\DictationResultController::class, 'create'])->name('createDictationResult');
-    Route::get('/dictationResult/edit/{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'edit'])->name('editDictationResult');
-    Route::post('/dictationResult/store', [App\Http\Controllers\Admin\DictationResultController::class, 'store'])->name('storeDictationResult');
-    Route::put('/dictationResult/update{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'update'])->name('updateDictationResult');
-    Route::delete('dictationResult/delete/{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'delete'])->name('deleteDictationResult');
+    Route::prefix('user')->name('user.')->group(function(){
+        Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('list');
+        Route::get('/autoCompleteSearch', [App\Http\Controllers\Admin\UserController::class, 'autoCompleteSearch'])->name('autoCompleteUserSearch');
+        Route::get('/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('create');
+        Route::get('/edit/{user}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('edit');
+        Route::put('/update/{user}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('update');
+        Route::post('/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('store');
+        Route::delete('/delete/{user}', [App\Http\Controllers\Admin\UserController::class, 'delete'])->name('delete');
+    });
+
+    Route::prefix('dictationResult')->name('dictationResult.')->group(function(){
+        Route::get('/', [App\Http\Controllers\Admin\DictationResultController::class, 'index'])->name('list');
+        Route::get('/create', [App\Http\Controllers\Admin\DictationResultController::class, 'create'])->name('create');
+        Route::get('/edit/{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'edit'])->name('edit');
+        Route::post('/store', [App\Http\Controllers\Admin\DictationResultController::class, 'store'])->name('store');
+        Route::put('/update{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'update'])->name('update');
+        Route::delete('/delete/{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'delete'])->name('delete');
+    });
 });
 
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware('guest')->group(function(){
-    Route::get('/vk/auth', [App\Http\Controllers\Auth\SocialController::class, 'index'])->name('vkAuth');
-    Route::get('/vk/auth/callback', [App\Http\Controllers\Auth\SocialController::class, 'callback'])->name('vkCallback');
+
+Route::prefix('vk/auth')->name('vk.auth.')->middleware('guest')->group(function(){
+    Route::get('/', [App\Http\Controllers\Auth\SocialController::class, 'index'])->name('index');
+    Route::get('/callback', [App\Http\Controllers\Auth\SocialController::class, 'callback'])->name('callback');
 });
 
 Route::middleware('auth')->group(function(){

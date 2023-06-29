@@ -26,17 +26,30 @@ class UserController extends Controller
 
     public function index(GetAllUserRequest $request)
     {
-        try{
+        try {
             $request->validated();
+            $oldUrlParams = $request->all();
             $validData = $request->mergeDafault();
     
-            return view('admin.user.allUser', ['users' => new UserCollection(
-                $this->userService->getAll($validData)
-            )]);
-        }catch(Exception $exp){
+            $users = $this->userService->getAll($validData);
+            $users->appends($oldUrlParams);
+    
+            return view('admin.user.allUser', [
+                'users' => new UserCollection($users),
+            ]);
+        } catch (Exception $exp) {
             return back()->with('error', 'Ошибка при применении фильтров или поиска, проверьте параметры')
                 ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public function autoCompleteSearch(Request $request)
+    {
+        $searchValue = $request->input('q');
+
+        return response()->json(
+            $this->userService->getResultsAutoCompleteSearch($searchValue)
+        );
     }
 
     public function create()

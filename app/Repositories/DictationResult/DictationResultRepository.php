@@ -11,10 +11,9 @@ class DictationResultRepository
     {
         return DictationResult::orderBy($outputValues['column_sort'], $outputValues['option_sort'])
                 ->where($outputValues['column_filter'], $outputValues['option_filter'], $outputValues['value_filter'])
-                ->when($outputValues['search_value'], function (Builder $query, $searchValue) {
-                        $query->where('users.name', 'like', '%'.$searchValue.'%')
-                            ->orWhere('dictations.title', 'like', '%'.$searchValue.'%')
-                            ->orWhereRaw("DATE_FORMAT(dictation_results.date_time_result, '%Y-%m-%d %H:%i:%s') LIKE ?", ['%'.$searchValue.'%']);
+                ->when($outputValues['from_date'] && $outputValues['to_date'], function (Builder $query) use($outputValues){
+                    $query->whereRaw("DATE_FORMAT(dictation_results.date_time_result, '%Y-%m-%d %H:%i:%s') >= ?", [$outputValues['from_date']])
+                    ->whereRaw("DATE_FORMAT(dictation_results.date_time_result, '%Y-%m-%d %H:%i:%s') <= ?", [$outputValues['to_date']]);
                 })
                 ->join('users', 'dictation_results.user_id', '=', 'users.id')
                 ->join('dictations', 'dictation_results.dictation_id', '=', 'dictations.id')

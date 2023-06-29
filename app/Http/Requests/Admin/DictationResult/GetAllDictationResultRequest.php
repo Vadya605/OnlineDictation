@@ -23,12 +23,14 @@ class GetAllDictationResultRequest extends FormRequest
     {
         return [
             'column_sort' => 'nullable|
-            in:dictation_results.id,dictation_results.created_at,dictation_results.id,dictation_results.date_time_result,dictations.title,users.name',
+            in:dictation_results.id,dictation_results.created_at,dictation_results.date_time_result,dictations.title,users.name,users.email,dictation_results.text_result',
             'option_sort' => 'nullable|in:asc,desc',
-            'column_filter' => 'nullable|in:id,is_active,from_date_time,to_date_time',
+            'column_filter' => 'nullable|in:dictation_results.id,dictation_id,user_id',
             'option_filter' => 'nullable|in:<,>,=',
-            'value_filter' => 'nullable|boolean',
-            'search_value' => 'nullable|string'
+            'value_filter' => 'nullable|integer',
+            'search_value' => 'nullable|string',
+            'from_date' => 'required_with:to_date|string',
+            'to_date' => 'required_with:from_date|string',
         ];
     }
 
@@ -41,6 +43,8 @@ class GetAllDictationResultRequest extends FormRequest
             'option_filter' => 'Параметр фильтрации',
             'value_filter' => 'Значение фильтрации',
             'search_value' => 'Значение поиска',
+            'from_date' => 'Дата от',
+            'to_date' => 'Дата до',
         ];
     }
 
@@ -54,6 +58,8 @@ class GetAllDictationResultRequest extends FormRequest
             'option_filter' => $this->option_filter ?? '>',
             'value_filter' => $this->value_filter ?? '1',
             'search_value' => $this->search_value ?? null,
+            'from_date' => $this->from_date ?? null,
+            'to_date' => $this->to_date ?? null,
         ]);
 
         return $this->all();

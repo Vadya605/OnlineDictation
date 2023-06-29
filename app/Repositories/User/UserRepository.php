@@ -7,17 +7,29 @@ use App\Models\User;
 
 class UserRepository
 {
-    public function getAllUser($outputValues)
+    public function getAllUser($outputValues=null)
     {
+        if(!$outputValues){
+            return User::all();
+        }
+
         return User::orderBy($outputValues['column_sort'], $outputValues['option_sort'])
             ->whereRaw("{$outputValues['column_filter']} {$outputValues['option_filter']} {$outputValues['value_filter']}")
+            ->when($outputValues['from_date'] && $outputValues['to_date'], function (Builder $query) use($outputValues){
+                $query->whereRaw("DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') >= ?", [$outputValues['from_date']])
+                ->whereRaw("DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') <= ?", [$outputValues['to_date']]);
+            })
             ->when($outputValues['search_value'], function (Builder $query, $searchValue) {
                 $query->where('name', 'like', '%'.$searchValue.'%')
-                        ->orWhere('email', 'like', '%'.$searchValue.'%')
-                        ->orWhereRaw("DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') LIKE ?", ['%'.$searchValue.'%']);
+                        ->orWhere('email', 'like', '%'.$searchValue.'%');
             })
             ->paginate(10);
 
+    }
+
+    public function getResultsAutoCompleteSearch($searchValue)
+    {
+        return User::where('name', 'like', "%{$searchValue}%")->get();
     }
 
     public function getUserById($id)

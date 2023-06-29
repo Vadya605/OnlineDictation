@@ -11,6 +11,7 @@ use App\Http\Requests\Admin\Dictation\GetAllDictationRequest;
 use App\Services\Admin\DictationService;
 use App\Http\Resources\Dictation\DictationResource;
 use App\Http\Resources\Dictation\DictationCollection;
+use App\Models\Dictation;
 use Exception;
 
 
@@ -27,15 +28,26 @@ class DictationController extends Controller
     { 
         try{
             $request->validated();
+            $oldUrlParams = $request->all();
             $validData = $request->mergeDafault();
+
+            $dictations = $this->dictationService->getAll($validData);
+            $dictations->appends($oldUrlParams);
     
-            return view('admin.dictation.allDictation', ['dictations' => new DictationCollection(
-                $this->dictationService->getAll($validData)
-            )]);
+            return view('admin.dictation.allDictation', [
+                'dictations' => new DictationCollection($dictations)
+            ]);
         }catch(Exception $exp){
-            return back()->with('error', 'Ошибка при применении фильтров или поиска, проверьте параметры')
+            return back()->with('error','Ошибка при применении фильтров или поиска, проверьте параметры')
                 ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public function autoCompleteSearch(Request $request)
+    {
+        return response()->json(
+            $this->dictationService->getResultsAutoCompleteSearch($request->input('q'))
+        );
     }
 
     public function create()

@@ -8,17 +8,27 @@ use Carbon\Carbon;
 
 class DictationRepository
 {
-    public function getAllDictation($outputValues)
+    public function getAllDictation($outputValues=null)
     {
+        if(!$outputValues){
+            return Dictation::all();
+        }
+
         return Dictation::orderBy($outputValues['column_sort'], $outputValues['option_sort'])
             ->whereRaw("{$outputValues['column_filter']} {$outputValues['option_filter']} {$outputValues['value_filter']}")
+            ->when($outputValues['from_date'] && $outputValues['to_date'], function (Builder $query) use($outputValues){
+                $query->whereRaw("DATE_FORMAT(from_date_time, '%Y-%m-%d %H:%i:%s') >= ?", [$outputValues['from_date']])
+                ->whereRaw("DATE_FORMAT(to_date_time, '%Y-%m-%d %H:%i:%s') <= ?", [$outputValues['to_date']]);
+            })
             ->when($outputValues['search_value'], function (Builder $query, $searchValue) {
-                $query->where('title', 'like', '%'.$searchValue.'%')
-                    ->orWhereRaw("DATE_FORMAT(from_date_time, '%Y-%m-%d %H:%i:%s') LIKE ?", ['%'.$searchValue.'%'])
-                    ->orWhereRaw("DATE_FORMAT(to_date_time, '%Y-%m-%d %H:%i:%s') LIKE ?", ['%'.$searchValue.'%']);
-
+                $query->where('title', 'like', '%'.$searchValue.'%');
             })
             ->paginate(10);
+    }
+
+    public function getResultsAutoCompleteSearch($searchValue)
+    {
+        return Dictation::where('title', 'like', "%{$searchValue}%")->get();
     }
 
     public function getDictationById($id)

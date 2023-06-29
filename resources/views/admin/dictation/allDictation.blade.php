@@ -1,16 +1,22 @@
-@vite(['resources/js/admin/sorting.js', 'resources/js/admin/filtration.js'])
+@vite(['resources/js/admin/sorting.js', 'resources/js/admin/filtration.js', 'resources/js/admin/dateFiltration.js', 'resources/js/admin/search.js'])
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 @extends('layouts.adminApp')
 @section('content')
+<x-modal-windows.confirm-deleting /> 
+
 <div class="row">
     <div class="col-12">
         <div class="d-flex align-items-center gap-2">
             <span class="fs-1">Диктанты</span>
-            <x-buttons.create-button :action="route('createDictation')" />
+            <x-buttons.create-button :action="route('admin.dictation.create')" />
         </div>
     </div>
 </div>
 <div class="row mt-3">
-    <div class="col-12">
+    <div class="col-md-6 col-sm-12">
         @if(session('error'))
             <x-errors.alert-error :error="session('error')"/> 
         @elseif ($errors->any())
@@ -24,30 +30,13 @@
 </div>
 <div class="row mt-3">
     <div class="col-12">
-        <div class="d-flex flex-column flex-md-row align-items-start justify-content-between gap-2">
-            <x-search class="flex-grow-1" :inputPlaceholder="'Название или дата'" />
+        <div class="d-flex flex-column flex-md-row align-items-md-end align-imems-sm-start justify-content-between gap-2">
+            <x-search class="flex-grow-1" inputPlaceholder="Название" />
             <div class="d-flex flex-wrap align-items-end gap-2">
-                <div class="sort">
-                    <label for="select-sort" class="form-label">Сортировка</label>
-                    <select class="form-select" name="" id="select-sort">
-                        <option value="" data-column="id" data-option="asc">По id &uarr;</option>
-                        <option value="" data-column="id" data-option="desc">По id &darr;</option>
-                        <option value="" data-column="title" data-option="asc">По названию &uarr;</option>
-                        <option value="" data-column="title" data-option="desc">По названию &darr;</option>
-                        <option value="" data-column="is_active" data-option="asc">По активности &uarr;</option>
-                        <option value="" data-column="is_active" data-option="desc">По активности &darr;</option>
-                        <option value="" data-column="from_date_time" data-option="asc">По дате начала написания &uarr;</option>
-                        <option value="" data-column="from_date_time" data-option="desc">По дате начала написания &darr;</option>
-                        <option value="" data-column="to_date_time" data-option="asc">По дате окончания написания &uarr;</option>
-                        <option value="" data-column="to_date_time" data-option="desc">По дате окончания написания &darr;</option>
-                        <option value="" data-column="created_at" data-option="asc">По дате создания &uarr;</option>
-                        <option value="" data-column="created_at" data-option="asc">По дате создания &darr;</option>
-                    </select>
-                </div>
                 <div class="filters">
                     <label for="select-filter" class="form-label">Фильтрация</label>
                     <select class="form-select" name="" id="select-filter">
-                        <option data-column="" data-option="" data-value="" value="">Все</option>
+                        <option data-column="" data-option="" data-value="" value=""><a href="{{ route('admin.dictation.list') }}">Все</a></option>
                         <option data-column="is_active" data-option="=" data-value="1" value="">Активные</option>
                         <option data-column="is_active" data-option="=" data-value="0" value="">Не активные</option>
                         <option data-column="video_link" data-option="is not" data-value="null" value="">С видео</option>
@@ -60,44 +49,115 @@
                         <option data-column="description" data-option="is" data-value="null" value="">Без описания</option>
                     </select>
                 </div>
-                <x-buttons.reset-button :action="route('allDictations')" />
+                <x-filter.date-filter />
+                <x-buttons.reset-button :action="route('admin.dictation.list')" />
             </div>
         </div>
     </div>
 </div>
 
-<div class="table-responsive mt-3">
-    <table class="table table-responsive-sm">
+<div class="table-responsive-sm mt-3">
+    <table class="table">
         <thead>
             <tr>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Id</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="id" data-option="asc">&darr;</span>
+                            <span class="sort-item" data-column="id" data-option="desc">&uarr;</span>
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Название</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="title" data-option="asc" >&darr;</span>
+                            <span class="sort-item" data-column="title" data-option="desc" >&uarr;</span>
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Ссылка на видео</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="video_link" data-option="asc" >&darr;</span>
+                            <span class="sort-item" data-column="video_link" data-option="desc" >&uarr;</span>
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Активен</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="is_active" data-option="asc" >&darr;</span>
+                            <span class="sort-item" data-column="is_active" data-option="desc" >&uarr;</span>
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Описание</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="description" data-option="asc">&darr;</span>
+                            <span class="sort-item" data-column="description" data-option="desc">&uarr;</span>
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Начало</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="from_date_time" data-option="asc" >&darr;</span>
+                            <span class="sort-item" data-column="from_date_time" data-option="desc" >&uarr;</span>
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Окончание</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="to_date_time" data-option="asc" >&darr;</span>
+                            <span class="sort-item" data-column="to_date_time" data-option="desc" >&uarr;</span>
+                        </div>
+                    </div>
+                </th>
+                <th scope="col" class="text-center">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Дата создания</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="created_at" data-option="asc">&darr;</span>
+                            <span class="sort-item" data-column="created_at" data-option="desc">&uarr;</span>
+                        </div>
+                    </div>
+                </th>
                 <th>Действия</th>
-                <th scope="col">Id</th>
-                <th scope="col">Название</th>
-                <th scope="col">Ссылка на видео</th>
-                <th scope="col">Активен</th>
-                <th scope="col">Описание</th>
-                <th scope="col">Дата и время начала</th>
-                <th scope="col">Дата и время окончания</th>
-                <th scope="col">Дата создания</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($dictations as $dictation)
                 <tr>
-                    <td class="align-middle">
-                        <div class="d-flex gap-4 w-100">
-                            <x-buttons.edit-button :action="route('editDictation', $dictation)" />
-                            <x-buttons.delete-button :action="route('deleteDictation', $dictation)" />
-                        </div>
-                    </td>
-                    <td class="align-middle">{{ $dictation->id }}</td>
+                    <td class="align-middle text-center">{{ $dictation->id }}</td>
                     <td class="align-middle">{{ $dictation->title }}</td>
                     <td class="align-middle"><a target="blank" href="{{ $dictation->video_link }}">{{  Str::limit($dictation->video_link, 20) }}</a></td>
-                    <td class="align-middle">{{ $dictation->is_active }}</td>
+                    <td class="align-middle text-center">
+                        @if ($dictation->is_active)
+                            <span class="badge bg-success text-white">Да</span>
+                        @else
+                            <span class="badge bg-danger text-white">Нет</span>
+                        @endif
+                    </td>
                     <td class="align-middle">{{ Str::limit($dictation->description, 30) }}</td>
                     <td class="align-middle">{{ $dictation->from_date_time }}</td>
                     <td class="align-middle">{{ $dictation->to_date_time }}</td>
                     <td class="align-middle">{{ $dictation->created_at }}</td>
+                    <td class="align-middle">
+                        <div class="d-flex gap-4 w-100">
+                            <x-buttons.edit-button :action="route('admin.dictation.edit', $dictation)" />
+                            <x-buttons.delete-button :action="route('admin.dictation.delete', $dictation)" />
+                        </div>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

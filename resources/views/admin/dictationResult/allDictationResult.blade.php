@@ -1,17 +1,20 @@
-@vite(['resources/js/admin/sorting.js'])
-
+@vite(['resources/js/admin/sorting.js', 'resources/js/admin/dictationAndUserFiltration.js'])
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 @extends('layouts.adminApp')
 @section('content')
+<x-modal-windows.confirm-deleting /> 
 <div class="row">
     <div class="col-12">
         <div class="d-flex align-items-center gap-2">
-            <span  class="fs-1">Результаты диктантов</span>
-            <x-buttons.create-button :action="route('createDictationResult')" />
+            <span class="fs-1">Результаты диктантов</span>
+            <x-buttons.create-button :action="route('admin.dictationResult.create')" />
         </div>
     </div>
 </div>
 <div class="row mt-3">
-    <div class="col-12">
+    <div class="col-md-6 col-sm-12">
         @if(session('error'))
             <x-errors.alert-error :error="session('error')"/> 
         @elseif ($errors->any())
@@ -25,56 +28,94 @@
 </div>
 <div class="row mt-3">
     <div class="col-12">
-        <div class="d-flex flex-column flex-md-row align-items-start justify-content-between gap-2">
-            <x-search inputPlaceholder="Название, имя или дата" />
+        <div class="d-flex flex-column flex-md-row align-items-md-end align-imems-sm-start justify-content-between gap-5">
+            <div class="selects">
+                <select class="form-control" id="dictationSearch" style="width:200px;" name="dictation"></select>
+                <select class="form-control" id="userSearch" style="width:200px;" name="user"></select>
+            </div>
             <div class="d-flex flex-wrap align-items-end gap-2">
-                <div class="sort">
-                    <label for="select-sort" class="form-label">Сортировка</label>
-                    <select class="form-select" name="" id="select-sort">
-                        <option data-column="dictation_results.id" data-option="asc" value="">По id &uarr;</option>
-                        <option value="" data-column="dictation_results.id" data-option="desc">По id &darr;</option>
-                        <option value="" data-column="users.name" data-option="asc"> По имени &uarr;</option>
-                        <option value="" data-column="users.name" data-option="desc">По имени &darr;</option>
-                        <option value="" data-column="dictations.title" data-option="asc">По названию &uarr;</option>
-                        <option value="" data-column="dictations.title" data-option="desc">По названию &darr;</option>
-                        <option value="" data-column="dictation_results.date_time_result" data-option="asc">По дате написания &uarr;</option>
-                        <option value="" data-column="dictation_results.date_time_result" data-option="desc">По дате написания &darr;</option>
-                    </select>
-                </div>
-                <x-buttons.reset-button :action="route('allDictationResults')" />
-
+                <x-filter.date-filter />
+                <x-buttons.reset-button :action="route('admin.dictationResult.list')" />
             </div>
         </div>
     </div>
 </div>
-<div class="table-responsive">
+<div class="table-responsive mt-3">
     <table class="table table-responsive-sm">
         <thead>
             <tr>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Id</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="dictation_results.id" data-option="asc">&darr;</span>
+                            <span class="sort-item" data-column="dictation_results.id" data-option="desc">&uarr;</span>
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Пользователь</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="users.name" data-option="asc" >&darr;</span>
+                            <span class="sort-item" data-column="users.name" data-option="desc" >&uarr;</span>
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Диктант</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="dictations.title" data-option="asc" >&darr;</span>
+                            <span class="sort-item" data-column="dictations.title" data-option="desc" >&uarr;</span>
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Email пользователя</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="users.email" data-option="asc" >&darr;</span>
+                            <span class="sort-item" data-column="users.email" data-option="desc" >&uarr;</span>
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Текст диктанта</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="dictation_results.text_result" data-option="asc">&darr;</span>
+                            <span class="sort-item" data-column="dictation_results.text_result" data-option="desc">&uarr;</span>
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Дата и время написания</span>
+                        <div class="d-flex gap-1">
+                            <span class="sort-item" data-column="dictation_results.date_time_result" data-option="asc" >&darr;</span>
+                            <span class="sort-item" data-column="dictation_results.date_time_result" data-option="desc" >&uarr;</span>
+                        </div>
+                    </div>
+                </th>
                 <th>Действия</th>
-                <th scope="col">Id</th>
-                <th scope="col">Название диктанта</th>
-                <th scope="col">Имя пользователя</th>
-                <th scope="col">Email пользователя</th>
-                <th scope="col">Текст диктанта</th>
-                <th scope="col">Дата и время написания</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($dictationResults as $dictationResult)
                 <tr>
-                    <td class="align-middle">
-                        <div class="d-flex justify-content-between w-100">
-                            <x-buttons.edit-button :action="route('editDictationResult', $dictationResult)" />
-                            <x-buttons.delete-button :action="route('deleteDictationResult', $dictationResult)" />
-                        </div>
-                    </td>
                     <td class="align-middle">{{ $dictationResult->id }}</td>
-                    <td class="align-middle"><a href="{{ route('editDictation', $dictationResult->dictation) }}">{{ $dictationResult->dictation->title }}</a></td>
-                    <td class="align-middle"><a href="{{ route('editUser', $dictationResult->user) }}">{{ $dictationResult->user->name }}</a></td>
+                    <td class="align-middle"><a href="{{ route('admin.user.edit', $dictationResult->user) }}">{{ $dictationResult->user->name }}</a></td>
+                    <td class="align-middle"><a href="{{ route('admin.dictation.edit', $dictationResult->dictation) }}">{{ $dictationResult->dictation->title }}</a></td>
                     <td class="align-middle">{{ $dictationResult->user->email }}</td>
                     <td class="align-middle">{{ Str::limit($dictationResult->text_result, 30) }}</td>
                     <td class="align-middle">{{ $dictationResult->date_time_result }}</td>
+                    <td class="align-middle">
+                        <div class="d-flex justify-content-between w-100">
+                            <x-buttons.edit-button :action="route('admin.dictationResult.edit', $dictationResult)" />
+                            <x-buttons.delete-button :action="route('admin.dictationResult.delete', $dictationResult)" />
+                        </div>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
@@ -83,4 +124,6 @@
 <div class="d-flex justify-content-center">
     {{ $dictationResults->links() }}
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection

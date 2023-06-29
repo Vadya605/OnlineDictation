@@ -1,42 +1,41 @@
 @extends('layouts.adminApp')
 @section('content')
-<div class="row justify-content-md-start justify-content-sm-center">
-    <div class="col-md-5 col-sm-8">
-        <div class="table-list pb-5">
-            <div class="row">
-                <div class="col-12">
-                    <div class="table-list-header text-center bg-primary">
-                        <span class="text-white">Разделы</span>
-                    </div>
-                </div>
+<div class="row justify-content-between align-items-start">
+    <div class="col-lg-3 col-md-4 col-sm-6 mt-3">
+        <div class="card">
+            <div class="card-header">
+                Диктанты
             </div>
-
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="item-list-table">
-                        <a href="{{ route('allDictations') }}" class="link link-section">Диктанты</a>
-                    </div>
-                </div>
+            <div class="card-body">
+                <h5 class="card-title">В системе доступно {{ $countDictation }} диктантов</h5>
+                <p class="card-text">В данном разделе находится информация о каждом диктанте системы</p>
+                <a href="{{ route('admin.dictation.list') }}" class="btn btn-primary">Перейти в раздел</a>
             </div>
-
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="item-list-table">
-                        <a href="{{ route('allUsers') }}" class="link link-section">Пользователи</a>
-                    </div>
-                </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mt-3">
+        <div class="card">
+            <div class="card-header">
+                Пользователи
             </div>
-
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="item-list-table">
-                        <a href="{{ route('allDictationResults') }}" class="link link-section">Результаты диктантов</a>
-                    </div>
-                </div>
+            <div class="card-body">
+                <h5 class="card-title">В системе зарегистрировано {{ $countUser }} пользователей</h5>
+                <p class="card-text">В данном разделе находится информация о каждом пользователе системы</p>
+                <a href="{{ route('admin.user.list') }}" class="btn btn-primary">Перейти в раздел</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mt-3">
+        <div class="card">
+            <div class="card-header">
+                Результаты диктантов
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">В системе имеется {{ $countDictationResult }} результатов диктантов</h5>
+                <p class="card-text">В данном разделе находится информация о каждом результате диктанта системы</p>
+                <a href="{{ route('admin.dictationResult.list') }}" class="btn btn-primary">Перейти в раздел</a>
             </div>
         </div>
     </div>
 </div>
-
-
 @endsection

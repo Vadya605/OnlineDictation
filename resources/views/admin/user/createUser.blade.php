@@ -11,24 +11,31 @@
         <div class="col-12">
             @if(session('error'))
                 <x-errors.alert-error :error="session('error')"/> 
-            @elseif ($errors->any())
+            {{-- @elseif ($errors->any())
                 @foreach ($errors->all() as $error)
                     <x-errors.alert-error :error="$error"/> 
-                @endforeach
+                @endforeach --}}
             @elseif (session('message'))
                 <x-messages.message-success :message="session('message')" />
             @endif
         </div>
     </div>
-    <form class="mt-5" action="{{ route('storeUser') }}" method="POST">
+    <form class="mt-5" action="{{ route('admin.user.store') }}" method="POST">
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Имя *</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
+            <input type="text" class="form-control @error('name') is-invalid @enderror" 
+                id="name" name="name" value="{{ old('name') }}"
+            >
+            <x-errors.validation-error field="name" /> 
+
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email *</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
+            <input type="email" class="form-control @error('email') is-invalid @enderror" 
+                id="email" name="email" value="{{ old('email') }}"
+            >
+            <x-errors.validation-error field="email" /> 
         </div>
         <button type="submit" class="btn btn-primary mb-3">Сохранить</button>
     </form>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Dictation extends Model
@@ -16,6 +17,7 @@ class Dictation extends Model
         'to_date_time'
     ];
     use HasFactory;
+    use SoftDeletes;
 
     public function users()
     {

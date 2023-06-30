@@ -11,7 +11,7 @@ $('#dictationSearch').select2({
         return {
             results:  $.map(data, function (item) {
                 return {
-                    text: `${item.id} - ${item.title}`,
+                    text: item.title,
                     id: item.id,
                 }
             })
@@ -30,7 +30,7 @@ $('#userSearch').select2({
         return {
             results:  $.map(data, function (item) {
                 return {
-                    text: `${item.id} - ${item.name}`,
+                    text: item.name,
                     id: item.id,
                 }
             })

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Dictation;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 use Carbon\Carbon;
 
 class StoreDictationRequest extends FormRequest
@@ -15,20 +16,6 @@ class StoreDictationRequest extends FormRequest
         return true;
     }
 
-    public function prepareForValidation()
-    {
-        $fromDateTime = $this->input('from_date_time');
-        $toDateTime = $this->input('to_date_time');
-
-        $formattedFromDateTime = $fromDateTime ? Carbon::parse($fromDateTime)->format('Y-m-d H:i:s') : null;
-        $formattedToDateTime = $toDateTime ? Carbon::parse($toDateTime)->format('Y-m-d H:i:s') : null;
-
-        $this->merge([
-            'from_date_time' => $formattedFromDateTime,
-            'to_date_time' => $formattedToDateTime
-        ]);
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -38,24 +25,27 @@ class StoreDictationRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:191',
-            'video_link' => 'nullable|string|active_url',
+            'video_link' => 'nullable|active_url',
             'is_active' => 'boolean',
             'description' => 'nullable|string',
-            'from_date_time' => 'nullable|date_format:Y-m-d H:i:s',
-            'to_date_time' => 'nullable|date_format:Y-m-d H:i:s|
+            'from_date_time' => 'nullable|date_format:d.m.Y H:i',
+            'to_date_time' => 'nullable|date_format:d.m.Y H:i|
                                 after_or_equal:from_date_time'
         ];
     }
 
-    public function attributes(): array
+    public function messages()
     {
         return [
-            'title' => 'Название диктанта',
-            'video_link' => 'Ссылка на видео',
-            'is_active' => 'Активен',
-            'description' => 'Описание',
-            'from_date_time' => 'Дата начала диктанта',
-            'to_date_time' => 'Дата окончания диктанта'
+            'title.required' => trans('custom_validation.admin.dictations.title.required'),
+            'title.string' => trans('custom_validation.admin.dictations.title.string'),
+            'title.max' => trans('custom_validation.admin.dictations.title.max'),
+            'video_link.active_url' => trans('custom_validation.admin.dictations.video_link.active_url'),
+            'is_active.boolean' => trans('custom_validation.admin.dictations.is_active.boolean'),
+            'description.string' => trans('custom_validation.admin.dictations.description.string'),
+            'from_date_time.date_format' => trans('custom_validation.admin.dictations.to_date_time.date_format'),
+            'to_date_time.date_format' => trans('custom_validation.admin.dictations.to_date_time.date_format'),
+            'to_date_time.after_or_equal' => trans('custom_validation.admin.dictations.to_date_time.after_or_equal'),
         ];
     }
 }

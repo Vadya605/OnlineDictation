@@ -29,11 +29,17 @@ class StoreUserRequest extends FormRequest
         ];
     }
 
-    public function attributes(): array
+    public function messages()
     {
         return [
-            'name' => 'Имя пользователя',
-            'email' => 'Email пользователя',
+            'name.required' => trans('custom_validation.admin.users.name.required'),
+            'name.string' => trans('custom_validation.admin.users.name.string'),
+            'name.max' => trans('custom_validation.admin.users.name.max'),
+            'email.required' => trans('custom_validation.admin.users.email.required'),
+            'email.string' => trans('custom_validation.admin.users.email.string'),
+            'email.email' => trans('custom_validation.admin.users.email.email'),
+            'email.max' => trans('custom_validation.admin.users.email.max'),
+            'email.unique' => trans('custom_validation.admin.users.email.unique'),
         ];
     }
 }

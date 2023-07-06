@@ -29,19 +29,20 @@ class UserRepository
             $users->whereRaw("{$filterColumn} {$filterOption} {$filterValue}");
         }
         
+        
+        if($fromDateTime = Arr::get($outputValues, 'date_from')){
+            $users->where('created_at', '>=', Carbon::parse($fromDateTime)->format('Y-m-d H:i:s'));
+        }
+        
+        if($toDateTime = Arr::get($outputValues, 'date_to')){
+            $users->where('created_at', '<=', Carbon::parse($toDateTime)->format('Y-m-d H:i:s'));
+        }
+        
         if($search = Arr::get($outputValues, 'search')){
             $users->where('name', 'like', '%'.$search.'%')
                 ->orWhere('email', 'like', '%'.$search.'%');
         }
-
-        if($fromDateTime = Arr::get($outputValues, 'date_from')){
-            $users->where('created_at', '>=', Carbon::parse($fromDateTime)->format('Y-m-d H:i:s'));
-        }
-
-        if($toDateTime = Arr::get($outputValues, 'date_to')){
-            $users->where('created_at', '<=', Carbon::parse($toDateTime)->format('Y-m-d H:i:s'));
-        }
-
+        
         return $users->paginate(10);
 
     }

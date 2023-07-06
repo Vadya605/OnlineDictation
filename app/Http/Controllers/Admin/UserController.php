@@ -27,19 +27,14 @@ class UserController extends Controller
 
     public function index(IndexUserRequest $request)
     {        
-        try {
-            $validData = $request->validated();
+        $validData = $request->validated();
     
-            $users = $this->userService->getAll($validData);
-            $users->appends($validData);
-    
-            return view('admin.user.index', [
-                'users' => new UserCollection($users),
-            ]);
-        } catch (Exception $exp) {
-            return back()->with('error', 'Ошибка при применении фильтров или поиска, проверьте параметры')
-                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        $users = $this->userService->getAll($validData);
+        $users->appends($validData);
+
+        return view('admin.user.index', [
+            'users' => new UserCollection($users),
+        ]);
     }
 
     public function autoCompleteSearch(Request $request)

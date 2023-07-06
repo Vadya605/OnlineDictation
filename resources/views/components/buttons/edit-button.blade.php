@@ -1,1 +1,1 @@
-<a href="{{ $action }}" class="btn-edit"></a>
+<a href="{{ $action }}" class="bi bi-pencil-square fs-2"></a>

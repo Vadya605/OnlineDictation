@@ -1,21 +1,21 @@
 <?php
 
-namespace App\View\Components\buttons;
+namespace App\View\Components\Arrows;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class CreateButton extends Component
+class ArrowUp extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $formId;
+    public $dataColumn;
 
-    public function __construct($formId)
+    public function __construct($dataColumn)
     {
-        $this->formId = $formId;
+        $this->dataColumn = $dataColumn;
     }
 
     /**
@@ -23,6 +23,6 @@ class CreateButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.buttons.create-button');
+        return view('components.arrows.arrow-up');
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.adminApp')
 @section('content')
 <div class="row justify-content-between align-items-start">
-    <div class="col-lg-3 col-md-4 col-sm-6 mt-3">
+    <div class="col-12 mt-3">
         <div class="card">
             <div class="card-header">
                 Диктанты
@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 mt-3">
+    <div class="col-12 mt-3">
         <div class="card">
             <div class="card-header">
                 Пользователи
@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 mt-3">
+    <div class="col-12 mt-3">
         <div class="card">
             <div class="card-header">
                 Результаты диктантов

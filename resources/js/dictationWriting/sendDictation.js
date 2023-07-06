@@ -7,13 +7,13 @@ document.querySelector('.date').textContent = new Date().toLocaleDateString()
 
 document.querySelector('.dictation-form').addEventListener('submit', (event) => {    
     event.preventDefault()
-
+    
     const dictationResultData = {
         _token: document.querySelector('meta[name="csrf-token"]').content,
         user_id: userId,
         dictation_id: dictationId,
         text_result: document.querySelector('#text_result').value,
-        date: new Date()
+        date_time_result: new Date().toLocaleString().replace(',','')
     }
 
     saveDictationResult(dictationResultData)

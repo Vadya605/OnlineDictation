@@ -1,12 +1,9 @@
-@vite(['resources/js/admin/dateFiltration.js'])
-<div class="filters-date">
+<div class="filters-date flex-grow-1">
     <label for="" class="form-label">Промежуток даты</label>
-    <div class="d-flex align-items-center gap-1">
-        <input type="text" placeholder="От" class="form-control" id="from_date" 
-            name="from_date" value="{{ request()->query('from_date') }}" @required(true)>
-        <span>-</span>
-        <input type="text" placeholder="До" class="form-control" id="to_date" 
-            name="to_date" value="{{ request()->query('to_date') }}" @required(true)>
-        <button class="btn btn-primary aplly">Применить</button>
+    <div class="d-flex flex-row align-items-center gap-1">
+        <input type="text" placeholder="От" class="form-control flex-grow-1 @error('date_from') is-invalid @enderror" id="fromDate" 
+            name="date_from" value="{{ old('date_from')??request()->query('date_from') }}">
+        <input type="text" placeholder="До" class="form-control flex-grow-1 @error('date_to') is-invalid @enderror" id="toDate" 
+            name="date_to" value="{{ old('date_to')??request()->query('date_to') }}">
     </div>
 </div>

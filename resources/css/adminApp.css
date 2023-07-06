@@ -47,33 +47,39 @@ nav{
     color: blue;
 }
 
-.btn-delete, .btn-edit{
-    width: 24px;
-    height: 24px;
-    border: none;
+.btn-create{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 45px !important;
+    height: 45px !important;
+    font-size: 45px;
+    border-radius: 50%;
 }
 
 .btn-delete{
-    background: url('../img/admin/delete.png');
-    justify-content: space-between;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50%;
+    padding: 0 !important;
+    font-size: 30px;
 }
 
-.btn-edit{
-    background: url('../img/admin/edit.png');
-}
-
-.btn-create{
-    width: 32px;
-    height: 32px;
-    background: url('../img/admin/add.png');
-}
-
-.filter-item:hover{
-    cursor: pointer;
-    background-color: #0d6efd;
-    color: #fff;
+.btn-delete::before{
+    margin-left: 1px;
 }
 
 .sort-item:hover{
     cursor: pointer;
+}
+
+.arrow:hover{
+    font-weight: bold;
+}
+
+.select-2{
+    width: 200px;
 }

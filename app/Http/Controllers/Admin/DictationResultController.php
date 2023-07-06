@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Requests\Admin\DictationResult\GetAllDictationResultRequest;
+use App\Http\Requests\Admin\DictationResult\IndexDictationResultRequest;
 use App\Http\Requests\Admin\DictationResult\UpdateDictationResultRequest;
 use App\Http\Requests\Admin\DictationResult\StoreDictationResultRequest;
 use App\Http\Resources\DictationResult\DictationResultResource;
@@ -32,30 +32,19 @@ class DictationResultController extends Controller
 
     }
 
-    public function index(GetAllDictationResultRequest $request)
+    public function index(IndexDictationResultRequest $request)
     {
-        try{
-            $request->validated();
-            $oldUrlParams = $request->all();
-            $validData = $request->mergeDafault();
+        $request->validated();
+        $validData = $request->validated();
 
-            $dictationResults = $this->dictationResultService->getAll($validData);
-            $dictationResults->appends($oldUrlParams);
-    
-            return view('admin.dictationResult.allDictationResult', [
-                'dictationResults' => new DictationResultCollection($dictationResults),
-            ]);
-        }catch(Exception $exp){
-            return back()->with('error', 'Ошибка при применении фильтров или поиска, проверьте параметры')
-                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-    }
+        $dictationResults = $this->dictationResultService->getAll($validData);
+        
+        $dictationResults->appends($validData);
 
-    public function create()
-    {
-        return view('admin.dictationResult.createDictationResult', [
-            'dictations' => new DictationCollection($this->dictationService->getAll()),
-            'users' => new UserCollection($this->userService->getAll())
+        return view('admin.dictationResult.index', [
+            'dictationResults' => new DictationResultCollection($dictationResults),
+            'dictations' => new DictationCollection($this->dictationService->getResultsAutoCompleteSearch()),
+            'users' => new UserCollection($this->userService->getResultsAutoCompleteSearch())
         ]);
     }
 
@@ -75,10 +64,10 @@ class DictationResultController extends Controller
 
     public function edit(DictationResult $dictationResult)
     {
-        return view('admin.dictationResult.editDictationResult', [
+        return view('admin.dictationResult.edit', [
             'dictationResult' => new DictationResultResource($dictationResult),
-            'dictations' => new DictationCollection($this->dictationService->getAll()),
-            'users' => new UserCollection($this->userService->getAll())
+            'dictations' => new DictationCollection($this->dictationService->getResultsAutoCompleteSearch()),
+            'users' => new UserCollection($this->userService->getResultsAutoCompleteSearch())
         ]);
     }
 

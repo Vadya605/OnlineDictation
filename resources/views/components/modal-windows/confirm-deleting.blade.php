@@ -1,7 +1,3 @@
-{{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeletingModal">
-  Удалить
-</button> --}}
-
 <div class="modal fade" id="confirmDeletingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     <div class="modal-dialog">
         <div class="modal-content">

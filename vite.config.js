@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import path from 'path'
 
 export default defineConfig({
     plugins: [
@@ -11,4 +12,11 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    resolve: {
+        alias: {
+            '~bootstrap-icons': path.resolve(__dirname,'node_modules/bootstrap-icons'),
+            '~mdb-ui-kit': path.resolve(__dirname,'node_modules/mdb-ui-kit'),
+            '$':  'jQuery',
+        }
+    }
 });

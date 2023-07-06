@@ -3,31 +3,50 @@
 namespace App\Repositories\User;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 use App\Models\User;
+use Carbon\Carbon;
 
 class UserRepository
 {
-    public function getAllUser($outputValues=null)
+    public function getAllUser($outputValues=[])
     {
-        if(!$outputValues){
-            return User::all();
+        $users = User::query();
+
+        $sortColumn = Arr::get($outputValues, 'sort_column');
+        $sortOption = Arr::get($outputValues, 'sort_option');
+
+        if($sortColumn && $sortOption){
+            $users->orderBy($sortColumn, $sortOption);
         }
 
-        return User::orderBy($outputValues['column_sort'], $outputValues['option_sort'])
-            ->whereRaw("{$outputValues['column_filter']} {$outputValues['option_filter']} {$outputValues['value_filter']}")
-            ->when($outputValues['from_date'] && $outputValues['to_date'], function (Builder $query) use($outputValues){
-                $query->whereRaw("DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') >= ?", [$outputValues['from_date']])
-                ->whereRaw("DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') <= ?", [$outputValues['to_date']]);
-            })
-            ->when($outputValues['search_value'], function (Builder $query, $searchValue) {
-                $query->where('name', 'like', '%'.$searchValue.'%')
-                        ->orWhere('email', 'like', '%'.$searchValue.'%');
-            })
-            ->paginate(10);
+        $filterColumn = Arr::get($outputValues, 'filter_column');
+        $filterOption = Arr::get($outputValues, 'filter_option');
+        $filterValue = Arr::get($outputValues, 'filter_value');
+
+
+        if($filterColumn && $filterOption && $filterValue){
+            $users->whereRaw("{$filterColumn} {$filterOption} {$filterValue}");
+        }
+        
+        if($search = Arr::get($outputValues, 'search')){
+            $users->where('name', 'like', '%'.$search.'%')
+                ->orWhere('email', 'like', '%'.$search.'%');
+        }
+
+        if($fromDateTime = Arr::get($outputValues, 'date_from')){
+            $users->where('created_at', '>=', Carbon::parse($fromDateTime)->format('Y-m-d H:i:s'));
+        }
+
+        if($toDateTime = Arr::get($outputValues, 'date_to')){
+            $users->where('created_at', '<=', Carbon::parse($toDateTime)->format('Y-m-d H:i:s'));
+        }
+
+        return $users->paginate(10);
 
     }
 
-    public function getResultsAutoCompleteSearch($searchValue)
+    public function getResultsAutoCompleteSearch($searchValue=null)
     {
         return User::where('name', 'like', "%{$searchValue}%")->get();
     }

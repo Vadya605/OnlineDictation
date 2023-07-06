@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\Admin\Dictation\StoreDictationRequest;
 use App\Http\Requests\Admin\Dictation\UpdateDictationRequest;
-use App\Http\Requests\Admin\Dictation\GetAllDictationRequest;
+use App\Http\Requests\Admin\Dictation\IndexDictationRequest;
 use App\Services\Admin\DictationService;
 use App\Http\Resources\Dictation\DictationResource;
 use App\Http\Resources\Dictation\DictationCollection;
@@ -24,23 +24,16 @@ class DictationController extends Controller
         $this->dictationService = $dictationService;
     }
 
-    public function index(GetAllDictationRequest $request)
+    public function index(IndexDictationRequest $request)
     { 
-        try{
-            $request->validated();
-            $oldUrlParams = $request->all();
-            $validData = $request->mergeDafault();
+        $validData = $request->validated();
 
-            $dictations = $this->dictationService->getAll($validData);
-            $dictations->appends($oldUrlParams);
-    
-            return view('admin.dictation.allDictation', [
-                'dictations' => new DictationCollection($dictations)
-            ]);
-        }catch(Exception $exp){
-            return back()->with('error','Ошибка при применении фильтров или поиска, проверьте параметры')
-                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        $dictations = $this->dictationService->getAll($validData);
+        $dictations->appends($validData);
+
+        return view('admin.dictation.index', [
+            'dictations' => new DictationCollection($dictations)
+        ]);
     }
 
     public function autoCompleteSearch(Request $request)
@@ -48,11 +41,6 @@ class DictationController extends Controller
         return response()->json(
             $this->dictationService->getResultsAutoCompleteSearch($request->input('q'))
         );
-    }
-
-    public function create()
-    {
-        return view('admin.dictation.createDictation');
     }
 
     public function store(StoreDictationRequest $request)
@@ -71,9 +59,9 @@ class DictationController extends Controller
 
     public function edit(Dictation $dictation)
     {
-        return view('admin.dictation.editDictation', ['dictation' => new DictationResource(
-            $dictation
-        )]);
+        return view('admin.dictation.edit', [
+            'dictation' => new DictationResource($dictation)
+        ]);
     }
 
     public function update(UpdateDictationRequest $request, Dictation $dictation)

@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Requests\Admin\User\GetAllUserRequest;
+use App\Http\Requests\Admin\User\IndexUserRequest;
 use App\Http\Requests\Admin\User\StoreUserRequest;
 use App\Http\Requests\Admin\User\UpdateUserRequest;
 use App\Services\Admin\UserService;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserCollection;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 
 
@@ -24,17 +25,15 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function index(GetAllUserRequest $request)
-    {
+    public function index(IndexUserRequest $request)
+    {        
         try {
-            $request->validated();
-            $oldUrlParams = $request->all();
-            $validData = $request->mergeDafault();
+            $validData = $request->validated();
     
             $users = $this->userService->getAll($validData);
-            $users->appends($oldUrlParams);
+            $users->appends($validData);
     
-            return view('admin.user.allUser', [
+            return view('admin.user.index', [
                 'users' => new UserCollection($users),
             ]);
         } catch (Exception $exp) {
@@ -50,11 +49,6 @@ class UserController extends Controller
         return response()->json(
             $this->userService->getResultsAutoCompleteSearch($searchValue)
         );
-    }
-
-    public function create()
-    {
-        return view('admin.user.createUser');
     }
 
     public function store(StoreUserRequest $request)
@@ -73,9 +67,9 @@ class UserController extends Controller
     
     public function edit(User $user)
     {
-        return view('admin.user.editUser', ['user' => new UserResource(
-            $user
-        )]);
+        return view('admin.user.edit', ['user' => 
+            new UserResource($user)
+        ]);
     }
 
     public function update(UpdateUserRequest $request, User $user)

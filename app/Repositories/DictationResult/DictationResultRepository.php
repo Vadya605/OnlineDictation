@@ -4,21 +4,43 @@ namespace App\Repositories\DictationResult;
 
 use App\Models\DictationResult;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
+use Carbon\Carbon;
 
 class DictationResultRepository
 {
-    public function getAllDictationResults($outputValues)
+    public function getAllDictationResults($outputValues=[])
     {
-        return DictationResult::orderBy($outputValues['column_sort'], $outputValues['option_sort'])
-                ->where($outputValues['column_filter'], $outputValues['option_filter'], $outputValues['value_filter'])
-                ->when($outputValues['from_date'] && $outputValues['to_date'], function (Builder $query) use($outputValues){
-                    $query->whereRaw("DATE_FORMAT(dictation_results.date_time_result, '%Y-%m-%d %H:%i:%s') >= ?", [$outputValues['from_date']])
-                    ->whereRaw("DATE_FORMAT(dictation_results.date_time_result, '%Y-%m-%d %H:%i:%s') <= ?", [$outputValues['to_date']]);
-                })
+        $dictationResults = DictationResult::query()
                 ->join('users', 'dictation_results.user_id', '=', 'users.id')
                 ->join('dictations', 'dictation_results.dictation_id', '=', 'dictations.id')
                 ->select('dictation_results.*', 'users.name', 'users.email', 'dictations.title')
-                ->paginate(10);
+                ->whereNull('dictations.deleted_at');
+
+        $sortColumn = Arr::get($outputValues, 'sort_column');
+        $sortOption = Arr::get($outputValues, 'sort_option');
+
+        if($sortColumn && $sortOption){
+            $dictationResults->orderBy($sortColumn, $sortOption);
+        }
+
+        if($dictationId = Arr::get($outputValues, 'dictation')){
+            $dictationResults->where('dictations.id', '=', $dictationId);
+        }
+
+        if($userId = Arr::get($outputValues, 'user')){
+            $dictationResults->where('users.id', '=', $userId);
+        }
+
+        if($fromDateTime = Arr::get($outputValues, 'date_from')){
+            $dictationResults->where('dictation_results.date_time_result', '>=', Carbon::parse($fromDateTime)->format('Y-m-d H:i:s'));
+        }
+
+        if($toDateTime = Arr::get($outputValues, 'date_to')){
+            $dictationResults->where('dictation_results.date_time_result', '<=', Carbon::parse($toDateTime)->format('Y-m-d H:i:s'));
+        }
+
+        return $dictationResults->paginate(10);
     }
 
     public function getCountDictationResult()
@@ -38,7 +60,7 @@ class DictationResultRepository
         $newDictationResult->text_result = $dictationResultData['text_result'];
         $newDictationResult->dictation_id = $dictationResultData['dictation_id'];
         $newDictationResult->user_id = $dictationResultData['user_id'];
-        $newDictationResult->date_time_result = $dictationResultData['date_time_result'];
+        $newDictationResult->date_time_result = Carbon::parse($dictationResultData['date_time_result'])->format('Y-m-d H:i:s');
         $newDictationResult->save();
 
         return $newDictationResult;
@@ -46,6 +68,8 @@ class DictationResultRepository
 
     public function updateDictationResult(DictationResult $dictationResult, $dictationResultData)
     {
+        $dictationResultData['date_time_result'] = Carbon::parse($dictationResultData['date_time_result'])->format('Y-m-d H:i:s');
+
         $dictationResult->fill($dictationResultData);
         $dictationResult->save();
 

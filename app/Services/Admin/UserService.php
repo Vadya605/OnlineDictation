@@ -17,12 +17,12 @@ class UserService
         $this->userRepository = $userRepository;
     }
 
-    public function getAll($outputValues=null)
+    public function getAll($outputValues=[])
     {
         return $this->userRepository->getAllUser($outputValues);
     }
 
-    public function getResultsAutoCompleteSearch($searchValue)
+    public function getResultsAutoCompleteSearch($searchValue=null)
     {
         return $this->userRepository->getResultsAutoCompleteSearch($searchValue);
     }

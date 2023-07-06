@@ -14,7 +14,7 @@ class DictationService
         $this->dictationRepository = $dictationRepository;
     }
     
-    public function getAll($outputValues=null)
+    public function getAll($outputValues=[])
     {
         return $this->dictationRepository->getAllDictation($outputValues);
     }
@@ -24,7 +24,7 @@ class DictationService
         return $this->dictationRepository->getCountDictation();
     }
 
-    public function getResultsAutoCompleteSearch($searchValue)
+    public function getResultsAutoCompleteSearch($searchValue=null)
     {
         return $this->dictationRepository->getResultsAutoCompleteSearch($searchValue);
     }

@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
 
 class User extends Authenticatable
 {
@@ -48,5 +50,12 @@ class User extends Authenticatable
     public function dictations()
     {
         return $this->belongsToMany(Dictation::class, 'dictation_results');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        $createdAt = Carbon::parse($value);
+
+        return $createdAt->diffForHumans(null, CarbonInterface::DIFF_RELATIVE_AUTO);
     }
 }

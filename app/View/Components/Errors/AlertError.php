@@ -12,11 +12,10 @@ class AlertError extends Component
      * Create a new component instance.
      */
 
-    public $error;
     
-    public function __construct($error)
+    public function __construct()
     {
-        $this->error = $error;
+        //
     }
 
     /**

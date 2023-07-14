@@ -4,7 +4,6 @@ namespace App\Http\Requests\Admin\DictationResult;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Carbon\Carbon;
 
 class UpdateDictationResultRequest extends FormRequest
 {
@@ -29,13 +28,13 @@ class UpdateDictationResultRequest extends FormRequest
                 'required',
                 'exists:users,id',
                 Rule::unique('dictation_results')->where('dictation_id', $this->dictation_id)
-                    ->ignore($this->dictation_result_id)
+                    ->ignore($this->id)
             ],
             'dictation_id' => [
                 'required',
                 'exists:dictations,id',
                 Rule::unique('dictation_results')->where('user_id', $this->user_id)
-                    ->ignore($this->dictation_result_id)
+                    ->ignore($this->id)
             ],
             'date_time_result' => 'required|date_format:d.m.Y H:i'
         ];

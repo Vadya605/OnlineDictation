@@ -55,18 +55,16 @@ class UserController extends Controller
             $validData = $request->validated();
             $this->userService->create($validData);
 
-            return back()->with('message', 'Запись успешно добавлена')
-                ->setStatusCode(Response::HTTP_CREATED);
+            return response()->json('Запись успешно добавлена', Response::HTTP_CREATED);
         }catch(Exception $exp){
-            return back()->with('error', 'Ошибка при добавлении записи')
-                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json('Ошибка при добавлении записи', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
     
     public function edit(User $user)
     {
-        return view('admin.user.edit', ['user' => 
-            new UserResource($user)
+        return view('admin.user.edit', [
+            'user' => new UserResource($user)
         ]);
     }
 
@@ -76,11 +74,9 @@ class UserController extends Controller
             $validData = $request->validated();
             $this->userService->update($user, $validData);
 
-            return back()->with('message', 'Запись успешно обновлена')
-                ->setStatusCode(Response::HTTP_OK);
+            return response()->json('Запись успешно обновлена', Response::HTTP_OK);
         }catch(Exception $exp){
-            return back()->with('error', 'Ошибка при добавлении записи')
-                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json('Ошибка при удалении записи', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -88,16 +84,13 @@ class UserController extends Controller
     {
         try{
             if($user->id == auth()->id()){
-                return back()->with('error', 'Вы не можете удалить себя')
-                    ->setStatusCode(Response::HTTP_FORBIDDEN);
+                return response()->json('Вы не можете удалить себя', Response::HTTP_FORBIDDEN);
             }
             $this->userService->delete($user);
-    
-            return back()->with('message', 'Запись успешно удалена')
-                ->setStatusCode(Response::HTTP_OK);
+
+            return response()->json('Запись успешно удалена', Response::HTTP_OK);
         }catch(Exception $exp){
-            return back()->with('error', 'Ошибка при удалении записи')
-                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json('Ошибка при удалении записи', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-    }   
+    } 
 }

@@ -8,7 +8,6 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function(){
     Route::prefix('dictation')->name('dictation.')->group(function(){
         Route::get('/', [App\Http\Controllers\Admin\DictationController::class, 'index'])->name('list');
         Route::get('/autoCompleteSearch', [App\Http\Controllers\Admin\DictationController::class, 'autoCompleteSearch'])->name('autoCompleteDictationSearch');
-        Route::get('/create', [App\Http\Controllers\Admin\DictationController::class, 'create'])->name('create');
         Route::get('/edit/{dictation}', [App\Http\Controllers\Admin\DictationController::class, 'edit'])->name('edit');
         Route::post('/store', [App\Http\Controllers\Admin\DictationController::class, 'store'])->name('store');
         Route::put('/update/{dictation}', [App\Http\Controllers\Admin\DictationController::class, 'update'])->name('update');
@@ -18,7 +17,6 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function(){
     Route::prefix('user')->name('user.')->group(function(){
         Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('list');
         Route::get('/autoCompleteSearch', [App\Http\Controllers\Admin\UserController::class, 'autoCompleteSearch'])->name('autoCompleteUserSearch');
-        Route::get('/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('create');
         Route::get('/edit/{user}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('edit');
         Route::put('/update/{user}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('update');
         Route::post('/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('store');
@@ -27,10 +25,9 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function(){
 
     Route::prefix('dictationResult')->name('dictationResult.')->group(function(){
         Route::get('/', [App\Http\Controllers\Admin\DictationResultController::class, 'index'])->name('list');
-        Route::get('/create', [App\Http\Controllers\Admin\DictationResultController::class, 'create'])->name('create');
         Route::get('/edit/{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'edit'])->name('edit');
         Route::post('/store', [App\Http\Controllers\Admin\DictationResultController::class, 'store'])->name('store');
-        Route::put('/update{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'update'])->name('update');
+        Route::put('/update/{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'update'])->name('update');
         Route::delete('/delete/{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'delete'])->name('delete');
     });
 });

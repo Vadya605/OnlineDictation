@@ -1,1 +1,1 @@
-<a href="{{ $action }}" class="bi bi-pencil-square fs-2"></a>
+<button class="btn bi bi-pencil-square btn-edit" data-bs-toggle="modal" data-bs-target="#modalUpdate" id="{{ $recordId }}"></button>

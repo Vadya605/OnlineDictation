@@ -54,19 +54,15 @@ class DictationController extends Controller
             $validData = $request->validated();
             $this->dictationService->create($validData);
 
-            return back()->with('message', 'Запись успешно добавлена')
-                ->setStatusCode(Response::HTTP_CREATED);
+            return response()->json('Запись успешно добавлена', Response::HTTP_CREATED);
         }catch(Exception $exp){
-            return back()->with('error', 'Ошибка при добавлении записи')
-                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json('Ошибка при добавлении записи', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
     public function edit(Dictation $dictation)
     {
-        return view('admin.dictation.edit', [
-            'dictation' => new DictationResource($dictation)
-        ]);
+        return response()->json(new DictationResource($dictation), Response::HTTP_OK);
     }
 
     public function update(UpdateDictationRequest $request, Dictation $dictation)
@@ -75,11 +71,9 @@ class DictationController extends Controller
             $validData = $request->validated();
             $this->dictationService->update($dictation, $validData);
 
-            return back()->with('message', 'Запись успешно обновлена')
-                    ->setStatusCode(Response::HTTP_OK);
+            return response()->json('Запись успешно обновлена', Response::HTTP_OK);
         }catch(Exception $exp){
-            return back()->with('error', 'Ошибка при обновлении записи')
-                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json('Ошибка при обновлении записи', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -87,12 +81,10 @@ class DictationController extends Controller
     {
         try{
             $this->dictationService->delete($dictation);
-            
-            return back()->with('message', 'Запись успешно удалена')
-                ->setStatusCode(Response::HTTP_OK);
+
+            return response()->json('Запись успешно удалена', Response::HTTP_OK);
         }catch(Exception $exception){
-            return back()->with('error', 'Ошибка при удалении записи')
-                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json('Ошибка при удалении записи', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

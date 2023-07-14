@@ -4,7 +4,6 @@ namespace App\Http\Requests\Admin\Dictation;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
-use Carbon\Carbon;
 
 class StoreDictationRequest extends FormRequest
 {
@@ -25,11 +24,11 @@ class StoreDictationRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:191',
-            'video_link' => 'nullable|active_url',
+            'video_link' => 'required|active_url',
             'is_active' => 'boolean',
             'description' => 'nullable|string',
-            'from_date_time' => 'nullable|date_format:d.m.Y H:i',
-            'to_date_time' => 'nullable|date_format:d.m.Y H:i|
+            'from_date_time' => 'required|date_format:d.m.Y H:i',
+            'to_date_time' => 'required|date_format:d.m.Y H:i|
                                 after_or_equal:from_date_time'
         ];
     }
@@ -41,10 +40,13 @@ class StoreDictationRequest extends FormRequest
             'title.string' => trans('custom_validation.admin.dictations.title.string'),
             'title.max' => trans('custom_validation.admin.dictations.title.max'),
             'video_link.active_url' => trans('custom_validation.admin.dictations.video_link.active_url'),
+            'video_link.required' => trans('custom_validation.admin.dictations.video_link.required'),
             'is_active.boolean' => trans('custom_validation.admin.dictations.is_active.boolean'),
             'description.string' => trans('custom_validation.admin.dictations.description.string'),
             'from_date_time.date_format' => trans('custom_validation.admin.dictations.to_date_time.date_format'),
+            'from_date_time.required' => trans('custom_validation.admin.dictations.to_date_time.required'),
             'to_date_time.date_format' => trans('custom_validation.admin.dictations.to_date_time.date_format'),
+            'to_date_time.required' => trans('custom_validation.admin.dictations.to_date_time.required'),
             'to_date_time.after_or_equal' => trans('custom_validation.admin.dictations.to_date_time.after_or_equal'),
         ];
     }

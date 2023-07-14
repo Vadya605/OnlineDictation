@@ -1,7 +1,8 @@
 @push('js')
     @vite(['resources/js/admin/sorting.js', 'resources/js/admin/filter.js', 
             'resources/js/admin/pagination.js', 'resources/js/admin/reset.js',
-            
+            'resources/js/admin/user/create.js', 'resources/js/admin/user/update.js',
+            'resources/js/admin/user/delete.js'
     ])
 @endpush
 @extends('layouts.adminApp')
@@ -36,7 +37,20 @@
         </div>
     </div>
 </div>
-
+<div class="modal-update">
+    <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Изменить пользователя</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-12">
         <div class="d-flex align-items-center gap-2">

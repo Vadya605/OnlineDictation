@@ -12,11 +12,11 @@ class EditButton extends Component
      * Create a new component instance.
      */
 
-    public $action;
+    public $recordId;
 
-    public function __construct($action)
+    public function __construct($recordId)
     {
-        $this->action = $action;
+        $this->recordId = $recordId;
     }
 
     /**

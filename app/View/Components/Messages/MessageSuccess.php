@@ -12,11 +12,9 @@ class MessageSuccess extends Component
      * Create a new component instance.
      */
 
-    public $message;
-
-    public function __construct($message)
+    public function __construct()
     {
-        $this->message = $message;
+        //
     }
 
     /**

@@ -1,1 +1,1 @@
-<a href="{{ $action }}" class="btn btn-danger">Сбросить</a>
+<a href="{{ $action }}" class="btn btn-danger btn-reset">Сбросить</a>

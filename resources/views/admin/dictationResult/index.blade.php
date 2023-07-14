@@ -3,7 +3,7 @@
         'resources/js/admin/pagination.js', 'resources/js/admin/reset.js', 
         'resources/js/admin/dictationResult/initAutoCompleteSearch.js', 
         'resources/js/admin/dictationResult/create.js', 'resources/js/admin/dictationResult/update.js',
-        'resources/js/admin/dictationResult/delete.js'
+        'resources/js/admin/dictationResult/delete.js', 'resources/js/admin/dictationResult/clearSearch.js'
     ])
 @endpush
 @extends('layouts.adminApp')

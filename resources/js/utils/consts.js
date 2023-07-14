@@ -15,12 +15,14 @@ export const routes = {
     update: (id) => `${baseAdminUrl}/dictation/update/${id}`,
     create: `${baseAdminUrl}/dictation/store`,
     delete: (id) => `${baseAdminUrl}/dictation/delete/${id}`,
+    search: `${baseAdminUrl}/dictation/autoCompleteSearch`,
   },
   user: {
     get: (id) => `${baseAdminUrl}/user/edit/${id}`,
     update: (id) => `${baseAdminUrl}/user/update/${id}`,
     create: `${baseAdminUrl}/user/store`,
     delete: (id) => `${baseAdminUrl}/user/delete/${id}`,
+    search: `${baseAdminUrl}/user/autoCompleteSearch`,
   },
   dictationResult: {
     get: (id) => `${baseAdminUrl}/dictationResult/edit/${id}`,

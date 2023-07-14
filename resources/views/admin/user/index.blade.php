@@ -69,9 +69,6 @@
     <div class="col-12">
         <form id="formFilters" action="{{ route('admin.user.list') }}" method="get">
             <div class="d-flex justify-content-between flex-column flex-md-row gap-2">
-                <input type="hidden" name="filter_column" id="filterColumn" value="{{ request()->query('filter_column') }}">
-                <input type="hidden" name="filter_option" id="filterOption" value="{{ request()->query('filter_option') }}">
-                <input type="hidden" name="filter_value" id="filterValue" value="{{ request()->query('filter_value') }}">
                 <div class="d-flex flex-md-nowrap flex-wrap gap-1">
                     <x-search inputPlaceholder="Имя или email" />
                     <div class="filters flex-grow-1">

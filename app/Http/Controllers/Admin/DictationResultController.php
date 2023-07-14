@@ -9,9 +9,8 @@ use App\Http\Requests\Admin\DictationResult\IndexDictationResultRequest;
 use App\Http\Requests\Admin\DictationResult\UpdateDictationResultRequest;
 use App\Http\Requests\Admin\DictationResult\StoreDictationResultRequest;
 use App\Http\Resources\DictationResult\DictationResultResource;
-use App\Http\Resources\DictationResult\DictationResultCollection;
-use App\Http\Resources\Dictation\DictationCollection;
-use App\Http\Resources\User\UserCollection;
+use App\Http\Resources\Dictation\DictationResource;
+use App\Http\Resources\User\UserResource;
 use App\Services\Admin\DictationResultService;
 use App\Services\Admin\DictationService;
 use App\Services\Admin\UserService;
@@ -29,22 +28,25 @@ class DictationResultController extends Controller
         $this->dictationResultService = $dictationResultService;
         $this->dictationService = $dictationService;
         $this->userService = $userService;
-
     }
 
     public function index(IndexDictationResultRequest $request)
     {
-        $request->validated();
         $validData = $request->validated();
 
         $dictationResults = $this->dictationResultService->getAll($validData);
-        
-        $dictationResults->appends($validData);
+        // $dictationResults->appends($validData);
+
+        if($request->ajax()){
+            return view('admin.dictationResult.table', [
+                'dictationResults' => DictationResultResource::collection($dictationResults)
+            ]);
+        }
 
         return view('admin.dictationResult.index', [
-            'dictationResults' => new DictationResultCollection($dictationResults),
-            'dictations' => new DictationCollection($this->dictationService->getResultsAutoCompleteSearch()),
-            'users' => new UserCollection($this->userService->getResultsAutoCompleteSearch())
+            'dictationResults' => DictationResultResource::collection($dictationResults),
+            'dictations' => DictationResource::collection($this->dictationService->getResultsAutoCompleteSearch()),
+            'users' => UserResource::collection($this->userService->getResultsAutoCompleteSearch())
         ]);
     }
 

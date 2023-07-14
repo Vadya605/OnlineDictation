@@ -13,22 +13,22 @@ class UserRepository
     {
         $users = User::query();
 
-        $sortColumn = Arr::get($outputValues, 'sort_column');
-        $sortOption = Arr::get($outputValues, 'sort_option');
+        if($sort = Arr::get($outputValues, 'sort')){
+            $sortParams = config("params.sort.users.{$sort}");
+            $sortColumn = Arr::get($sortParams, 'sort_column');
+            $sortOption = Arr::get($sortParams, 'sort_option');
 
-        if($sortColumn && $sortOption){
             $users->orderBy($sortColumn, $sortOption);
         }
 
-        $filterColumn = Arr::get($outputValues, 'filter_column');
-        $filterOption = Arr::get($outputValues, 'filter_option');
-        $filterValue = Arr::get($outputValues, 'filter_value');
+        if($filter = Arr::get($outputValues, 'filter')){
+            $filterParams = config("params.filter.users.{$filter}");
+            $filterColumn = Arr::get($filterParams, 'filter_column');
+            $filterOption = Arr::get($filterParams, 'filter_option');
+            $filterValue = Arr::get($filterParams, 'filter_value');
 
-
-        if($filterColumn && $filterOption && $filterValue){
-            $users->whereRaw("{$filterColumn} {$filterOption} {$filterValue}");
+            $users->where($filterColumn, $filterOption, $filterValue);
         }
-        
         
         if($fromDateTime = Arr::get($outputValues, 'date_from')){
             $users->where('created_at', '>=', Carbon::parse($fromDateTime)->format('Y-m-d H:i:s'));

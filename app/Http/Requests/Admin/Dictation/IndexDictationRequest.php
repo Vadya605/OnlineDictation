@@ -3,8 +3,7 @@
 namespace App\Http\Requests\Admin\Dictation;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Validator;
-use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 
 class IndexDictationRequest extends FormRequest
 {
@@ -24,11 +23,8 @@ class IndexDictationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sort_column' => 'nullable|in:id,created_at,title,from_date_time,to_date_time,is_active,video_link,description,created_at',
-            'sort_option' => 'nullable|in:asc,desc',
-            'filter_column' => 'nullable|in:id,is_active,video_link,from_date_time,to_date_time,description',
-            'filter_option' => 'nullable|in:<,>,=,>=,<=,is,is not',
-            'filter_value' => 'nullable|string',
+            'sort' => Rule::in(array_keys(config('params.sort.dictations'))),
+            'filter' =>  Rule::in(array_keys(config('params.filter.dictations'))),
             'search' => 'nullable|string',
             'date_from' => 'nullable|date_format:d.m.Y H:i',
             'date_to' => 'nullable|date_format:d.m.Y H:i|after_or_equal:date_from',
@@ -38,16 +34,8 @@ class IndexDictationRequest extends FormRequest
     public function messages()
     {
         return [
-            'sort_column.nullable' => trans('custom_validation.admin.*.sort_column.nullable') ,
-            'sort_column.in' => trans('custom_validation.admin.*.sort_column.in') ,
-            'sort_option.nullable' =>  trans('custom_validation.admin.*.sort_option.nullable'),
-            'sort_option.in' =>  trans('custom_validation.admin.*.sort_option.in'),
-            'filter_column.nullable' =>  trans('custom_validation.admin.*.filter_column.nullable'),
-            'filter_column.in' =>  trans('custom_validation.admin.*.filter_column.in'),
-            'filter_option.nullable' => trans('custom_validation.admin.*.filter_option.nullable'),
-            'filter_option.in' =>  trans('custom_validation.admin.*.filter_option.in'),
-            'filter_value.nullable' => trans('custom_validation.admin.*.filter_value.nullable') ,
-            'filter_value.string' => trans('custom_validation.admin.*.filter_value.string') ,
+            'sort.in' => trans('custom_validation.admin.*.sort.in'),
+            'filter.in' => trans('custom_validation.admin.*.filter.in'),
             'search.nullable' =>  trans('custom_validation.admin.*.search.nullable'),
             'search.string' =>  trans('custom_validation.admin.*.search.string'),
             'date_from.nullable' =>  trans('custom_validation.admin.*.date_from.nullable'),

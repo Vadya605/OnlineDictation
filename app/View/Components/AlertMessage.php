@@ -1,21 +1,19 @@
 <?php
 
-namespace App\View\Components\Arrows;
+namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ArrowUp extends Component
+class AlertMessage extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $sortValue;
-
-    public function __construct($sortValue)
+    public function __construct()
     {
-        $this->sortValue = $sortValue;
+        //
     }
 
     /**
@@ -23,6 +21,6 @@ class ArrowUp extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.arrows.arrow-up');
+        return view('components.alert-message');
     }
 }

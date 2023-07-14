@@ -10,11 +10,8 @@ use App\Http\Requests\Admin\User\StoreUserRequest;
 use App\Http\Requests\Admin\User\UpdateUserRequest;
 use App\Services\Admin\UserService;
 use App\Http\Resources\User\UserResource;
-use App\Http\Resources\User\UserCollection;
 use App\Models\User;
-use Carbon\Carbon;
 use Exception;
-
 
 class UserController extends Controller
 {
@@ -30,10 +27,16 @@ class UserController extends Controller
         $validData = $request->validated();
     
         $users = $this->userService->getAll($validData);
-        $users->appends($validData);
+        // $users->appends($validData);
+
+        if($request->ajax()){
+            return view('admin.user.table', [
+                'users' => UserResource::collection($users)
+            ]);
+        }
 
         return view('admin.user.index', [
-            'users' => new UserCollection($users),
+            'users' => UserResource::collection($users),
         ]);
     }
 
@@ -96,8 +99,5 @@ class UserController extends Controller
             return back()->with('error', 'Ошибка при удалении записи')
                 ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-    }
-
-    
-    
+    }   
 }

@@ -1,28 +1,39 @@
-document.querySelectorAll('.sort-item').forEach(sortItem => {
-    sortItem.addEventListener('click', () => {
-        const columnSort = sortItem.getAttribute('data-column')
-        const optionSort = sortItem.getAttribute('data-option')
+import { refreshTable } from "./refreshTable";
+import { showMessageError } from "./showMessageError";
 
-        sort(columnSort, optionSort)
-    })
+document.addEventListener('click', async e => {
+    if(isClickSortItem(e)){
+        const sortValue = e.target.getAttribute('data-value')
+        await sort(sortValue)
+        setActiveSortItem(sortValue)
+    }
 })
 
-function sort(columnSort, optionSort){
-    let url = new URL(window.location.href)
-    url.searchParams.set('sort_column', columnSort)
-    url.searchParams.set('sort_option', optionSort)
-    window.location.href = url
+function setActiveSortItem(sortValue){
+    sortValue && document.querySelector(`[data-value="${sortValue}"]`).classList.add('active-sort-item')
+}
+
+function isClickSortItem(e){
+    return e.target.classList.contains('sort-item')
+}
+
+async function sort(sortValue){
+    try{
+        const url = new URL(window.location.href)
+        url.searchParams.set('sort', sortValue)
+    
+        history.pushState(null, null, url)
+    
+        await refreshTable()
+    }catch(error){
+        history.back()
+        showMessageError(error.sort[0])
+    }
 }
 
 window.addEventListener('load', () => {
     const url = new URL(window.location.href)
-    
-    const sortColumn = url.searchParams.get('sort_column')
-    const sortOption = url.searchParams.get('sort_option')
+    const sortValue = url.searchParams.get('sort')
 
-    const activeSortItem = document.querySelector(`[data-column="${sortColumn}"][data-option="${sortOption}"]`)
-
-    if(activeSortItem){
-        activeSortItem.classList.add('text-primary')
-    }
+    setActiveSortItem(sortValue)
 })

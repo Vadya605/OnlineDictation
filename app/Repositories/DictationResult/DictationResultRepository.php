@@ -17,10 +17,11 @@ class DictationResultRepository
                 ->select('dictation_results.*', 'users.name', 'users.email', 'dictations.title')
                 ->whereNull('dictations.deleted_at');
 
-        $sortColumn = Arr::get($outputValues, 'sort_column');
-        $sortOption = Arr::get($outputValues, 'sort_option');
+        if($sort = Arr::get($outputValues, 'sort')){
+            $sortParams = config("params.sort.dictationResults.{$sort}");
+            $sortColumn = Arr::get($sortParams, 'sort_column');
+            $sortOption = Arr::get($sortParams, 'sort_option');
 
-        if($sortColumn && $sortOption){
             $dictationResults->orderBy($sortColumn, $sortOption);
         }
 

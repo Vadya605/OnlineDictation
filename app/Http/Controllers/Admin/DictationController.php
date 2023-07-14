@@ -10,7 +10,6 @@ use App\Http\Requests\Admin\Dictation\UpdateDictationRequest;
 use App\Http\Requests\Admin\Dictation\IndexDictationRequest;
 use App\Services\Admin\DictationService;
 use App\Http\Resources\Dictation\DictationResource;
-use App\Http\Resources\Dictation\DictationCollection;
 use App\Models\Dictation;
 use Exception;
 
@@ -29,10 +28,16 @@ class DictationController extends Controller
         $validData = $request->validated();
 
         $dictations = $this->dictationService->getAll($validData);
-        $dictations->appends($validData);
+        // $dictations->appends($validData);
+
+        if($request->ajax()){
+            return view('admin.dictation.table', [
+                'dictations' => DictationResource::collection($dictations)
+            ]);
+        }
 
         return view('admin.dictation.index', [
-            'dictations' => new DictationCollection($dictations)
+            'dictations' => DictationResource::collection($dictations)
         ]);
     }
 

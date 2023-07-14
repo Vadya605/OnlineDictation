@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\DictationResult;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class IndexDictationResultRequest extends FormRequest
 {
@@ -22,9 +23,7 @@ class IndexDictationResultRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sort_column' => 'nullable|
-            in:dictation_results.id,dictation_results.created_at,dictation_results.date_time_result,dictations.title,users.name,users.email,dictation_results.text_result',
-            'sort_option' => 'nullable|in:asc,desc',
+            'sort' => Rule::in(array_keys(config('params.sort.dictationResults'))),
             'dictation' => 'nullable|exists:dictations,id',
             'user' => 'nullable|exists:users,id',
             'date_from' => 'nullable|date_format:d.m.Y H:i',
@@ -35,10 +34,7 @@ class IndexDictationResultRequest extends FormRequest
     public function messages()
     {
         return [
-            'sort_column.nullable' => trans('custom_validation.admin.*.sort_column.nullable') ,
-            'sort_column.in' => trans('custom_validation.admin.*.sort_column.in') ,
-            'sort_option.nullable' =>  trans('custom_validation.admin.*.sort_option.nullable'),
-            'sort_option.in' =>  trans('custom_validation.admin.*.sort_option.in'),
+            'sort.in' => trans('custom_validation.admin.*.sort.in'),
             'dictation.exists' => trans('custom_validation.admin.dictation_results.dictation.exists'),
             'user.exists' => trans('custom_validation.admin.dictation_results.user.exists'),
             'date_from.nullable' =>  trans('custom_validation.admin.*.date_from.nullable'),

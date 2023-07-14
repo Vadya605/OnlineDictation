@@ -72,14 +72,40 @@ nav{
     margin-left: 1px;
 }
 
-.sort-item:hover{
-    cursor: pointer;
+.btn-edit{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 30px !important;
+    height: 30px !important;
+    padding: 0 !important;
+    font-size: 30px;
+    color: #0d6efd;
+    transition: all .3s ease-in-out;
 }
 
-.arrow:hover{
-    font-weight: bold;
+.btn-edit:hover{
+    cursor: pointer;
+    color: #0b5ed7;
+}
+
+.sort-item:hover{
+    cursor: pointer;
+    color: #0b5ed7;
+}
+
+.sort-item.active-sort-item{
+    color: #0b5ed7;
 }
 
 .select-2{
     width: 200px;
+}
+
+.alert{
+    display: none;
+}
+
+td{
+    vertical-align: middle;
 }

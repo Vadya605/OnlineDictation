@@ -13,20 +13,30 @@ class DictationRepository
     {
         $dictations = Dictation::query();
 
-        $sortColumn = Arr::get($outputValues, 'sort_column');
-        $sortOption = Arr::get($outputValues, 'sort_option');
+        if($sort = Arr::get($outputValues, 'sort')){
+            $sortParams = config("params.sort.dictations.{$sort}");
+            $sortColumn = Arr::get($sortParams, 'sort_column');
+            $sortOption = Arr::get($sortParams, 'sort_option');
 
-        if($sortColumn && $sortOption){
             $dictations->orderBy($sortColumn, $sortOption);
         }
 
-        $filterColumn = Arr::get($outputValues, 'filter_column');
-        $filterOption = Arr::get($outputValues, 'filter_option');
-        $filterValue = Arr::get($outputValues, 'filter_value');
+        if($filter = Arr::get($outputValues, 'filter')){
+            $filterParams = config("params.filter.dictations.{$filter}");
+            $filterColumn = Arr::get($filterParams, 'filter_column');
+            $filterOption = Arr::get($filterParams, 'filter_option');
+            $filterValue = Arr::get($filterParams, 'filter_value');
 
-
-        if($filterColumn && $filterOption && $filterValue){
-            $dictations->whereRaw("{$filterColumn} {$filterOption} {$filterValue}");
+            switch($filterOption){
+                case 'is not null':
+                    $dictations->whereNotNull($filterColumn);
+                    break;
+                case 'is null':
+                    $dictations->whereNull($filterColumn);
+                    break;
+                default:
+                    $dictations->where($filterColumn, $filterOption, $filterValue);
+            }
         }
         
         if($search = Arr::get($outputValues, 'search')){

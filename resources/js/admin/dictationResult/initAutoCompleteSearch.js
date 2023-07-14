@@ -3,17 +3,14 @@ select2()
 
 const searchDictaitonPath = "/admin/dictation/autoCompleteSearch";
 const searchUserPath = "/admin/user/autoCompleteSearch";
-const url = new URL(window.location.href)
 
-const dictationSearch = $('#dictationSearch')
-const userSearch = $('#userSearch')
-
-const selectedDictationId = url.searchParams.get('dictation')
-const selectedUserId = url.searchParams.get('user')
+const searchDictation = $('#searchDictation')
+const searchUser = $('#searchUser')
 
 
-dictationSearch.select2({
+searchDictation.select2({
     placeholder: 'Диктант',
+    allowClear: true,
     ajax: {
         url: searchDictaitonPath,
         dataType: 'json',
@@ -31,21 +28,9 @@ dictationSearch.select2({
     }
 });
 
-$.ajax({
-    url: searchDictaitonPath,
-    dataType: 'json',
-    success: function (data) {
-        const selectedItem = data.find(item => item.id == selectedDictationId)
-
-        if (selectedItem) {
-            const option = new Option(selectedItem.title, selectedItem.id);
-            dictationSearch.append(option).trigger('change');
-        }
-    },
-});
-
-userSearch.select2({
+searchUser.select2({
     placeholder: 'Пользователь',
+    allowClear: true,
     ajax: {
         url: searchUserPath,
         dataType: 'json',
@@ -61,20 +46,12 @@ userSearch.select2({
         },
         cache: true
     }
-});  
+}); 
 
-$.ajax({
-    url: searchUserPath,
-    dataType: 'json',
-    success: function (data) {
-        const selectedItem = data.find(item => item.id == selectedUserId)
-
-        if (selectedItem) {
-            const option = new Option(selectedItem.name, selectedItem.id);
-            userSearch.append(option).trigger('change');
-        }
-    },
-});
+// $('#formFilters').on('reset', function() {
+//     $(dictationSearch).val(null).trigger('change')
+//     $(userSearch).val(null).trigger('change')
+// });
 
 
 

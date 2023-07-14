@@ -12,11 +12,11 @@ class ArrowDown extends Component
      * Create a new component instance.
      */
 
-    public $dataColumn;
+    public $sortValue;
 
-    public function __construct($dataColumn)
+    public function __construct($sortValue)
     {
-        $this->dataColumn = $dataColumn;
+        $this->sortValue = $sortValue;
     }
 
     /**

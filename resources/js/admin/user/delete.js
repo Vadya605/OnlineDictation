@@ -31,7 +31,7 @@ btnResolve.addEventListener('click', async () => {
 })
 
 function handleFormSubmitError(error){
-    if(error.status === 500 || error.status === 403){
+    if(error.status === StatusCodes.INTERNAL_SERVER_ERROR || error.status === StatusCodes.FORBIDDEN){
         showMessageError(error.data)
     }
 }

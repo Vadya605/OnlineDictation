@@ -46,10 +46,10 @@ async function handleSubmitFormUpdate(e){
 }
 
 function handleFormSubmitError(error) {
-    const formUpdate =  document.querySelector('#formUpdate')
-    if(error.status === 422){
+    if(error.status === StatusCodes.UNPROCESSABLE_ENTITY){
+        const formUpdate =  document.querySelector('#formUpdate')
         showValidationErrors(formUpdate, error.data.errors)
-    }else if(error.status === 500){
+    }else if(error.status === StatusCodes.INTERNAL_SERVER_ERROR){
         modalUpdate.hide()
         showMessageError(error.data)
     }

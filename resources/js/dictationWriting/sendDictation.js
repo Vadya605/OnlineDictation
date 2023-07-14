@@ -31,7 +31,7 @@ function saveDictationResult(dictationResultData){
     return new Promise((resolve, reject) => {
         axios.post('/saveDictationResult', dictationResultData)
             .then(response => {
-                if(response.status === 201){
+                if(response.status === StatusCodes.CREATED){
                     resolve(response.data)
                 }
                 reject('Результат не удалось сохранить')

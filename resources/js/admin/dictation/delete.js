@@ -33,7 +33,7 @@ btnResolve.addEventListener('click', async () => {
 })
 
 function handleFormSubmitError(error){
-    if(error.status === 500){
+    if(error.status === StatusCodes.INTERNAL_SERVER_ERROR){
         showMessageError(error.data)
     }
 }

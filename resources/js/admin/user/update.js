@@ -1,8 +1,8 @@
 import { routes } from "../../utils/consts"
-import { getItem, update } from "../queries"
+import { getItem, update } from "../../queries"
 import { refreshTable } from "../refreshTable"
-import { showMessageError } from "../showMessageError"
-import { showMessageSuccess } from "../showMessageSuccess"
+import { showMessageError } from "../../showMessageError"
+import { showMessageSuccess } from "../../showMessageSuccess"
 import { showValidationErrors } from "../showValidationErrors"
 
 const modalUpdate = new bootstrap.Modal(document.querySelector('#modalUpdate'))

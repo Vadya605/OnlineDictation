@@ -1,8 +1,8 @@
 import { OPTIONS_PICKER, routes } from '../../utils/consts'
 import { removeValidationErrors } from '../removeValidationErrors'
-import { update, getItem } from '../queries'
-import { showMessageError } from '../showMessageError'
-import { showMessageSuccess } from '../showMessageSuccess'
+import { update, getItem } from "../../queries"
+import { showMessageError } from '../../showMessageError'
+import { showMessageSuccess } from '../../showMessageSuccess'
 import { showValidationErrors } from '../showValidationErrors'
 import { refreshTable } from '../refreshTable'
 

@@ -1,5 +1,5 @@
+import { showMessageError } from "../showMessageError";
 import { refreshTable } from "./refreshTable";
-import { showMessageError } from "./showMessageError";
 
 document.addEventListener('click', async e => {
     if(isClickSortItem(e)){

@@ -1,4 +1,4 @@
-import { getHtmlTable } from "./queries"
+import { getHtmlTable } from "../queries"
 
 const table = document.querySelector('.table-records')
 const loader = document.querySelector('.loader')

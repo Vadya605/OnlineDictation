@@ -7,7 +7,8 @@ export const OPTIONS_PICKER = {
     locale: Russian,
 }
 
-export const baseAdminUrl = 'http://localhost:8000/admin'
+export const baseUrl = 'http://localhost:8000'
+export const baseAdminUrl = `${baseUrl}/admin`
 
 export const routes = {
   dictation: {

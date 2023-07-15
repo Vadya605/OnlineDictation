@@ -1,8 +1,8 @@
 import { routes } from "../../utils/consts"
-import { remove } from "../queries"
+import { remove } from "../../queries"
 import { refreshTable } from "../refreshTable"
-import { showMessageError } from "../showMessageError"
-import { showMessageSuccess } from "../showMessageSuccess"
+import { showMessageError } from '../../showMessageError'
+import { showMessageSuccess } from '../../showMessageSuccess'
 
 const btnResolve = document.querySelector('.resolve')
 let selectedDictationId = null

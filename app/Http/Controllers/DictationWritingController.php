@@ -38,7 +38,7 @@ class DictationWritingController extends Controller
 
             return response()->json('Результат сохранен', Response::HTTP_CREATED);
         }catch(Exception $exp){
-            return response()->json('Результат не удалось сохранить', Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json($exp->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

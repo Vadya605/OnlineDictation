@@ -1,65 +1,40 @@
-import axios from 'https://cdn.jsdelivr.net/npm/axios@1.3.5/+esm';
+import { create } from "../queries";
+import { showMessageError } from "../showMessageError";
+import { showMessageSuccess } from "../showMessageSuccess";
+import { routes } from "../utils/consts";
 
-const userId = document.querySelector('#user_id').value
-const dictationId = document.querySelector('#dictation_id').value
+document.querySelector('.date').textContent = moment(new Date()).format('DD.MM.YYYY')
 
-document.querySelector('.date').textContent = new Date().toLocaleDateString()
+const formDictation = document.querySelector('#formDictation')
 
-document.querySelector('.dictation-form').addEventListener('submit', (event) => {    
-    event.preventDefault()
-    
-    const dictationResultData = {
-        _token: document.querySelector('meta[name="csrf-token"]').content,
-        user_id: userId,
-        dictation_id: dictationId,
-        text_result: document.querySelector('#text_result').value,
-        date_time_result: new Date().toLocaleString().replace(',','')
+formDictation.addEventListener('submit', async e => {    
+    try{
+        e.preventDefault()
+        formDictation.elements.btn_send.disabled = true
+
+        const dictationResultData = new FormData(formDictation)
+        dictationResultData.set('date_time_result', moment(new Date()).format('DD.MM.YYYY H:mm:ss'))
+        
+        const response = await create(routes.dictationResult.save, dictationResultData)
+        showMessageSuccess(response)
+        disabledForm(e.target)
+        localStorage.removeItem(`textResult_${dictationResultData.get('user_id')}_${dictationResultData.get('dictation_id')}`)
+    }catch(error){
+        formDictation.elements.btn_send.disabled = false
+        handleFormSubmitError(error)
     }
-
-    saveDictationResult(dictationResultData)
-        .then(result => {
-            disabledForm(event.target)
-            showMessage({status: 'success', text: result})
-            localStorage.removeItem(`textResult_${userId}_${dictationId}`)
-        })
-        .catch(error => showMessage({status: 'error', text: error}))
 })
 
-
-
-function saveDictationResult(dictationResultData){
-    return new Promise((resolve, reject) => {
-        axios.post('/saveDictationResult', dictationResultData)
-            .then(response => {
-                if(response.status === StatusCodes.CREATED){
-                    resolve(response.data)
-                }
-                reject('Результат не удалось сохранить')
-            })
-            .catch(error => {
-                reject(error.response.data)
-            });
-    }) 
-}
-
-
-function disabledForm(form){
-    form.querySelectorAll('*').forEach(element => {
+function disabledForm(){
+    formDictation.querySelectorAll('*').forEach(element => {
         element.disabled = true
     })
 }
 
-function showMessage(message){
-    let messageBox = document.querySelector('.message')
-    
-    messageBox.classList.remove('d-none')
-    
-    if(message.status == 'error'){
-        messageBox.classList.add('alert-danger')
-    }else{
-        messageBox.classList.add('alert-success')
+function handleFormSubmitError(error) {
+    if(error.status === StatusCodes.UNPROCESSABLE_ENTITY){
+        showMessageError(error.data.message)
+    }else if(error.status === StatusCodes.INTERNAL_SERVER_ERROR){
+        showMessageError(error.data)
     }
-    
-    console.log(messageBox)
-    messageBox.innerHTML += `<div>${message.text}</div>`
 }

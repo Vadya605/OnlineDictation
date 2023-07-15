@@ -30,5 +30,6 @@ export const routes = {
     update: (id) => `${baseAdminUrl}/dictationResult/update/${id}`,
     create: `${baseAdminUrl}/dictationResult/store`,
     delete: (id) => `${baseAdminUrl}/dictationResult/delete/${id}`,
+    save: `${baseUrl}/saveDictationResult`
   },
 }

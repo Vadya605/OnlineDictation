@@ -28,7 +28,7 @@ class DictationController extends Controller
         $validData = $request->validated();
 
         $dictations = $this->dictationService->getAll($validData);
-        // $dictations->appends($validData);
+        $dictations->appends($validData);
 
         if($request->ajax()){
             return view('admin.dictation.table', [

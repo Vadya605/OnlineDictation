@@ -27,7 +27,7 @@ class UserController extends Controller
         $validData = $request->validated();
     
         $users = $this->userService->getAll($validData);
-        // $users->appends($validData);
+        $users->appends($validData);
 
         if($request->ajax()){
             return view('admin.user.table', [

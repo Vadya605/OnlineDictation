@@ -17,7 +17,7 @@ formDictation.addEventListener('submit', async e => {
         
         const response = await create(routes.dictationResult.save, dictationResultData)
         showMessageSuccess(response)
-        disabledForm(e.target)
+        disabledForm()
         localStorage.removeItem(`textResult_${dictationResultData.get('user_id')}_${dictationResultData.get('dictation_id')}`)
     }catch(error){
         formDictation.elements.btn_send.disabled = false

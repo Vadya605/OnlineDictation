@@ -63,8 +63,8 @@
             @foreach ($dictationResults as $dictationResult)
                 <tr>
                     <td class="align-middle">{{ $dictationResult->id }}</td>
-                    <td class="align-middle"><a href="{{ route('admin.user.edit', $dictationResult->user) }}">{{ $dictationResult->user->name }}</a></td>
-                    <td class="align-middle"><a href="{{ route('admin.dictation.edit', $dictationResult->dictation) }}">{{ $dictationResult->dictation->title }}</a></td>
+                    <td class="align-middle"><a href="#">{{ $dictationResult->user->name }}</a></td>
+                    <td class="align-middle"><a href="#">{{ $dictationResult->dictation->title }}</a></td>
                     <td class="align-middle">{{ $dictationResult->user->email }}</td>
                     <td class="align-middle">{{ Str::limit($dictationResult->text_result, 30) }}</td>
                     <td class="align-middle">{{ $dictationResult->date_time_result }}</td>

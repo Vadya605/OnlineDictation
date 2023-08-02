@@ -1,22 +1,19 @@
-import { OPTIONS_PICKER, routes } from '../../utils/consts'
-import { removeValidationErrors } from '../removeValidationErrors'
-import { update, getItem } from "../../queries"
-import { showMessageError } from '../../showMessageError'
-import { showMessageSuccess } from '../../showMessageSuccess'
-import { showValidationErrors } from '../showValidationErrors'
+import { OPTIONS_PICKER, ROUTES } from '../../utils/consts'
 import { refreshTable } from '../refreshTable'
+import { showMessageError, showMessageSuccess, showValidationErrors, removeValidationErrors } from '../../utils/messages'
+import { update, getItem } from '../../utils/queries'
 
 
 const formUpdate = document.forms['formUpdate']
-const elementsFormUpdate = formUpdate.elements
-const pickrFromDateTime = flatpickr(elementsFormUpdate.from_date_time, OPTIONS_PICKER)
-const pickrToDateTime = flatpickr(elementsFormUpdate.to_date_time, OPTIONS_PICKER)
+const pickrFromDateTime = flatpickr(formUpdate.elements.from_date_time, OPTIONS_PICKER)
+const pickrToDateTime = flatpickr(formUpdate.elements.to_date_time, OPTIONS_PICKER)
 const modalUpdate = new bootstrap.Modal(document.querySelector('#modalUpdate'))
 
 
 document.addEventListener('click', async e => {
     if(isClickButtonEdit(e)){
-        const dictationData = await getItem(routes.dictation.get(e.target.id))
+        const dictationId = e.target.id
+        const dictationData = await getItem(ROUTES.dictation.get(dictationId))
         removeValidationErrors(formUpdate)
         fillForm(dictationData)
     }
@@ -27,11 +24,11 @@ function isClickButtonEdit(e){
 }
 
 function fillForm(dictationData){
-    elementsFormUpdate.id.value = dictationData.id
-    elementsFormUpdate.title.value = dictationData.title
-    elementsFormUpdate.video_link.value = dictationData.video_link
-    elementsFormUpdate.description.value = dictationData.description
-    elementsFormUpdate.is_active.checked = dictationData.is_active
+    formUpdate.elements.id.value = dictationData.id
+    formUpdate.elements.title.value = dictationData.title
+    formUpdate.elements.video_link.value = dictationData.video_link
+    formUpdate.elements.description.value = dictationData.description
+    formUpdate.elements.is_active.checked = dictationData.is_active
     dictationData.from_date_time && pickrFromDateTime.setDate(new Date(dictationData.from_date_time))
     dictationData.to_date_time && pickrToDateTime.setDate(new Date(dictationData.to_date_time))
 }
@@ -39,12 +36,13 @@ function fillForm(dictationData){
 formUpdate.addEventListener('submit', async e => {
     try{
         e.preventDefault()
-        elementsFormUpdate.btnUpdate.disabled = true
+        formUpdate.elements.btnUpdate.disabled = true
 
         const dictationData = new FormData(formUpdate)
-        dictationData.set('is_active', Number(elementsFormUpdate.is_active.checked))
+        dictationData.set('is_active', Number(formUpdate.elements.is_active.checked))
+        const dictationId = dictationData.get('id')
 
-        const response = await update(routes.dictation.update(dictationData.get('id')), dictationData)
+        const response = await update(ROUTES.dictation.update(dictationId, dictationData))
 
         modalUpdate.hide()
         await refreshTable()
@@ -52,7 +50,7 @@ formUpdate.addEventListener('submit', async e => {
     }catch(error){
         handleFormSubmitError(error)
     }finally{
-        elementsFormUpdate.btnUpdate.disabled = false
+        formUpdate.elements.btnUpdate.disabled = false
     }
 
 })

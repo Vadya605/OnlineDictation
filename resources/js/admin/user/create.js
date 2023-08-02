@@ -1,22 +1,20 @@
-import { routes } from "../../utils/consts"
-import { create } from "../../queries"
-import { showMessageError } from '../../showMessageError'
-import { showMessageSuccess } from '../../showMessageSuccess'
-import { showValidationErrors } from "../showValidationErrors"
+import { ROUTES } from "../../utils/consts"
+import { create } from "../../utils/queries"
 import { clearForm } from "../clearForm"
 import { refreshTable } from "../refreshTable"
+import { showMessageError, showMessageSuccess, showValidationErrors } from '../../utils/messages'
+
 
 const modalCreate = new bootstrap.Modal(document.querySelector('#modalCreate'))
 const formCreate = document.forms['formCreate']
-const elementsFormCreate = formCreate.elements
 
 formCreate.addEventListener('submit', async (e) => {
     try{
         e.preventDefault()
-        elementsFormCreate.btnAdd.disabled = true
+        formCreate.elements.btnAdd.disabled = true
 
         const userData = new FormData(formCreate)
-        const response = await create(routes.user.create, userData)
+        const response = await create(ROUTES.user.create, userData)
         
         clearForm(formCreate)
         modalCreate.hide()
@@ -25,7 +23,7 @@ formCreate.addEventListener('submit', async (e) => {
     }catch(error){
         handleFormSubmitError(error)
     }finally{
-        elementsFormCreate.btnAdd.disabled = false
+        formCreate.elements.btnAdd.disabled = false
     }
 })
 

@@ -1,8 +1,9 @@
-import { routes } from "../../utils/consts"
-import { remove } from "../../queries"
+import { ROUTES } from "../../utils/consts"
+import { remove } from "../../utils/queries"
 import { refreshTable } from "../refreshTable"
-import { showMessageError } from "../../showMessageError"
-import { showMessageSuccess } from "../../showMessageSuccess"
+import { showMessageError, showMessageSuccess } from '../../utils/messages'
+
+
 const btnResolve = document.querySelector('.resolve')
 let selectedUserId = null
 
@@ -19,7 +20,7 @@ function isClickButtonDelete(e){
 btnResolve.addEventListener('click', async () => {
     try{
         btnResolve.disabled = true
-        const response = await remove(routes.user.delete(selectedUserId))
+        const response = await remove(ROUTES.user.delete(selectedUserId))
 
         await refreshTable()
         showMessageSuccess(response)

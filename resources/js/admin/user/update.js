@@ -1,16 +1,15 @@
-import { routes } from "../../utils/consts"
-import { getItem, update } from "../../queries"
+import { ROUTES } from "../../utils/consts"
+import { getItem, update } from "../../utils/queries"
 import { refreshTable } from "../refreshTable"
-import { showMessageError } from "../../showMessageError"
-import { showMessageSuccess } from "../../showMessageSuccess"
-import { showValidationErrors } from "../showValidationErrors"
+import { showMessageError, showMessageSuccess, showValidationErrors } from '../../utils/messages'
+
 
 const modalUpdate = new bootstrap.Modal(document.querySelector('#modalUpdate'))
 
 
 document.addEventListener('click', async e => {
     if(isClickButtonEdit(e)){
-        const htmlForm = await getItem(routes.user.get(e.target.id))
+        const htmlForm = await getItem(ROUTES.user.get(e.target.id))
         createForm(htmlForm)
     }
 })
@@ -32,7 +31,7 @@ async function handleSubmitFormUpdate(e){
         btnUpdate.disabled = true
 
         const userData = new FormData(e.target)
-        const response = await update(routes.user.update(userData.get('user_id')), userData)
+        const response = await update(ROUTES.user.update(userData.get('user_id')), userData)
 
         modalUpdate.hide()
         await refreshTable()

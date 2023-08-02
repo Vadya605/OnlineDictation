@@ -1,5 +1,7 @@
-import { showMessageError } from "../showMessageError";
+import { showMessageError } from "../utils/messages";
 import { refreshTable } from "./refreshTable";
+
+const url = new URL(window.location.href)
 
 document.addEventListener('click', async e => {
     if(isClickSortItem(e)){
@@ -19,11 +21,8 @@ function isClickSortItem(e){
 
 async function sort(sortValue){
     try{
-        const url = new URL(window.location.href)
         url.searchParams.set('sort', sortValue)
-    
         history.pushState(null, null, url)
-    
         await refreshTable()
     }catch(error){
         history.back()
@@ -32,8 +31,6 @@ async function sort(sortValue){
 }
 
 window.addEventListener('load', () => {
-    const url = new URL(window.location.href)
     const sortValue = url.searchParams.get('sort')
-
     setActiveSortItem(sortValue)
 })

@@ -1,5 +1,5 @@
 import select2 from 'select2'
-import { routes } from '../../utils/consts'
+import { ROUTES } from '../../utils/consts'
 select2()
 
 const url = new URL(window.location.href)
@@ -12,7 +12,7 @@ searchDictation.select2({
     placeholder: 'Диктант',
     allowClear: true,
     ajax: {
-        url: routes.dictation.search,
+        url: ROUTES.dictation.search,
         dataType: 'json',
         processResults: function (data) {
             return {
@@ -29,7 +29,7 @@ searchDictation.select2({
 })
 
 $.ajax({
-    url: routes.dictation.search,
+    url: ROUTES.dictation.search,
     dataType: 'json',
     success: function (data) {
         const selectedDictationId = url.searchParams.get('dictation')
@@ -46,7 +46,7 @@ searchUser.select2({
     placeholder: 'Пользователь',
     allowClear: true,
     ajax: {
-        url: routes.user.search,
+        url: ROUTES.user.search,
         dataType: 'json',
         processResults: function (data) {
             return {
@@ -63,7 +63,7 @@ searchUser.select2({
 }) 
 
 $.ajax({
-    url: routes.user.search,
+    url: ROUTES.user.search,
     dataType: 'json',
     success: function (data) {
         const selectedUserId = url.searchParams.get('user')

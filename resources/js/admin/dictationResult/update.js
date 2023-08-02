@@ -1,21 +1,18 @@
-import { OPTIONS_PICKER, routes } from '../../utils/consts'
-import { getItem, update } from "../../queries"
-import { showMessageError } from '../../showMessageError'
-import { showMessageSuccess } from '../../showMessageSuccess'
-import { showValidationErrors } from "../showValidationErrors"
-import { removeValidationErrors } from '../removeValidationErrors'
+import { OPTIONS_PICKER, ROUTES } from '../../utils/consts'
+import { getItem, update } from "../../utils/queries"
 import { refreshTable } from '../refreshTable'
+import { showMessageError, showMessageSuccess, showValidationErrors, removeValidationErrors } from '../../utils/messages'
+
 
 
 const formUpdate = document.forms['formUpdate']
-const elementsFormUpdate = formUpdate.elements
 const modalUpdate = new bootstrap.Modal(document.querySelector('#modalUpdate'))
-const pickrDateTimeResult = flatpickr(elementsFormUpdate.date_time_result, OPTIONS_PICKER)
+const pickrDateTimeResult = flatpickr(formUpdate.elements.date_time_result, OPTIONS_PICKER)
 
 
 document.addEventListener('click', async e => {
     if(isClickButtonEdit(e)){
-        const dictationResultData = await getItem(routes.dictationResult.get(e.target.id))
+        const dictationResultData = await getItem(ROUTES.dictationResult.get(e.target.id))
         removeValidationErrors(formUpdate)
         fillForm(dictationResultData)
     }
@@ -26,31 +23,31 @@ function isClickButtonEdit(e){
 }
 
 function fillForm(dictationResultData){
-    elementsFormUpdate.id.value = dictationResultData.id
-    elementsFormUpdate.text_result.value = dictationResultData.text_result
+    formUpdate.elements.id.value = dictationResultData.id
+    formUpdate.elements.text_result.value = dictationResultData.text_result
     dictationResultData.date_time_result && pickrDateTimeResult.setDate(new Date(dictationResultData.date_time_result))
     setSelectedDictationId(dictationResultData.dictation.id)
     setSelectedUserId(dictationResultData.user.id)
 }
 
 function setSelectedDictationId(dictationId){
-    const selectedOption = elementsFormUpdate.dictation_id.querySelector(`option[value="${dictationId}"]`)
+    const selectedOption = formUpdate.elements.dictation_id.querySelector(`option[value="${dictationId}"]`)
     selectedOption.selected = true
 }
 
 function setSelectedUserId(userId){
-    const selectedOption = elementsFormUpdate.user_id.querySelector(`option[value="${userId}"]`)
+    const selectedOption = formUpdate.elements.user_id.querySelector(`option[value="${userId}"]`)
     selectedOption.selected = true
 }
 
 formUpdate.addEventListener('submit', async e => {
     try{
         e.preventDefault()
-        elementsFormUpdate.btnUpdate.disabled = true
+        formUpdate.elements.btnUpdate.disabled = true
 
         const dictationResultData = new FormData(formUpdate)
 
-        const response = await update(routes.dictationResult.update(dictationResultData.get('id')), dictationResultData)
+        const response = await update(ROUTES.dictationResult.update(dictationResultData.get('id')), dictationResultData)
 
         modalUpdate.hide()
         await refreshTable()
@@ -58,7 +55,7 @@ formUpdate.addEventListener('submit', async e => {
     }catch(error){
         handleFormSubmitError(error)
     }finally{
-        elementsFormUpdate.btnUpdate.disabled = false
+        formUpdate.elements.btnUpdate.disabled = false
     }
 
 })

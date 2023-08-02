@@ -1,12 +1,11 @@
 import { routes } from "../../utils/consts"
-import { remove } from "../../queries"
 import { refreshTable } from "../refreshTable"
-import { showMessageError } from '../../showMessageError'
-import { showMessageSuccess } from '../../showMessageSuccess'
+import { showMessageError, showMessageSuccess } from '../../utils/messages'
+import { remove } from "../../utils/queries"
+
 
 const btnResolve = document.querySelector('.resolve')
 let selectedDictationId = null
-const urlDelete = 'http://localhost:8000/admin/dictation/delete/'
 
 document.addEventListener('click', e => {
     if(isClickButtonDelete(e)){

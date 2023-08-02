@@ -1,25 +1,21 @@
-import { OPTIONS_PICKER, routes } from "../../utils/consts"
+import { OPTIONS_PICKER, ROUTES } from "../../utils/consts"
 import { clearForm } from "../clearForm"
-import { create } from "../../queries"
+import { create } from "../../utils/queries"
 import { refreshTable } from "../refreshTable"
-import { showMessageError } from '../../showMessageError'
-import { showMessageSuccess } from '../../showMessageSuccess'
-import { showValidationErrors } from "../showValidationErrors"
-
+import { showMessageError, showMessageSuccess, showValidationErrors } from '../../utils/messages'
 
 const modalCreate = new bootstrap.Modal(document.querySelector('#modalCreate'))
 const formCreate = document.forms['formCreate']
-const elementsFormCreate = formCreate.elements
-flatpickr(elementsFormCreate.date_time_result, OPTIONS_PICKER)
+flatpickr(formCreate.elements.date_time_result, OPTIONS_PICKER)
 
 formCreate.addEventListener('submit', async (e) => {
     try{
         e.preventDefault()
-        elementsFormCreate.btnAdd.disabled = true
+        formCreate.elements.btnAdd.disabled = true
 
         const dictationResultData = new FormData(formCreate)
 
-        const response = await create(routes.dictationResult.create, dictationResultData)
+        const response = await create(ROUTES.dictationResult.create, dictationResultData)
         
         clearForm(formCreate)
         modalCreate.hide()
@@ -28,7 +24,7 @@ formCreate.addEventListener('submit', async (e) => {
     }catch(error){
         handleFormSubmitError(error)
     }finally{
-        elementsFormCreate.btnAdd.disabled = false
+        formCreate.elements.btnAdd.disabled = false
     }
 })
 

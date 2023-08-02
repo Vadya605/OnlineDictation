@@ -1,7 +1,6 @@
-import { create } from "../queries";
-import { showMessageError } from "../showMessageError";
-import { showMessageSuccess } from "../showMessageSuccess";
-import { routes } from "../utils/consts";
+import { create } from "../utils/queries";
+import { showMessageError, showMessageSuccess } from "../utils/messages";
+import { ROUTES } from "../utils/consts";
 
 document.querySelector('.date').textContent = moment(new Date()).format('DD.MM.YYYY')
 
@@ -15,7 +14,7 @@ formDictation.addEventListener('submit', async e => {
         const dictationResultData = new FormData(formDictation)
         dictationResultData.set('date_time_result', moment(new Date()).format('DD.MM.YYYY H:mm:ss'))
         
-        const response = await create(routes.dictationResult.save, dictationResultData)
+        const response = await create(ROUTES.dictationResult.save, dictationResultData)
         showMessageSuccess(response)
         disabledForm()
         localStorage.removeItem(`textResult_${dictationResultData.get('user_id')}_${dictationResultData.get('dictation_id')}`)

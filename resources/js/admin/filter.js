@@ -1,6 +1,6 @@
 import { OPTIONS_PICKER } from "../utils/consts";
 import { refreshTable } from "./refreshTable";
-import { showValidationErrors } from "./showValidationErrors";
+import { showValidationErrors } from "../utils/messages";
 
 flatpickr(document.querySelectorAll('#fromDate, #toDate'), OPTIONS_PICKER)
 const formFilters = document.querySelector('#formFilters')
@@ -25,10 +25,10 @@ formFilters.addEventListener('submit', async e => {
 window.addEventListener('load', () => {
     const url = new URL(window.location.href)
     const filterValue = url.searchParams.get('filter')
-    setFilters(filterValue)  
+    setActiveFilter(filterValue)  
 })
 
-function setFilters(filterValue){
+function setActiveFilter(filterValue){
     const selectedFilter = formFilters.querySelector(`option[value="${filterValue}"]`)
     if(selectedFilter) selectedFilter.selected = true
 }

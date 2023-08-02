@@ -1,35 +1,35 @@
 import { Russian } from "flatpickr/dist/l10n/ru.js"
 
 export const OPTIONS_PICKER = {
-    enableTime: true,
-    dateFormat: "d.m.Y H:i",
-    time_24hr: true,
-    locale: Russian,
+  enableTime: true,
+  dateFormat: "d.m.Y H:i",
+  time_24hr: true,
+  locale: Russian,
 }
 
-export const baseUrl = 'http://localhost:8000'
-export const baseAdminUrl = `${baseUrl}/admin`
+export const BASE_URL = 'http://localhost:8000'
+export const BASE_ADMIN_URL = `${BASE_URL}/admin`
 
-export const routes = {
+export const ROUTES = {
   dictation: {
-    get: (id) => `${baseAdminUrl}/dictation/edit/${id}`,
-    update: (id) => `${baseAdminUrl}/dictation/update/${id}`,
-    create: `${baseAdminUrl}/dictation/store`,
-    delete: (id) => `${baseAdminUrl}/dictation/delete/${id}`,
-    search: `${baseAdminUrl}/dictation/autoCompleteSearch`,
+    get: (id) => `${BASE_ADMIN_URL}/dictation/edit/${id}`,
+    update: (id) => `${BASE_ADMIN_URL}/dictation/update/${id}`,
+    create: `${BASE_ADMIN_URL}/dictation/store`,
+    delete: (id) => `${BASE_ADMIN_URL}/dictation/delete/${id}`,
+    search: `${BASE_ADMIN_URL}/dictation/autoCompleteSearch`,
   },
   user: {
-    get: (id) => `${baseAdminUrl}/user/edit/${id}`,
-    update: (id) => `${baseAdminUrl}/user/update/${id}`,
-    create: `${baseAdminUrl}/user/store`,
-    delete: (id) => `${baseAdminUrl}/user/delete/${id}`,
-    search: `${baseAdminUrl}/user/autoCompleteSearch`,
+    get: (id) => `${BASE_ADMIN_URL}/user/edit/${id}`,
+    update: (id) => `${BASE_ADMIN_URL}/user/update/${id}`,
+    create: `${BASE_ADMIN_URL}/user/store`,
+    delete: (id) => `${BASE_ADMIN_URL}/user/delete/${id}`,
+    search: `${BASE_ADMIN_URL}/user/autoCompleteSearch`,
   },
   dictationResult: {
-    get: (id) => `${baseAdminUrl}/dictationResult/edit/${id}`,
-    update: (id) => `${baseAdminUrl}/dictationResult/update/${id}`,
-    create: `${baseAdminUrl}/dictationResult/store`,
-    delete: (id) => `${baseAdminUrl}/dictationResult/delete/${id}`,
-    save: `${baseUrl}/saveDictationResult`
+    get: (id) => `${BASE_ADMIN_URL}/dictationResult/edit/${id}`,
+    update: (id) => `${BASE_ADMIN_URL}/dictationResult/update/${id}`,
+    create: `${BASE_ADMIN_URL}/dictationResult/store`,
+    delete: (id) => `${BASE_ADMIN_URL}/dictationResult/delete/${id}`,
+    save: `${BASE_URL}/saveDictationResult`
   },
 }

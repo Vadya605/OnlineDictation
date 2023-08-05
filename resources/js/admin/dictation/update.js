@@ -42,7 +42,7 @@ formUpdate.addEventListener('submit', async e => {
         dictationData.set('is_active', Number(formUpdate.elements.is_active.checked))
         const dictationId = dictationData.get('id')
 
-        const response = await update(ROUTES.dictation.update(dictationId, dictationData))
+        const response = await update(ROUTES.dictation.update(dictationId), dictationData)
 
         modalUpdate.hide()
         await refreshTable()

@@ -1,4 +1,4 @@
-import { routes } from "../../utils/consts"
+import { ROUTES } from "../../utils/consts"
 import { refreshTable } from "../refreshTable"
 import { showMessageError, showMessageSuccess } from '../../utils/messages'
 import { remove } from "../../utils/queries"
@@ -20,7 +20,7 @@ function isClickButtonDelete(e){
 btnResolve.addEventListener('click', async () => {
     try{
         btnResolve.disabled = true
-        const response = await remove(routes.dictation.delete(selectedDictationId))
+        const response = await remove(ROUTES.dictation.delete(selectedDictationId))
 
         await refreshTable()
         showMessageSuccess(response)

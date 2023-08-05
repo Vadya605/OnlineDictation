@@ -26,7 +26,7 @@
                                 <input type="text" class="form-control" id="title" name="title">
                             </div>
                             <div class="mb-3">
-                                <label for="video_link" class="form-label">Ссылка на видео</label>
+                                <label for="video_link" class="form-label">Ссылка на видео *</label>
                                 <input type="text" class="form-control" id="videoLink" name="video_link">
                             </div>
                             <div class="mb-3 form-check">
@@ -38,11 +38,11 @@
                                 <textarea class="form-control" name="description" id="description" cols="30" rows="5"></textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="fromDateTime">Дата и время начала</label>
+                                <label class="form-label" for="fromDateTime">Дата и время начала *</label>
                                 <input type="text" class="form-control" name="from_date_time" id="fromDateTime">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="toDateTime">Дата и время окончания</label>
+                                <label class="form-label" for="toDateTime">Дата и время окончания *</label>
                                 <input type="text" class="form-control" name="to_date_time" id="toDateTime">
                             </div>
                             <button type="submit" class="btn btn-primary mb-3" name="btnAdd">Добавить</button>
@@ -72,7 +72,7 @@
                                 <input type="text" class="form-control" id="title" name="title">
                             </div>
                             <div class="mb-3">
-                                <label for="video_link" class="form-label">Ссылка на видео</label>
+                                <label for="video_link" class="form-label">Ссылка на видео *</label>
                                 <input type="text" class="form-control" id="videoLink" name="video_link">
                             </div>
                             <div class="mb-3 form-check">
@@ -84,11 +84,11 @@
                                 <textarea class="form-control" name="description" id="description" cols="30" rows="5"></textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="fromDateTime">Дата и время начала</label>
+                                <label class="form-label" for="fromDateTime">Дата и время начала *</label>
                                 <input type="text" class="form-control" name="from_date_time" id="fromDateTime">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="toDateTime">Дата и время окончания</label>
+                                <label class="form-label" for="toDateTime">Дата и время окончания *</label>
                                 <input type="text" class="form-control" name="to_date_time" id="toDateTime">
                             </div>
                             <button type="submit" class="btn btn-primary mb-3" name="btnUpdate">Сохранить</button>

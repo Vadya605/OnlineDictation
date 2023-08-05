@@ -15,7 +15,7 @@ document.addEventListener('click', async e => {
     try{
         formUpdate.elements.btnUpdate.disabled = true
 
-        const dictationResultId = e.target.id
+        const dictationResultId = e.target.getAttribute('data-id')
         const dictationResultData = await getItem(ROUTES.dictationResult.get(dictationResultId))
 
         removeValidationErrors(formUpdate)

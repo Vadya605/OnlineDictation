@@ -8,10 +8,10 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function(){
     Route::prefix('dictation')->name('dictation.')->group(function(){
         Route::get('/', [App\Http\Controllers\Admin\DictationController::class, 'index'])->name('list');
         Route::get('/autoCompleteSearch', [App\Http\Controllers\Admin\DictationController::class, 'autoCompleteSearch'])->name('autoCompleteDictationSearch');
-        Route::get('/edit/{dictation}', [App\Http\Controllers\Admin\DictationController::class, 'edit'])->name('edit');
+        Route::get('/edit/{dictation:slug}', [App\Http\Controllers\Admin\DictationController::class, 'edit'])->name('edit');
         Route::post('/store', [App\Http\Controllers\Admin\DictationController::class, 'store'])->name('store');
-        Route::put('/update/{dictation}', [App\Http\Controllers\Admin\DictationController::class, 'update'])->name('update');
-        Route::delete('/delete/{dictation}', [App\Http\Controllers\Admin\DictationController::class, 'delete'])->name('delete');
+        Route::put('/update/{dictation:slug}', [App\Http\Controllers\Admin\DictationController::class, 'update'])->name('update');
+        Route::delete('/delete/{dictation:slug}', [App\Http\Controllers\Admin\DictationController::class, 'delete'])->name('delete');
     });
 
     Route::prefix('user')->name('user.')->group(function(){

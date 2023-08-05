@@ -70,8 +70,8 @@
                     <td class="align-middle">{{ $dictationResult->date_time_result }}</td>
                     <td class="align-middle">
                         <div class="d-flex align-items-center gap-1 w-100">
-                            <x-buttons.edit-button :recordId="$dictationResult->id" />
-                            <x-buttons.delete-button :recordId="$dictationResult->id" />
+                            <x-buttons.edit-button :record="$dictationResult->id" />
+                            <x-buttons.delete-button :record="$dictationResult->id" />
                         </div>
                     </td>
                 </tr>

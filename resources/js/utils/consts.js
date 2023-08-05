@@ -12,10 +12,10 @@ export const BASE_ADMIN_URL = `${BASE_URL}/admin`
 
 export const ROUTES = {
   dictation: {
-    get: (id) => `${BASE_ADMIN_URL}/dictation/edit/${id}`,
-    update: (id) => `${BASE_ADMIN_URL}/dictation/update/${id}`,
+    get: (slug) => `${BASE_ADMIN_URL}/dictation/edit/${slug}`,
+    update: (slug) => `${BASE_ADMIN_URL}/dictation/update/${slug}`,
     create: `${BASE_ADMIN_URL}/dictation/store`,
-    delete: (id) => `${BASE_ADMIN_URL}/dictation/delete/${id}`,
+    delete: (slug) => `${BASE_ADMIN_URL}/dictation/delete/${slug}`,
     search: `${BASE_ADMIN_URL}/dictation/autoCompleteSearch`,
   },
   user: {

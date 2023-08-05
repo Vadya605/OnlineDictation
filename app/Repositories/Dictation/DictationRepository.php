@@ -5,6 +5,7 @@ namespace App\Repositories\Dictation;
 use App\Models\Dictation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 class DictationRepository
@@ -103,6 +104,7 @@ class DictationRepository
         $newDictation->description=$dictationData['description'];
         $newDictation->from_date_time = $fromDateTime;
         $newDictation->to_date_time=$toDateTime;
+        $newDictation->slug = Str::slug($dictationData['title']);
         $newDictation->save();
 
         return $newDictation;
@@ -119,6 +121,8 @@ class DictationRepository
             $toDateTime = Carbon::parse($toDateTime)->format('Y-m-d H:i:s');
             $changeDictationData['to_date_time'] = $toDateTime;
         }
+
+        $changeDictationData['slug'] = Str::slug($changeDictationData['title']);
 
         $dictation->fill($changeDictationData);
         $dictation->save();

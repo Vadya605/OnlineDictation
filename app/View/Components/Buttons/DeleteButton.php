@@ -12,11 +12,11 @@ class DeleteButton extends Component
      * Create a new component instance.
      */
 
-    public $recordId;
+    public $record;
 
-    public function __construct($recordId)
+    public function __construct($record)
     {
-        $this->recordId = $recordId;
+        $this->record = $record;
     }
 
     /**

@@ -13,7 +13,7 @@ document.addEventListener('click', async e => {
     }
 
     try{
-        const userId = e.target.getAttribute('data-id')
+        const userId = e.target.getAttribute('data-record')
         const htmlForm = await getItem(ROUTES.user.get(userId))
         createForm(htmlForm)
     }catch(error){

@@ -5,11 +5,10 @@ import { remove } from "../../utils/queries"
 
 
 const btnResolve = document.querySelector('.resolve')
-let selectedDictationId = null
 
 document.addEventListener('click', e => {
     if(isClickButtonDelete(e)){
-        selectedDictationId = e.target.getAttribute('data-id')
+        btnResolve.setAttribute('data-record', e.target.getAttribute('data-record'))
     }
 })
 
@@ -20,7 +19,8 @@ function isClickButtonDelete(e){
 btnResolve.addEventListener('click', async () => {
     try{
         btnResolve.disabled = true
-        const response = await remove(ROUTES.dictation.delete(selectedDictationId))
+        const dictationId = btnResolve.getAttribute('data-record')
+        const response = await remove(ROUTES.dictation.delete(dictationId))
 
         await refreshTable()
         showMessageSuccess(response)

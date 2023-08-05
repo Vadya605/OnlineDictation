@@ -66,7 +66,6 @@
                         <form id="formUpdate" method="post">
                             @csrf
                             @method('PUT')
-                            <input type="hidden" name="id">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Название диктанта *</label>
                                 <input type="text" class="form-control" id="title" name="title">

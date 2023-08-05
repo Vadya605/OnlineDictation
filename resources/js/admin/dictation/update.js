@@ -4,10 +4,11 @@ import { showMessageError, showMessageSuccess, showValidationErrors, removeValid
 import { update, getItem } from '../../utils/queries'
 
 
+
 const formUpdate = document.forms['formUpdate']
+const modalUpdate = new bootstrap.Modal(document.querySelector('#modalUpdate'))
 const pickrFromDateTime = flatpickr(formUpdate.elements.from_date_time, OPTIONS_PICKER)
 const pickrToDateTime = flatpickr(formUpdate.elements.to_date_time, OPTIONS_PICKER)
-const modalUpdate = new bootstrap.Modal(document.querySelector('#modalUpdate'))
 
 
 document.addEventListener('click', async e => {
@@ -18,11 +19,12 @@ document.addEventListener('click', async e => {
     try{
         formUpdate.elements.btnUpdate.disabled = true
 
-        const dictationId = e.target.getAttribute('data-id')
-        const dictationData = await getItem(ROUTES.dictation.get(dictationId))
+        const dictationSlug = e.target.getAttribute('data-record')
+        const dictationData = await getItem(ROUTES.dictation.get(dictationSlug))
 
         removeValidationErrors(formUpdate)
         fillForm(dictationData)
+        formUpdate.setAttribute('data-record', dictationSlug)
     }catch(error){
         modalUpdate.hide()
         showMessageError('Не удалось получить запись для изменения')
@@ -36,7 +38,6 @@ function isClickButtonEdit(e){
 }
 
 function fillForm(dictationData){
-    formUpdate.elements.id.value = dictationData.id
     formUpdate.elements.title.value = dictationData.title
     formUpdate.elements.video_link.value = dictationData.video_link
     formUpdate.elements.description.value = dictationData.description
@@ -52,9 +53,9 @@ formUpdate.addEventListener('submit', async e => {
 
         const dictationData = new FormData(formUpdate)
         dictationData.set('is_active', Number(formUpdate.elements.is_active.checked))
-        const dictationId = dictationData.get('id')
+        const dictationSlug = formUpdate.getAttribute('data-record')
 
-        const response = await update(ROUTES.dictation.update(dictationId), dictationData)
+        const response = await update(ROUTES.dictation.update(dictationSlug), dictationData)
 
         modalUpdate.hide()
         await refreshTable()

@@ -96,8 +96,8 @@
                     <td class="align-middle">{{ $dictation->created_at }}</td>
                     <td class="align-middle">
                         <div class="d-flex align-items-center justify-content-end gap-1">
-                            <x-buttons.edit-button :recordId="$dictation->id" /> 
-                            <x-buttons.delete-button :recordId="$dictation->id" />
+                            <x-buttons.edit-button :record="$dictation->slug" /> 
+                            <x-buttons.delete-button :record="$dictation->slug" />
                         </div>
                     </td>
                 </tr>

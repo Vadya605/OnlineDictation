@@ -9,7 +9,7 @@ let selectedUserId = null
 
 document.addEventListener('click', e => {
     if(isClickButtonDelete(e)){
-        selectedUserId = e.target.getAttribute('data-id')
+        selectedUserId = e.target.getAttribute('data-record')
     }
 })
 

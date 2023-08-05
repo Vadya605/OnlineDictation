@@ -14,7 +14,8 @@ class Dictation extends Model
         'is_active',
         'description',
         'from_date_time',
-        'to_date_time'
+        'to_date_time',
+        'slug'
     ];
     use HasFactory;
     use SoftDeletes;

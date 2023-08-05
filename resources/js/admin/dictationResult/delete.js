@@ -9,7 +9,7 @@ let selectedDictationResultId = null
 
 document.addEventListener('click', e => {
     if(isClickButtonDelete(e)){
-        selectedDictationResultId = e.target.getAttribute('data-id')
+        selectedDictationResultId = e.target.getAttribute('data-record')
     }
 })
 

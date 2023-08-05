@@ -13,7 +13,6 @@ use App\Http\Resources\Dictation\DictationResource;
 use App\Models\Dictation;
 use Exception;
 
-
 class DictationController extends Controller
 {
     private $dictationService;

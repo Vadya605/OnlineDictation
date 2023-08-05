@@ -8,9 +8,17 @@ const modalUpdate = new bootstrap.Modal(document.querySelector('#modalUpdate'))
 
 
 document.addEventListener('click', async e => {
-    if(isClickButtonEdit(e)){
-        const htmlForm = await getItem(ROUTES.user.get(e.target.id))
+    if(!isClickButtonEdit(e)){
+        return 
+    }
+
+    try{
+        const userId = e.target.id
+        const htmlForm = await getItem(ROUTES.user.get(userId))
         createForm(htmlForm)
+    }catch(error){
+        modalUpdate.hide()
+        showMessageError('Не удалось получить запись для изменения')
     }
 })
 

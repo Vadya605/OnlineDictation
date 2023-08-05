@@ -11,11 +11,23 @@ const modalUpdate = new bootstrap.Modal(document.querySelector('#modalUpdate'))
 
 
 document.addEventListener('click', async e => {
-    if(isClickButtonEdit(e)){
+    if(!isClickButtonEdit(e)){
+        return 
+    }
+
+    try{
+        formUpdate.elements.btnUpdate.disabled = true
+
         const dictationId = e.target.id
         const dictationData = await getItem(ROUTES.dictation.get(dictationId))
+
         removeValidationErrors(formUpdate)
         fillForm(dictationData)
+    }catch(error){
+        modalUpdate.hide()
+        showMessageError('Не удалось получить запись для изменения')
+    }finally{
+        formUpdate.elements.btnUpdate.disabled = false
     }
 })
 

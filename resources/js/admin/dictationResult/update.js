@@ -3,18 +3,28 @@ import { getItem, update } from "../../utils/queries"
 import { refreshTable } from '../refreshTable'
 import { showMessageError, showMessageSuccess, showValidationErrors, removeValidationErrors } from '../../utils/messages'
 
-
-
 const formUpdate = document.forms['formUpdate']
 const modalUpdate = new bootstrap.Modal(document.querySelector('#modalUpdate'))
 const pickrDateTimeResult = flatpickr(formUpdate.elements.date_time_result, OPTIONS_PICKER)
 
-
 document.addEventListener('click', async e => {
-    if(isClickButtonEdit(e)){
-        const dictationResultData = await getItem(ROUTES.dictationResult.get(e.target.id))
+    if(!isClickButtonEdit(e)){
+        return 
+    }
+
+    try{
+        formUpdate.elements.btnUpdate.disabled = true
+
+        const dictationResultId = e.target.id
+        const dictationResultData = await getItem(ROUTES.dictationResult.get(dictationResultId))
+
         removeValidationErrors(formUpdate)
         fillForm(dictationResultData)
+    }catch(error){
+        modalUpdate.hide()
+        showMessageError('Не удалось получить запись для изменения')
+    }finally{
+        formUpdate.elements.btnUpdate.disabled = false
     }
 })
 

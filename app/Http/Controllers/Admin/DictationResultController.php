@@ -64,7 +64,7 @@ class DictationResultController extends Controller
 
     public function edit(DictationResult $dictationResult)
     {
-        return response()->json(new DictationResultResource($dictationResult));
+        return response()->json(new DictationResultResource($dictationResult), Response::HTTP_OK);
     }
 
     public function update(UpdateDictationResultRequest $request, DictationResult $dictationResult)

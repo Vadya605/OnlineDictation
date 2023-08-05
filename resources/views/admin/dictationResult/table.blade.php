@@ -6,8 +6,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Id</span>
                         <div class="d-flex gap-1">
-                            <x-arrows.arrow-up sortValue="Id ув" />
-                            <x-arrows.arrow-down sortValue="Id уб" />
+                            <x-arrows.arrow-up sortValue="Id asc" />
+                            <x-arrows.arrow-down sortValue="Id desc" />
                         </div>
                     </div>
                 </th>
@@ -15,8 +15,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Пользователь</span>
                         <div class="d-flex gap-1">
-                            <x-arrows.arrow-up sortValue="Пользователь ув" />
-                            <x-arrows.arrow-down sortValue="Пользователь уб" />
+                            <x-arrows.arrow-up sortValue="User asc" />
+                            <x-arrows.arrow-down sortValue="User desc" />
                         </div>
                     </div>
                 </th>
@@ -24,8 +24,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Диктант</span>
                         <div class="d-flex gap-1">
-                            <x-arrows.arrow-up sortValue="Диктант ув" />
-                            <x-arrows.arrow-down sortValue="Диктант уб" />
+                            <x-arrows.arrow-up sortValue="Dictation asc" />
+                            <x-arrows.arrow-down sortValue="Dictation desc" />
                         </div>
                     </div>
                 </th>
@@ -33,8 +33,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Email пользователя</span>
                         <div class="d-flex gap-1">
-                            <x-arrows.arrow-up sortValue="Email пользователя ув" />
-                            <x-arrows.arrow-down sortValue="Email пользователя уб" />
+                            <x-arrows.arrow-up sortValue="Email asc" />
+                            <x-arrows.arrow-down sortValue="Email desc" />
                         </div>
                     </div>
                 </th>
@@ -42,8 +42,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Текст диктанта</span>
                         <div class="d-flex gap-1">
-                            <x-arrows.arrow-up sortValue="Текст диктанта ув" />
-                            <x-arrows.arrow-down sortValue="Текст диктанта уб" />
+                            <x-arrows.arrow-up sortValue="Text asc" />
+                            <x-arrows.arrow-down sortValue="Text desc" />
                         </div>
                     </div>
                 </th>
@@ -51,8 +51,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Дата и время написания</span>
                         <div class="d-flex gap-1">
-                            <x-arrows.arrow-up sortValue="Дата и время написания ув" />
-                            <x-arrows.arrow-down sortValue="Дата и время написания уб" />
+                            <x-arrows.arrow-up sortValue="Written asc" />
+                            <x-arrows.arrow-down sortValue="Written desc" />
                         </div>
                     </div>
                 </th>

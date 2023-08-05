@@ -6,8 +6,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Id</span>
                         <div class="d-flex gap-1">
-                            <x-arrows.arrow-up sortValue="Id ув" />
-                            <x-arrows.arrow-down sortValue="Id уб" />
+                            <x-arrows.arrow-up sortValue="Id asc" />
+                            <x-arrows.arrow-down sortValue="Id desc" />
                         </div>
                     </div>
                 </th>
@@ -15,8 +15,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Название</span>
                         <div class="d-flex gap-1">
-                            <x-arrows.arrow-up sortValue="Название ув" />
-                            <x-arrows.arrow-down sortValue="Название уб" />
+                            <x-arrows.arrow-up sortValue="Title asc" />
+                            <x-arrows.arrow-down sortValue="Title desc" />
                         </div>
                     </div>
                 </th>
@@ -24,8 +24,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Видео</span>
                         <div class="d-flex gap-1">
-                            <x-arrows.arrow-up sortValue="Видео ув" />
-                            <x-arrows.arrow-down sortValue="Видео уб" />
+                            <x-arrows.arrow-up sortValue="Video asc" />
+                            <x-arrows.arrow-down sortValue="Video desc" />
                         </div>
                     </div>
                 </th>
@@ -33,8 +33,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Активен</span>
                         <div class="d-flex gap-1">
-                            <x-arrows.arrow-up sortValue="Активен ув" />
-                            <x-arrows.arrow-down sortValue="Активен уб" />
+                            <x-arrows.arrow-up sortValue="Active asc" />
+                            <x-arrows.arrow-down sortValue="Active desc" />
                         </div>
                     </div>
                 </th>
@@ -42,8 +42,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Описание</span>
                         <div class="d-flex gap-1">
-                            <x-arrows.arrow-up sortValue="Описание ув" />
-                            <x-arrows.arrow-down sortValue="Описание уб" />
+                            <x-arrows.arrow-up sortValue="Description asc" />
+                            <x-arrows.arrow-down sortValue="Description desc" />
                         </div>
                     </div>
                 </th>
@@ -51,8 +51,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Начало</span>
                         <div class="d-flex gap-1">
-                            <x-arrows.arrow-up sortValue="Начало ув" />
-                            <x-arrows.arrow-down sortValue="Начало уб" />
+                            <x-arrows.arrow-up sortValue="Beginning asc" />
+                            <x-arrows.arrow-down sortValue="Beginning desc" />
                         </div>
                     </div>
                 </th>
@@ -60,8 +60,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Окончание</span>
                         <div class="d-flex gap-1">
-                            <x-arrows.arrow-up sortValue="Окончание ув" />
-                            <x-arrows.arrow-down sortValue="Окончание уб" />
+                            <x-arrows.arrow-up sortValue="Ending asc" />
+                            <x-arrows.arrow-down sortValue="Ending desc" />
                         </div>
                     </div>
                 </th>
@@ -69,8 +69,8 @@
                     <div class="d-flex align-items-center gap-1">
                         <span>Дата создания</span>
                         <div class="d-flex">
-                            <x-arrows.arrow-up sortValue="Дата создания ув" />
-                            <x-arrows.arrow-down sortValue="Дата создания уб" />
+                            <x-arrows.arrow-up sortValue="Creation asc" />
+                            <x-arrows.arrow-down sortValue="Creation desc" />
                         </div>
                     </div>
                 </th>

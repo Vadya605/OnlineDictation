@@ -4,159 +4,159 @@ use App\Enums\User\UserRole;
 return [
     'sort' => [
         'dictations' => [
-            'Id ув' => [
+            'Id asc' => [
                 'sort_column' => 'id', 
                 'sort_option' => 'asc'
             ],
-            'Id уб' => [
+            'Id desc' => [
                 'sort_column' => 'id', 
                 'sort_option' => 'desc'
             ],
-            'Название ув' => [
+            'Title asc' => [
                 'sort_column' => 'title', 
                 'sort_option' => 'asc'
             ],
-            'Название уб' => [
+            'Title desc' => [
                 'sort_column' => 'title', 
                 'sort_option' => 'desc'
             ],
-            'Видео ув' => [
+            'Video asc' => [
                 'sort_column' => 'video_link', 
                 'sort_option' => 'asc'
             ],
-            'Видео уб' => [
+            'Video desc' => [
                 'sort_column' => 'video_link', 
                 'sort_option' => 'desc'
             ],
-            'Активен ув' => [
+            'Active asc' => [
                 'sort_column' => 'is_active', 
                 'sort_option' => 'asc'
             ],
-            'Активен уб' => [
+            'Active desc' => [
                 'sort_column' => 'is_active', 
                 'sort_option' => 'desc'
             ],
-            'Описание ув' => [
+            'Description asc' => [
                 'sort_column' => 'description', 
                 'sort_option' => 'asc'
             ],
-            'Описание уб' => [
+            'Description desc' => [
                 'sort_column' => 'description', 
                 'sort_option' => 'desc'
             ],
-            'Начало ув' => [
+            'Beginning asc' => [
                 'sort_column' => 'from_date_time', 
                 'sort_option' => 'asc'
             ],
-            'Начало уб' => [
+            'Beginning desc' => [
                 'sort_column' => 'from_date_time', 
                 'sort_option' => 'desc'
             ],
-            'Окончание ув' => [
+            'Ending asc' => [
                 'sort_column' => 'to_date_time', 
                 'sort_option' => 'asc'
             ],
-            'Окончание уб' => [
+            'Ending desc' => [
                 'sort_column' => 'to_date_time', 
                 'sort_option' => 'desc'
             ],
-            'Дата создания ув' => [
+            'Creation asc' => [
                 'sort_column' => 'created_at', 
                 'sort_option' => 'asc'
             ],
-            'Дата создания уб' => [
+            'Creation desc' => [
                 'sort_column' => 'created_at', 
                 'sort_option' => 'desc'
             ],
         ],
         'users' => [
-            'Id ув' => [
+            'Id asc' => [
                 'sort_column' => 'id', 
                 'sort_option' => 'asc'
             ],
-            'Id уб' => [
+            'Id desc' => [
                 'sort_column' => 'id', 
                 'sort_option' => 'desc'
             ],
-            'Имя ув' => [
+            'Name asc' => [
                 'sort_column' => 'name', 
                 'sort_option' => 'asc'
             ],
-            'Имя уб' => [
+            'Name desc' => [
                 'sort_column' => 'name', 
                 'sort_option' => 'desc'
             ],
-            'Email ув' => [
+            'Email asc' => [
                 'sort_column' => 'email', 
                 'sort_option' => 'asc'
             ],
-            'Email уб' => [
+            'Email desc' => [
                 'sort_column' => 'Email', 
                 'sort_option' => 'desc'
             ],
-            'Роль ув' => [
+            'Role asc' => [
                 'sort_column' => 'role', 
                 'sort_option' => 'asc'
             ],
-            'Роль уб' => [
+            'Role desc' => [
                 'sort_column' => 'role', 
                 'sort_option' => 'desc'
             ],
-            'Дата регистрации ув' => [
+            'Registration asc' => [
                 'sort_column' => 'created_at', 
                 'sort_option' => 'asc'
             ],
-            'Дата регистрации уб' => [
+            'Registration desc' => [
                 'sort_column' => 'created_at', 
                 'sort_option' => 'desc'
             ],
         ],
         'dictationResults' => [
-            'Id ув' => [
+            'Id asc' => [
                 'sort_column' => 'dictation_results.id', 
                 'sort_option' => 'asc'
             ],
-            'Id уб' => [
+            'Id desc' => [
                 'sort_column' => 'dictation_results.id', 
                 'sort_option' => 'desc'
             ],
-            'Пользователь ув' => [
+            'User asc' => [
                 'sort_column' => 'users.name', 
                 'sort_option' => 'asc'
             ],
-            'Пользователь уб' => [
+            'User desc' => [
                 'sort_column' => 'users.name', 
                 'sort_option' => 'desc'
             ],
-            'Email пользователя ув' => [
+            'Email asc' => [
                 'sort_column' => 'users.email', 
                 'sort_option' => 'asc'
             ],
-            'Email пользователя уб' => [
+            'Email desc' => [
                 'sort_column' => 'users.email', 
                 'sort_option' => 'desc'
             ],
-            'Диктант ув' => [
+            'Dictation asc' => [
                 'sort_column' => 'dictations.title', 
                 'sort_option' => 'asc'
             ],
-            'Диктант уб' => [
+            'Dictation desc' => [
                 'sort_column' => 'dictations.title', 
                 'sort_option' => 'desc'
             ],
-            'Текст диктанта ув' => [
+            'Text asc' => [
                 'sort_column' => 'dictation_results.text_result', 
                 'sort_option' => 'asc'
             ],
-            'Текст диктанта уб' => [
+            'Text desc' => [
                 'sort_column' => 'dictation_results.text_result', 
                 'sort_option' => 'desc'
             ],
-            'Дата и время написания ув' => [
+            'Written asc' => [
                 'sort_column' => 'dictation_results.date_time_result', 
                 'sort_option' => 'asc'
             ],
-            'Дата и время написания уб' => [
+            'Written desc' => [
                 'sort_column' => 'dictation_results.date_time_result', 
                 'sort_option' => 'desc'
             ],

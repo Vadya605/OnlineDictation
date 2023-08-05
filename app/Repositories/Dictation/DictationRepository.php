@@ -11,15 +11,18 @@ class DictationRepository
 {
     public function getAllDictation($outputValues=[])
     {
-        $dictations = Dictation::query();
+        $dictations = Dictation::query()
+            ->orderBy('created_at', 'desc');
 
         if($sort = Arr::get($outputValues, 'sort')){
             $sortParams = config("params.sort.dictations.{$sort}");
             $sortColumn = Arr::get($sortParams, 'sort_column');
             $sortOption = Arr::get($sortParams, 'sort_option');
 
+            $dictations->getQuery()->orders = null;
             $dictations->orderBy($sortColumn, $sortOption);
         }
+
 
         if($filter = Arr::get($outputValues, 'filter')){
             $filterParams = config("params.filter.dictations.{$filter}");
@@ -50,6 +53,9 @@ class DictationRepository
         if($toDateTime = Arr::get($outputValues, 'date_to')){
             $dictations->where('to_date_time', '<=', Carbon::parse($toDateTime)->format('Y-m-d H:i:s'));
         }
+
+        // return $dictations->toSql();
+
 
         return $dictations->paginate(10);
     }

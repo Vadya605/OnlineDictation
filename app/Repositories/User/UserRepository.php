@@ -11,13 +11,15 @@ class UserRepository
 {
     public function getAllUser($outputValues=[])
     {
-        $users = User::query();
+        $users = User::query()
+            ->orderBy('created_at', 'desc');
 
         if($sort = Arr::get($outputValues, 'sort')){
             $sortParams = config("params.sort.users.{$sort}");
             $sortColumn = Arr::get($sortParams, 'sort_column');
             $sortOption = Arr::get($sortParams, 'sort_option');
 
+            $users->getQuery()->orders = null;
             $users->orderBy($sortColumn, $sortOption);
         }
 

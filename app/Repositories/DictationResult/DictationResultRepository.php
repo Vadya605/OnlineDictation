@@ -12,16 +12,18 @@ class DictationResultRepository
     public function getAllDictationResults($outputValues=[])
     {
         $dictationResults = DictationResult::query()
-                ->join('users', 'dictation_results.user_id', '=', 'users.id')
-                ->join('dictations', 'dictation_results.dictation_id', '=', 'dictations.id')
-                ->select('dictation_results.*', 'users.name', 'users.email', 'dictations.title')
-                ->whereNull('dictations.deleted_at');
+            ->join('users', 'dictation_results.user_id', '=', 'users.id')
+            ->join('dictations', 'dictation_results.dictation_id', '=', 'dictations.id')
+            ->select('dictation_results.*', 'users.name', 'users.email', 'dictations.title')
+            ->orderBy('created_at', 'desc')
+            ->whereNull('dictations.deleted_at');
 
         if($sort = Arr::get($outputValues, 'sort')){
             $sortParams = config("params.sort.dictationResults.{$sort}");
             $sortColumn = Arr::get($sortParams, 'sort_column');
             $sortOption = Arr::get($sortParams, 'sort_option');
 
+            $dictationResults->getQuery()->orders = null;
             $dictationResults->orderBy($sortColumn, $sortOption);
         }
 

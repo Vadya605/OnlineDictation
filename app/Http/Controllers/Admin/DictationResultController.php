@@ -38,9 +38,12 @@ class DictationResultController extends Controller
         $dictationResults->appends($validData);
 
         if($request->ajax()){
-            return view('admin.dictationResult.table', [
-                'dictationResults' => DictationResultResource::collection($dictationResults)
-            ]);
+            return response()->json([
+                'html' => view('admin.dictationResult.table', [
+                    'dictationResults' => DictationResultResource::collection($dictationResults)
+                    ])->render(),
+                'total' => $dictationResults->total()
+            ], Response::HTTP_OK);
         }
 
         return view('admin.dictationResult.index', [

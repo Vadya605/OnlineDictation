@@ -1,5 +1,5 @@
 import { showMessageError } from "../utils/messages";
-import { refreshTable } from "./refreshTable";
+import { refreshRecords } from "./refreshRecords";
 
 const url = new URL(window.location.href)
 
@@ -23,7 +23,7 @@ async function sort(sortValue){
     try{
         url.searchParams.set('sort', sortValue)
         history.pushState(null, null, url)
-        await refreshTable()
+        await refreshRecords()
     }catch(error){
         history.back()
         showMessageError(error.sort[0])

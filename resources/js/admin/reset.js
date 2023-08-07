@@ -1,5 +1,5 @@
 import { clearForm } from "./clearForm"
-import { refreshTable } from "./refreshTable"
+import { refreshRecords } from "./refreshRecords"
 
 document.querySelector('.btn-reset').addEventListener('click', async e => {
     e.preventDefault()
@@ -7,7 +7,7 @@ document.querySelector('.btn-reset').addEventListener('click', async e => {
 
     const formFilters = document.querySelector('#formFilters')
     formFilters && clearForm(formFilters)
-    await refreshTable()
+    await refreshRecords()
     
     $('#searchDictation').val(null).trigger('change')
     $('#searchUser').val(null).trigger('change')

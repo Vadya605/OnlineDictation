@@ -1,10 +1,10 @@
-import { refreshTable } from "./refreshTable";
+import { refreshRecords } from "./refreshRecords";
 
 document.addEventListener('click', async e => {
     if(isClickPaginationLink(e)){
         e.preventDefault()
         history.pushState(null, null, e.target.href)
-        await refreshTable()
+        await refreshRecords()
     }
 })
 

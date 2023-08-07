@@ -1,5 +1,5 @@
 import { OPTIONS_PICKER } from "../utils/consts";
-import { refreshTable } from "./refreshTable";
+import { refreshRecords } from "./refreshRecords";
 import { showValidationErrors } from "../utils/messages";
 
 flatpickr(document.querySelectorAll('#fromDate, #toDate'), OPTIONS_PICKER)
@@ -16,7 +16,7 @@ formFilters.addEventListener('submit', async e => {
         }
     
         history.pushState(null, null, url)
-        await refreshTable()
+        await refreshRecords()
     }catch(error){
         showValidationErrors(formFilters, error)
     }

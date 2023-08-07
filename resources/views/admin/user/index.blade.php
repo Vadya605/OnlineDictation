@@ -53,9 +53,12 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="d-flex align-items-center gap-2">
-            <span class="fs-1">Пользователи</span>
-            <x-buttons.create-button formId="modalCreate" />
+        <div class="d-flex flex-sm-row flex-column align-items-sm-center align-items-start justify-content-between">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fs-1">Пользователи</span>
+                <span class="badge fs-6 bg-primary text-white total-records">{{ $users->total() }}</span>
+            </div>
+            <x-buttons.create-button textBtn="Добавить пользователя" />
         </div>
     </div>
 </div>

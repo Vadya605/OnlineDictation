@@ -1,1 +1,1 @@
-<button class="btn btn-primary btn-create bi-plus" data-bs-toggle="modal" data-bs-target="#{{ $formId }}"></button>
+<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCreate">{{ $textBtn }}</button>

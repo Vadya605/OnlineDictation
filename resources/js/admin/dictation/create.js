@@ -1,7 +1,7 @@
 import { OPTIONS_PICKER, ROUTES } from '../../utils/consts'
 import { clearForm } from '../clearForm'
 import { create } from "../../utils/queries"
-import { refreshTable } from '../refreshTable'
+import { refreshRecords } from '../refreshRecords'
 import { showMessageError, showMessageSuccess, showValidationErrors } from '../../utils/messages'
 
 
@@ -23,7 +23,7 @@ formCreate.addEventListener('submit', async (e) => {
 
         clearForm(formCreate)
         modalCreate.hide()
-        await refreshTable()
+        await refreshRecords()
         showMessageSuccess(response)
     }catch(error){
         handleFormSubmitError(error)

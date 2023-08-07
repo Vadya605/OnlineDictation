@@ -1,6 +1,6 @@
 import { ROUTES } from "../../utils/consts"
 import { getItem, update } from "../../utils/queries"
-import { refreshTable } from "../refreshTable"
+import { refreshRecords } from "../refreshRecords"
 import { showMessageError, showMessageSuccess, showValidationErrors } from '../../utils/messages'
 
 
@@ -42,7 +42,7 @@ async function handleSubmitFormUpdate(e){
         const response = await update(ROUTES.user.update(userData.get('user_id')), userData)
 
         modalUpdate.hide()
-        await refreshTable()
+        await refreshRecords()
         showMessageSuccess(response)
     }catch(error){
         handleFormSubmitError(error)

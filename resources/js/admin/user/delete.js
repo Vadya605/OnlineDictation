@@ -1,6 +1,6 @@
 import { ROUTES } from "../../utils/consts"
 import { remove } from "../../utils/queries"
-import { refreshTable } from "../refreshTable"
+import { refreshRecords } from "../refreshRecords"
 import { showMessageError, showMessageSuccess } from '../../utils/messages'
 
 
@@ -22,7 +22,7 @@ btnResolve.addEventListener('click', async () => {
         btnResolve.disabled = true
         const response = await remove(ROUTES.user.delete(selectedUserId))
 
-        await refreshTable()
+        await refreshRecords()
         showMessageSuccess(response)
     }catch(error){
         handleFormSubmitError(error)

@@ -30,9 +30,12 @@ class UserController extends Controller
         $users->appends($validData);
 
         if($request->ajax()){
-            return view('admin.user.table', [
-                'users' => UserResource::collection($users)
-            ]);
+            return response()->json([
+                'html' => view('admin.user.table', [
+                    'users' => UserResource::collection($users)
+                    ])->render(),
+                'total' => $users->total()
+            ], Response::HTTP_OK);
         }
 
         return view('admin.user.index', [

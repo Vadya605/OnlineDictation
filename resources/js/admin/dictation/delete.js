@@ -1,5 +1,5 @@
 import { ROUTES } from "../../utils/consts"
-import { refreshTable } from "../refreshTable"
+import { refreshRecords } from "../refreshRecords"
 import { showMessageError, showMessageSuccess } from '../../utils/messages'
 import { remove } from "../../utils/queries"
 
@@ -22,7 +22,7 @@ btnResolve.addEventListener('click', async () => {
         const dictationId = btnResolve.getAttribute('data-record')
         const response = await remove(ROUTES.dictation.delete(dictationId))
 
-        await refreshTable()
+        await refreshRecords()
         showMessageSuccess(response)
     }catch(error){
         handleFormSubmitError(error)

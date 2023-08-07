@@ -110,9 +110,12 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="d-flex align-items-center gap-2">
-            <span class="fs-1">Результаты диктантов</span>
-            <x-buttons.create-button formId="modalCreate" />
+        <div class="d-flex flex-md-row flex-column align-items-md-center align-items-start justify-content-between">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fs-1">Результаты диктантов</span>
+                <span class="badge fs-6 bg-primary text-white total-records">{{ $dictationResults->total() }}</span>
+            </div>
+            <x-buttons.create-button textBtn="Добавить результат" />
         </div>
     </div>
 </div>

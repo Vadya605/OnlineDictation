@@ -11,11 +11,11 @@ class CreateButton extends Component
     /**
      * Create a new component instance.
      */
-    public $formId;
+    public $textBtn;
 
-    public function __construct($formId)
+    public function __construct($textBtn)
     {
-        $this->formId = $formId;
+        $this->textBtn = $textBtn;
     }
 
     /**

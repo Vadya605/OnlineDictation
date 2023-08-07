@@ -100,9 +100,12 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="d-flex align-items-center gap-2">
-            <span class="fs-1">Диктанты</span>
-            <x-buttons.create-button formId="modalCreate" />
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fs-1">Диктанты</span>
+                <span class="badge fs-6 bg-primary text-white total-records">{{ $dictations->total() }}</span>
+            </div>
+            <x-buttons.create-button textBtn="Добавить диктант" />
         </div>
     </div>
 </div>

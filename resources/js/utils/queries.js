@@ -1,4 +1,4 @@
-export async function getHtmlTable(){
+export async function getRecords(){
     try{
         const response = await axios.get(window.location.href)
         return await response.data

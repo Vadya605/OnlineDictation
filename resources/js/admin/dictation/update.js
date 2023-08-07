@@ -1,5 +1,5 @@
 import { OPTIONS_PICKER, ROUTES } from '../../utils/consts'
-import { refreshTable } from '../refreshTable'
+import { refreshRecords } from '../refreshRecords'
 import { showMessageError, showMessageSuccess, showValidationErrors, removeValidationErrors } from '../../utils/messages'
 import { update, getItem } from '../../utils/queries'
 
@@ -58,7 +58,7 @@ formUpdate.addEventListener('submit', async e => {
         const response = await update(ROUTES.dictation.update(dictationSlug), dictationData)
 
         modalUpdate.hide()
-        await refreshTable()
+        await refreshRecords()
         showMessageSuccess(response)
     }catch(error){
         handleFormSubmitError(error)

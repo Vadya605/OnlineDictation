@@ -3,21 +3,19 @@ import { refreshRecords } from '../refreshRecords'
 import { showMessageError, showMessageSuccess, showValidationErrors, removeValidationErrors } from '../../utils/messages'
 import { update, getItem } from '../../utils/queries'
 
-
-
-const formUpdate = document.forms['formUpdate']
-const modalUpdate = new bootstrap.Modal(document.querySelector('#modalUpdate'))
+const formUpdate = document.forms['formModal']
+const modalUpdate = new bootstrap.Modal(document.querySelector('#modal'))
 const pickrFromDateTime = flatpickr(formUpdate.elements.from_date_time, OPTIONS_PICKER)
 const pickrToDateTime = flatpickr(formUpdate.elements.to_date_time, OPTIONS_PICKER)
 
 
 document.addEventListener('click', async e => {
     if(!isClickButtonEdit(e)){
-        return 
+        return
     }
 
     try{
-        formUpdate.elements.btnUpdate.disabled = true
+        formUpdate.elements.btn_submit.disabled = true
 
         const dictationSlug = e.target.getAttribute('data-record')
         const dictationData = await getItem(ROUTES.dictation.get(dictationSlug))
@@ -29,7 +27,7 @@ document.addEventListener('click', async e => {
         modalUpdate.hide()
         showMessageError('Не удалось получить запись для изменения')
     }finally{
-        formUpdate.elements.btnUpdate.disabled = false
+        formUpdate.elements.btn_submit.disabled = false
     }
 })
 
@@ -53,8 +51,9 @@ formUpdate.addEventListener('submit', async e => {
 
         const dictationData = new FormData(formUpdate)
         dictationData.set('is_active', Number(formUpdate.elements.is_active.checked))
-        const dictationSlug = formUpdate.getAttribute('data-record')
 
+        const dictationSlug = formUpdate.getAttribute('data-record')
+        
         const response = await update(ROUTES.dictation.update(dictationSlug), dictationData)
 
         modalUpdate.hide()

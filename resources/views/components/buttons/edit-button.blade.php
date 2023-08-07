@@ -1,1 +1,1 @@
-<button class="btn bi bi-pencil-square btn-edit" data-bs-toggle="modal" data-bs-target="#modalUpdate" data-record="{{ $record }}"></button>
+<button class="btn bi bi-pencil-square btn-edit" data-bs-toggle="modal" data-bs-target="#modal" data-record="{{ $record }}"></button>

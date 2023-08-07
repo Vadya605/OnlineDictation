@@ -5,8 +5,8 @@ import { refreshRecords } from '../refreshRecords'
 import { showMessageError, showMessageSuccess, showValidationErrors } from '../../utils/messages'
 
 
-const modalCreate = new bootstrap.Modal(document.querySelector('#modalCreate'))
-const formCreate = document.forms['formCreate']
+const modalCreate = new bootstrap.Modal(document.querySelector('#modal'))
+const formCreate = document.forms['formModal']
 
 flatpickr(formCreate.elements.from_date_time, OPTIONS_PICKER)
 flatpickr(formCreate.elements.to_date_time, OPTIONS_PICKER)
@@ -14,7 +14,7 @@ flatpickr(formCreate.elements.to_date_time, OPTIONS_PICKER)
 formCreate.addEventListener('submit', async (e) => {
     try{
         e.preventDefault()
-        formCreate.elements.btnAdd.disabled = true
+        formCreate.elements.btn_submit.disabled = true
 
         const dictationData = new FormData(formCreate)
         dictationData.set('is_active', Number(formCreate.elements.is_active.checked))
@@ -28,7 +28,7 @@ formCreate.addEventListener('submit', async (e) => {
     }catch(error){
         handleFormSubmitError(error)
     }finally{
-        formCreate.elements.btnAdd.disabled = false
+        formCreate.elements.btn_submit.disabled = false
     }
 })
 

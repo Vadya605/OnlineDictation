@@ -35,6 +35,7 @@ function changeModalTitle(textTitle){
 }
 
 function handleClickButtonCreate(e){
+    clearForm(formDictation)
     changeModalTitle('Добавить диктант')
 }
 
@@ -51,7 +52,6 @@ async function handleClickButtonEdit(e){
         formDictation.setAttribute('data-record', dictationSlug)
     }catch(error){
         modal.hide()
-        console.log(error)
         showMessageError('Не удалось получить запись для изменения')
     }finally{
         formDictation.elements.btn_submit.disabled = false
@@ -99,7 +99,6 @@ function conversionDataUpdating(data){
 }
 
 function handleFormSubmitError(error) {
-    console.log(error)
     if(error.status === StatusCodes.UNPROCESSABLE_ENTITY){
         showValidationErrors(formDictation, error.data.errors)
     }else if(error.status === StatusCodes.INTERNAL_SERVER_ERROR){

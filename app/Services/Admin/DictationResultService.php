@@ -24,6 +24,11 @@ class DictationResultService
         return $this->dictationResultRepository->getCountDictationResult();
     }
 
+    public function isCorrect(DictationResult $dictationResult)
+    {
+        return $dictationResult->text_result === $dictationResult->dictation->answer;
+    }
+
     public function getById($id)
     {
         return $this->dictationResultRepository->getDictationResultById($id);

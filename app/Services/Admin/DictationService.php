@@ -24,6 +24,11 @@ class DictationService
         return $this->dictationRepository->getCountDictation();
     }
 
+    public function getActive()
+    {
+        return $this->dictationRepository->getActiveDictation();
+    }
+
     public function getResultsAutoCompleteSearch($searchValue=null)
     {
         return $this->dictationRepository->getResultsAutoCompleteSearch($searchValue);

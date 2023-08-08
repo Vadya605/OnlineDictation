@@ -15,7 +15,8 @@ class Dictation extends Model
         'description',
         'from_date_time',
         'to_date_time',
-        'slug'
+        'slug',
+        'answer'
     ];
     use HasFactory;
     use SoftDeletes;
@@ -23,5 +24,10 @@ class Dictation extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'dictation_results');
+    }
+
+    public function results()
+    {
+        return $this->hasMany(DictationResult::class);
     }
 }

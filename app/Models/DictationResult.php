@@ -14,6 +14,8 @@ class DictationResult extends Model
         'dictation_id',
         'text_result',
         'date_time_result',
+        'is_checked',
+        'mark',
     ];
 
 

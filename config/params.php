@@ -188,64 +188,34 @@ return [
     ],
     'filter' => [
         'dictations' => [
-            'Активные' => [
+            'Active' => [
                 'filter_column' => 'is_active',
                 'filter_option' => '=',
                 'filter_value' => '1'
             ],
-            'Не активные' => [
+            'Not active' => [
                 'filter_column' => 'is_active',
                 'filter_option' => '=',
                 'filter_value' => '0'
             ],
-            'С видео' => [
-                'filter_column' => 'video_link',
-                'filter_option' => 'is not null',
-                'filter_value' => null
-            ],
-            'Без видео' => [
-                'filter_column' => 'video_link',
-                'filter_option' => 'is null',
-                'filter_value' => null
-            ],
-            'С датой начала' => [
-                'filter_column' => 'from_date_time',
-                'filter_option' => 'is not null',
-                'filter_value' => null
-            ],
-            'Без даты начала' => [
-                'filter_column' => 'from_date_time',
-                'filter_option' => 'is null',
-                'filter_value' => null
-            ],
-            'С датой окончания' => [
-                'filter_column' => 'to_date_time',
-                'filter_option' => 'is not null',
-                'filter_value' => null
-            ],
-            'Без даты окончания' => [
-                'filter_column' => 'to_date_time',
-                'filter_option' => 'is null',
-                'filter_value' => null
-            ],
-            'С описанием' => [
+            'With description' => [
                 'filter_column' => 'description',
                 'filter_option' => 'is not null',
                 'filter_value' => null
             ],
-            'Без описания' => [
+            'Without description' => [
                 'filter_column' => 'description',
                 'filter_option' => 'is null',
                 'filter_value' => null
             ],
         ],
         'users' => [
-            'Администраторы' => [
+            'Administrators' => [
                 'filter_column' => 'role',
                 'filter_option' => '=',
                 'filter_value' => UserRole::ADMIN
             ],
-            'Пользователи' => [
+            'Users' => [
                 'filter_column' => 'role',
                 'filter_option' => '=',
                 'filter_value' => UserRole::USER

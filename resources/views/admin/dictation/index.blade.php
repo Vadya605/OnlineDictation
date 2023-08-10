@@ -84,16 +84,10 @@
                         <label for="select-filter" class="form-label">Фильтрация</label>
                         <select class="form-select" name="filter" id="select-filter">
                             <option value="">Все</option>
-                            <option value="Активные">Активные</option>
-                            <option value="Не активные">Не активные</option>
-                            <option value="С видео">С видео</option>
-                            <option value="Без видео">Без видео</option>
-                            <option value="С датой начала">С датой начала</option>
-                            <option value="Без даты начала">Без даты начала</option>
-                            <option value="С датой окончания">С датой окончания</option>
-                            <option value="Без даты окончания">Без даты окончания</option>
-                            <option value="С описанием">С описанием</option>
-                            <option value="Без описания">Без описания</option>
+                            <option value="Active">Активные</option>
+                            <option value="Not active">Не активные</option>
+                            <option value="With description">С описанием</option>
+                            <option value="Without description">Без описания</option>
                         </select>
                     </div>
                     <x-filter.date-filter />

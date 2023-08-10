@@ -63,8 +63,8 @@
                         <label for="select-filter" class="form-label">Фильтрация</label>
                         <select class="form-select" name="filter" id="select-filter">
                             <option value="">Все</option>
-                            <option value="Администраторы">Администраторы</option>
-                            <option value="Пользователи">Пользователи</option>
+                            <option value="Administrators">Администраторы</option>
+                            <option value="Users">Пользователи</option>
                         </select>
                     </div>
                     <x-filter.date-filter />

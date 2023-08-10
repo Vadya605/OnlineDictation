@@ -2,8 +2,8 @@
     @vite(['resources/js/admin/sorting.js', 'resources/js/admin/filter.js', 
         'resources/js/admin/pagination.js', 'resources/js/admin/reset.js', 
         'resources/js/admin/dictationResult/initAutoCompleteSearch.js', 
-        'resources/js/admin/dictationResult/create.js', 'resources/js/admin/dictationResult/update.js',
-        'resources/js/admin/dictationResult/delete.js', 'resources/js/admin/dictationResult/clearSearch.js'
+        'resources/js/admin/dictationResult/delete.js', 'resources/js/admin/dictationResult/clearSearch.js',
+        'resources/js/admin/dictationResult/updateAndCreate.js'
     ])
 @endpush
 @extends('layouts.adminApp')
@@ -11,16 +11,16 @@
 <x-modal-windows.confirm-deleting /> 
 <x-loader />
 <div class="modal-create">
-    <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Добавить результат диктанта</h1>
+                    <h1 class="title-modal fs-5" id="exampleModalLabel">Добавить результат диктанта</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="col-12">
-                        <form id="formCreate" action="" method="post">
+                        <form id="formDictationResult" action="" method="post">
                             @csrf
                             <div class="mb-3">
                                 <label for="dictation_id" class="form-label">Id диктанта *</label>
@@ -46,61 +46,19 @@
                                 <label for="text_result" class="form-label">Текст диктанта *</label>
                                 <textarea class="form-control" name="text_result" id="textResult" cols="30" rows="5"></textarea>
                             </div>
+                            <div class="mb-3 form-check">
+                                <label class="form-check-label" for="is_active">Проверен</label>
+                                <input type="checkbox" class="form-check-input" id="isChecked" name="is_checked" >
+                            </div>
+                            <div class="mb-3 mark-field">
+                                <label class="form-label" for="date_time_result">Отметка</label>
+                                <input class="form-control" type="text" id="mark" name="mark">
+                            </div>
                             <div class="mb-3">
-                                <label class="form-label" for="date_time_result">Дата и время написания * <span class="value-selection"></span></label>
+                                <label class="form-label" for="date_time_result">Дата и время написания * </label>
                                 <input class="form-control"  type="text" id="dateTimeResult" name="date_time_result">
                             </div>
-                            <button type="submit" name="btnAdd" class="btn btn-primary mb-3">Добавить</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal-update">
-    <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Изменить результат диктанта</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="col-12">
-                        <form id="formUpdate" action="" method="post">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="id">
-                            <div class="mb-3">
-                                <label for="dictation_id" class="form-label">Id диктанта *</label>
-                                <select class="form-select" name="dictation_id">
-                                    @foreach ($dictations as $dictation)
-                                        <option value="{{ $dictation->id }}"> 
-                                            {{ $dictation->id }} - {{ $dictation->title }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="user_id" class="form-label">Id пользователя *</label>
-                                <select class="form-select" name="user_id">
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->id }}"> 
-                                            {{ $user->id }} - {{ $user->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="text_result" class="form-label">Текст диктанта *</label>
-                                <textarea class="form-control" name="text_result" id="textResult" cols="30" rows="5"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="date_time_result">Дата и время написания * <span class="value-selection"></span></label>
-                                <input class="form-control"  type="text" id="dateTimeResult" name="date_time_result">
-                            </div>
-                            <button type="submit" name="btnUpdate" class="btn btn-primary mb-3">Сохранить</button>
+                            <button type="submit" name="btn_submit" class="btn btn-primary mb-3">Сохранить</button>
                         </form>
                     </div>
                 </div>

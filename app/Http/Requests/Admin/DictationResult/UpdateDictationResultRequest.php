@@ -36,6 +36,8 @@ class UpdateDictationResultRequest extends FormRequest
                 Rule::unique('dictation_results')->where('user_id', $this->user_id)
                     ->ignore($this->id)
             ],
+            'is_checked' => 'required|boolean',
+            'mark' => 'nullable|required_if:is_checked,true|integer',
             'date_time_result' => 'required|date_format:d.m.Y H:i'
         ];
     }
@@ -50,6 +52,8 @@ class UpdateDictationResultRequest extends FormRequest
             'dictation_id.required' => trans('custom_validation.admin.dictation_results.dictation_id.required'),
             'dictation_id.unique' => trans('custom_validation.admin.dictation_results.dictation_id.unique'),
             'dictation_id.exists' => trans('custom_validation.admin.dictation_results.dictation.exists'),
+            'mark.required_if' => trans('custom_validation.admin.dictation_results.mark.required_if'),
+            'mark.integer' => trans('custom_validation.admin.dictation_results.mark.integer'),
             'date_time_result.required' => trans('custom_validation.admin.dictation_results.date_time_result.required'),
             'date_time_result.date_format' => trans('custom_validation.admin.dictation_results.date_time_result.date_format')
         ];

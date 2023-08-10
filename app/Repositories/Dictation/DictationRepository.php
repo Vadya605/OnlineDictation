@@ -48,11 +48,13 @@ class DictationRepository
         }
 
         if($fromDateTime = Arr::get($outputValues, 'date_from')){
-            $dictations->where('from_date_time', '>=', Carbon::parse($fromDateTime)->format('Y-m-d H:i:s'));
+            $fromDateTime = Carbon::parse($fromDateTime)->format('Y-m-d H:i:s');
+            $dictations->where('from_date_time', '>=', $fromDateTime);
         }
 
         if($toDateTime = Arr::get($outputValues, 'date_to')){
-            $dictations->where('to_date_time', '<=', Carbon::parse($toDateTime)->format('Y-m-d H:i:s'));
+            $toDateTime = Carbon::parse($toDateTime)->format('Y-m-d H:i:s');
+            $dictations->where('to_date_time', '<=', $toDateTime);
         }
 
         // return $dictations->toSql();
@@ -89,19 +91,14 @@ class DictationRepository
     {
         $newDictation = new Dictation;
 
-        if($fromDateTime = Arr::get($dictationData, 'from_date_time')){
-            $fromDateTime = Carbon::parse($fromDateTime)->format('Y-m-d H:i:s');
-        }
+        $fromDateTime = Carbon::parse($dictationData['from_date_time'])->format('Y-m-d H:i:s');
+        $toDateTime = Carbon::parse($dictationData['to_date_time'])->format('Y-m-d H:i:s');
 
-        if($toDateTime = Arr::get($dictationData, 'to_date_time')){
-            $toDateTime = Carbon::parse($toDateTime)->format('Y-m-d H:i:s');
-        }
-
-        $newDictation->title=$dictationData['title'];
-        $newDictation->video_link=$dictationData['video_link'];
-        $newDictation->is_active=$dictationData['is_active'];
-        $newDictation->video_link=$dictationData['video_link'];
-        $newDictation->description=$dictationData['description'];
+        $newDictation->title = $dictationData['title'];
+        $newDictation->video_link = $dictationData['video_link'];
+        $newDictation->is_active = $dictationData['is_active'];
+        $newDictation->video_link = $dictationData['video_link'];
+        $newDictation->description = $dictationData['description'];
         $newDictation->from_date_time = $fromDateTime;
         $newDictation->to_date_time=$toDateTime;
         $newDictation->slug = Str::slug($dictationData['title']);
@@ -112,16 +109,8 @@ class DictationRepository
 
     public function updateDictation(Dictation $dictation, $changeDictationData)
     {
-        if($fromDateTime = Arr::get($changeDictationData, 'from_date_time')){
-            $fromDateTime = Carbon::parse($fromDateTime)->format('Y-m-d H:i:s');
-            $changeDictationData['from_date_time'] = $fromDateTime;
-        }
-
-        if($toDateTime = Arr::get($changeDictationData, 'to_date_time')){
-            $toDateTime = Carbon::parse($toDateTime)->format('Y-m-d H:i:s');
-            $changeDictationData['to_date_time'] = $toDateTime;
-        }
-
+        $changeDictationData['from_date_time'] = Carbon::parse($changeDictationData['from_date_time'])->format('Y-m-d H:i:s');
+        $changeDictationData['to_date_time'] = Carbon::parse($changeDictationData['to_date_time'])->format('Y-m-d H:i:s');
         $changeDictationData['slug'] = Str::slug($changeDictationData['title']);
 
         $dictation->fill($changeDictationData);

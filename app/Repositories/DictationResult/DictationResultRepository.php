@@ -36,11 +36,13 @@ class DictationResultRepository
         }
 
         if($fromDateTime = Arr::get($outputValues, 'date_from')){
-            $dictationResults->where('dictation_results.date_time_result', '>=', Carbon::parse($fromDateTime)->format('Y-m-d H:i:s'));
+            $fromDateTime = Carbon::parse($fromDateTime)->format('Y-m-d H:i:s');
+            $dictationResults->where('dictation_results.date_time_result', '>=', $fromDateTime);
         }
 
         if($toDateTime = Arr::get($outputValues, 'date_to')){
-            $dictationResults->where('dictation_results.date_time_result', '<=', Carbon::parse($toDateTime)->format('Y-m-d H:i:s'));
+            $toDateTime = Carbon::parse($toDateTime)->format('Y-m-d H:i:s');
+            $dictationResults->where('dictation_results.date_time_result', '<=', $toDateTime);
         }
 
         return $dictationResults->paginate(10);
@@ -60,13 +62,13 @@ class DictationResultRepository
     {
         $newDictationResult = new DictationResult;
 
-        $dateTimeResult = Carbon::parse(Arr::get($dictationResultData, 'date_time_result'))->format('Y-m-d H:i:s');
+        $dateTimeResult = Carbon::parse($dictationResultData['date_time_result'])->format('Y-m-d H:i:s');
 
-        $newDictationResult->text_result = Arr::get($dictationResultData, 'text_result');
-        $newDictationResult->dictation_id = Arr::get($dictationResultData, 'dictation_id');
-        $newDictationResult->user_id = Arr::get($dictationResultData, 'user_id');
-        $newDictationResult->is_checked = Arr::get($dictationResultData, 'is_checked');
-        $newDictationResult->mark = Arr::get($dictationResultData, 'mark');
+        $newDictationResult->text_result = $dictationResultData['text_result'];
+        $newDictationResult->dictation_id = $dictationResultData['dictation_id'];
+        $newDictationResult->user_id = $dictationResultData['user_id'];
+        $newDictationResult->is_checked = $dictationResultData['is_checked'];
+        $newDictationResult->mark = $dictationResultData['mark'];
         $newDictationResult->date_time_result = $dateTimeResult;
 
         $newDictationResult->save();

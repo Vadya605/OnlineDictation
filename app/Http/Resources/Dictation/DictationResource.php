@@ -18,6 +18,7 @@ class DictationResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
+            'answer' => $this->answer,
             'video_link' => $this->video_link,
             'is_active' => $this->is_active,
             'from_date_time' => $this->from_date_time,

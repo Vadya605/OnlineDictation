@@ -38,6 +38,10 @@
                                 <textarea class="form-control" name="description" id="description" cols="30" rows="5"></textarea>
                             </div>
                             <div class="mb-3">
+                                <label for="answer" class="form-label">Ответ</label>
+                                <textarea class="form-control" name="answer" id="answer" cols="30" rows="5"></textarea>
+                            </div>
+                            <div class="mb-3">
                                 <label class="form-label" for="fromDateTime">Дата и время начала *</label>
                                 <input type="text" class="form-control" name="from_date_time" id="fromDateTime">
                             </div>

@@ -68,6 +68,14 @@ return [
                 'sort_column' => 'created_at', 
                 'sort_option' => 'desc'
             ],
+            'Answer asc' => [
+                'sort_column' => 'answer', 
+                'sort_option' => 'asc'
+            ],
+            'Answer desc' => [
+                'sort_column' => 'answer', 
+                'sort_option' => 'desc'
+            ],
         ],
         'users' => [
             'Id asc' => [

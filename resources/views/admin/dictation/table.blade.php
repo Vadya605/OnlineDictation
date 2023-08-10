@@ -49,6 +49,15 @@
                 </th>
                 <th scope="col">
                     <div class="d-flex align-items-center gap-1">
+                        <span>Ответ</span>
+                        <div class="d-flex gap-1">
+                            <x-arrows.arrow-up sortValue="Answer asc" />
+                            <x-arrows.arrow-down sortValue="Answer desc" />
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
                         <span>Начало</span>
                         <div class="d-flex gap-1">
                             <x-arrows.arrow-up sortValue="Beginning asc" />
@@ -91,6 +100,7 @@
                         @endif
                     </td>
                     <td class="align-middle">{{ Str::limit($dictation->description, 20) }}</td>
+                    <td class="align-middle">{{ Str::limit($dictation->answer, 20) }}</td>
                     <td class="align-middle">{{ $dictation->from_date_time }}</td>
                     <td class="align-middle">{{ $dictation->to_date_time }}</td>
                     <td class="align-middle">{{ $dictation->created_at }}</td>

@@ -26,6 +26,7 @@ class UpdateDictationRequest extends FormRequest
             'video_link' => 'required|string|active_url',
             'is_active' => 'nullable|boolean',
             'description' => 'nullable|string',
+            'answer' => 'required|string',
             'from_date_time' => 'required|date_format:d.m.Y H:i',
             'to_date_time' => 'required|date_format:d.m.Y H:i|
                                 after_or_equal:from_date_time'        
@@ -42,6 +43,8 @@ class UpdateDictationRequest extends FormRequest
             'video_link.required' => trans('custom_validation.admin.dictations.video_link.required'),
             'is_active.boolean' => trans('custom_validation.admin.dictations.is_active.boolean'),
             'description.string' => trans('custom_validation.admin.dictations.description.string'),
+            'answer.required' => trans('custom_validation.admin.dictations.answer.required'),
+            'answer.string' => trans('custom_validation.admin.dictations.answer.string'),
             'from_date_time.date_format' => trans('custom_validation.admin.dictations.from_date_time.date_format'),
             'from_date_time.required' => trans('custom_validation.admin.dictations.from_date_time.required'),
             'to_date_time.date_format' => trans('custom_validation.admin.dictations.to_date_time.date_format'),

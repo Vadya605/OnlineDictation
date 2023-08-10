@@ -102,6 +102,7 @@ class DictationRepository
         $newDictation->from_date_time = $fromDateTime;
         $newDictation->to_date_time=$toDateTime;
         $newDictation->slug = Str::slug($dictationData['title']);
+        $newDictation->answer = $dictationData['answer'];
         $newDictation->save();
 
         return $newDictation;

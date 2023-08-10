@@ -63,6 +63,7 @@ function fillForm(dictationData){
     formDictation.elements.video_link.value = dictationData.video_link
     formDictation.elements.description.value = dictationData.description
     formDictation.elements.is_active.checked = dictationData.is_active
+    formDictation.elements.answer.value = dictationData.answer
     dictationData.from_date_time && pickrFromDateTime.setDate(new Date(dictationData.from_date_time))
     dictationData.to_date_time && pickrToDateTime.setDate(new Date(dictationData.to_date_time))
 }

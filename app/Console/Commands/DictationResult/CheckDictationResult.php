@@ -13,7 +13,7 @@ class CheckDictationResult extends Command
      *
      * @var string
      */
-    protected $signature = 'dictation-result:check';
+    protected $signature = 'dictation-result:check {--dictation=} {--active} {--all}';
 
     /**
      * The console command description.
@@ -38,15 +38,22 @@ class CheckDictationResult extends Command
 
     public function handle()
     {
-        $checkableDictation = $this->dictationService->getActive();
+        if($dictation = $this->option('dictation')){
+            $checkableDictation = $this->dictationService->getBySlug($dictation);
         
-        foreach($checkableDictation->results as $dictationResult){
-            if(!$dictationResult->is_checked){
-                $this->dictationResultService->update($dictationResult, [
-                    'is_checked' => true,
-                    'mark' => $this->dictationResultService->isCorrect($dictationResult) ? 10 : 2
-                ]);
+            $this->dictationResultService->checkResults($checkableDictation->results);
+        }elseif($this->option('active')){
+            $checkableDictation = $this->dictationService->getActive();
+
+            $this->dictationResultService->checkResults($checkableDictation->results);
+        }elseif($this->option('all')){
+            $checkableDictations = $this->dictationService->getResultsAutoCompleteSearch();
+
+            foreach($checkableDictations as $checkableDictation){
+                $this->dictationResultService->checkResults($checkableDictation->results);
             }
+        }else{
+            $this->error('Для проверки необходимо указать одну из опций: --dictation=value, --active или --all');
         }
     }
 }

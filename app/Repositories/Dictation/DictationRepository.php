@@ -73,9 +73,9 @@ class DictationRepository
         return Dictation::count();
     }
 
-    public function getDictationById($id)
+    public function getDictationBySlug($slug)
     {
-        return Dictation::find($id);
+        return Dictation::where('slug', $slug)->first();
     }
 
     public function getActiveDictation()

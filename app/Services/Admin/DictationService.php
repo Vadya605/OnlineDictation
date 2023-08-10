@@ -34,9 +34,9 @@ class DictationService
         return $this->dictationRepository->getResultsAutoCompleteSearch($searchValue);
     }
 
-    public function getById($id)
+    public function getBySlug($id)
     {
-        return $this->dictationRepository->getDictationById($id);
+        return $this->dictationRepository->getDictationBySlug($id);
     }
 
     public function create($data)

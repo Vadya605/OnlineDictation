@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('dictation-result:check')->everyMinute();
+        $schedule->command('dictation-result:check --active')->everyMinute();
             // ->everyTwoHours($minutes = 0);
     }
 

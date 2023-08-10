@@ -1,8 +1,7 @@
 @push('js')
     @vite(['resources/js/admin/sorting.js', 'resources/js/admin/filter.js', 
             'resources/js/admin/pagination.js', 'resources/js/admin/reset.js',
-            'resources/js/admin/user/create.js', 'resources/js/admin/user/update.js',
-            'resources/js/admin/user/delete.js'
+            'resources/js/admin/user/delete.js', 'resources/js/admin/user/updateAndCreate.js'
     ])
 @endpush
 @extends('layouts.adminApp')
@@ -10,16 +9,16 @@
 <x-modal-windows.confirm-deleting /> 
 <x-loader />
 <div class="modal-create">
-    <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Добавить пользователя</h1>
+                    <h1 class="title-modal fs-5" id="exampleModalLabel">Добавить пользователя</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="col-12">
-                        <form id="formCreate" action="{{ route('admin.user.store') }}" method="post">
+                        <form id="formUser" action="" method="post">
                             @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">Имя *</label>
@@ -29,23 +28,9 @@
                                 <label for="email" class="form-label">Email *</label>
                                 <input type="email" class="form-control" id="email" name="email">
                             </div>
-                            <button type="submit" name="btnAdd" class="btn btn-primary mb-3">Добавить</button>
+                            <button type="submit" name="btn_submit" class="btn btn-primary mb-3">Сохранить</button>
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal-update">
-    <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Изменить пользователя</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
                 </div>
             </div>
         </div>

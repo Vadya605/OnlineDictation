@@ -18,6 +18,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function(){
         Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('list');
         Route::get('/autoCompleteSearch', [App\Http\Controllers\Admin\UserController::class, 'autoCompleteSearch'])->name('autoCompleteUserSearch');
         Route::get('/edit/{user}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('edit');
+        Route::get('/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('create');
         Route::put('/update/{user}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('update');
         Route::post('/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('store');
         Route::delete('/delete/{user}', [App\Http\Controllers\Admin\UserController::class, 'delete'])->name('delete');

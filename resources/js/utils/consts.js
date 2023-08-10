@@ -21,7 +21,8 @@ export const ROUTES = {
   user: {
     get: (id) => `${BASE_ADMIN_URL}/user/edit/${id}`,
     update: (id) => `${BASE_ADMIN_URL}/user/update/${id}`,
-    create: `${BASE_ADMIN_URL}/user/store`,
+    store: `${BASE_ADMIN_URL}/user/store`,
+    create: `${BASE_ADMIN_URL}/user/create`,
     delete: (id) => `${BASE_ADMIN_URL}/user/delete/${id}`,
     search: `${BASE_ADMIN_URL}/user/autoCompleteSearch`,
   },

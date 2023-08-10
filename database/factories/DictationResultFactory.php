@@ -22,6 +22,8 @@ class DictationResultFactory extends Factory
             'user_id' => User::pluck('id')->random(),
             'dictation_id' => Dictation::pluck('id')->random(),
             'text_result' => fake()->text,
+            'is_checked' => fake()->boolean(),
+            'mark' => fake()->numberBetween(0, 10),
             'date_time_result' => fake()->dateTimeBetween(),
         ];
     }

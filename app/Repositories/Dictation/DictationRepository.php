@@ -101,7 +101,6 @@ class DictationRepository
         $newDictation->description = $dictationData['description'];
         $newDictation->from_date_time = $fromDateTime;
         $newDictation->to_date_time=$toDateTime;
-        $newDictation->slug = Str::slug($dictationData['title']);
         $newDictation->answer = $dictationData['answer'];
         $newDictation->save();
 
@@ -112,7 +111,6 @@ class DictationRepository
     {
         $changeDictationData['from_date_time'] = Carbon::parse($changeDictationData['from_date_time'])->format('Y-m-d H:i:s');
         $changeDictationData['to_date_time'] = Carbon::parse($changeDictationData['to_date_time'])->format('Y-m-d H:i:s');
-        $changeDictationData['slug'] = Str::slug($changeDictationData['title']);
 
         $dictation->fill($changeDictationData);
         $dictation->save();

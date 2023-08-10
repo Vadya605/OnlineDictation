@@ -24,6 +24,7 @@ class DictationResultResource extends JsonResource
             'date_time_result' => $this->date_time_result,
             'dictation' => new DictationResource($this->dictation),
             'user' => new UserResource($this->user),
+            'slug' => $this->slug,
         ];
     }
 }

@@ -17,19 +17,19 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function(){
     Route::prefix('user')->name('user.')->group(function(){
         Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('list');
         Route::get('/autoCompleteSearch', [App\Http\Controllers\Admin\UserController::class, 'autoCompleteSearch'])->name('autoCompleteUserSearch');
-        Route::get('/edit/{user}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('edit');
+        Route::get('/edit/{user:slug}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('edit');
         Route::get('/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('create');
-        Route::put('/update/{user}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('update');
+        Route::put('/update/{user:slug}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('update');
         Route::post('/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('store');
-        Route::delete('/delete/{user}', [App\Http\Controllers\Admin\UserController::class, 'delete'])->name('delete');
+        Route::delete('/delete/{user:slug}', [App\Http\Controllers\Admin\UserController::class, 'delete'])->name('delete');
     });
 
     Route::prefix('dictationResult')->name('dictationResult.')->group(function(){
         Route::get('/', [App\Http\Controllers\Admin\DictationResultController::class, 'index'])->name('list');
-        Route::get('/edit/{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'edit'])->name('edit');
+        Route::get('/edit/{dictationResult:slug}', [App\Http\Controllers\Admin\DictationResultController::class, 'edit'])->name('edit');
         Route::post('/store', [App\Http\Controllers\Admin\DictationResultController::class, 'store'])->name('store');
-        Route::put('/update/{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'update'])->name('update');
-        Route::delete('/delete/{dictationResult}', [App\Http\Controllers\Admin\DictationResultController::class, 'delete'])->name('delete');
+        Route::put('/update/{dictationResult:slug}', [App\Http\Controllers\Admin\DictationResultController::class, 'update'])->name('update');
+        Route::delete('/delete/{dictationResult:slug}', [App\Http\Controllers\Admin\DictationResultController::class, 'delete'])->name('delete');
     });
 });
 

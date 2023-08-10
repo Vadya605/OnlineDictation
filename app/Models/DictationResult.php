@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class DictationResult extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSlug;
+
 
     protected $fillable = [
         'user_id',
@@ -16,6 +19,7 @@ class DictationResult extends Model
         'date_time_result',
         'is_checked',
         'mark',
+        'slug'
     ];
 
 
@@ -27,5 +31,12 @@ class DictationResult extends Model
     public function dictation()
     {
         return $this->belongsTo(Dictation::class);
+    }
+
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['dictation.title', 'user.name'])
+            ->saveSlugsTo('slug');
     }
 }

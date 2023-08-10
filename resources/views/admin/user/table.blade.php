@@ -60,8 +60,8 @@
                     <td class="align-middle">{{ $user->created_at }}</td>
                     <td class="align-middle">
                         <div class="d-flex gap-1 justify-content-center align-items-center">
-                            <x-buttons.edit-button :record="$user->id" />
-                            <x-buttons.delete-button :record="$user->id" />
+                            <x-buttons.edit-button :record="$user->slug" />
+                            <x-buttons.delete-button :record="$user->slug" />
                         </div>
                     </td>
                 </tr>

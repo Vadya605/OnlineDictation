@@ -19,6 +19,8 @@ class DictationResultResource extends JsonResource
         return [
             'id' => $this->id,
             'text_result' => $this->text_result,
+            'is_checked' => $this->is_checked,
+            'mark' => $this->mark,
             'date_time_result' => $this->date_time_result,
             'dictation' => new DictationResource($this->dictation),
             'user' => new UserResource($this->user),

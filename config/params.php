@@ -168,6 +168,22 @@ return [
                 'sort_column' => 'dictation_results.date_time_result', 
                 'sort_option' => 'desc'
             ],
+            'Checked asc' => [
+                'sort_column' => 'dictation_results.is_checked', 
+                'sort_option' => 'asc'
+            ],
+            'Checked desc' => [
+                'sort_column' => 'dictation_results.is_checked', 
+                'sort_option' => 'desc'
+            ],
+            'Mark asc' => [
+                'sort_column' => 'dictation_results.mark', 
+                'sort_option' => 'asc'
+            ],
+            'Mark desc' => [
+                'sort_column' => 'dictation_results.mark', 
+                'sort_option' => 'desc'
+            ],
         ]
     ],
     'filter' => [

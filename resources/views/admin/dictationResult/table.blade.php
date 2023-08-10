@@ -49,7 +49,25 @@
                 </th>
                 <th scope="col">
                     <div class="d-flex align-items-center gap-1">
-                        <span>Дата и время написания</span>
+                        <span>Проверен</span>
+                        <div class="d-flex gap-1">
+                            <x-arrows.arrow-up sortValue="Checked asc" />
+                            <x-arrows.arrow-down sortValue="Checked desc" />
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Отметка</span>
+                        <div class="d-flex gap-1">
+                            <x-arrows.arrow-up sortValue="Mark asc" />
+                            <x-arrows.arrow-down sortValue="Mark desc" />
+                        </div>
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="d-flex align-items-center gap-1">
+                        <span>Написан</span>
                         <div class="d-flex gap-1">
                             <x-arrows.arrow-up sortValue="Written asc" />
                             <x-arrows.arrow-down sortValue="Written desc" />
@@ -62,11 +80,19 @@
         <tbody>
             @foreach ($dictationResults as $dictationResult)
                 <tr>
-                    <td class="align-middle">{{ $dictationResult->id }}</td>
+                    <td class="align-middle text-center">{{ $dictationResult->id }}</td>
                     <td class="align-middle"><a href="#">{{ $dictationResult->user->name }}</a></td>
                     <td class="align-middle"><a href="#">{{ $dictationResult->dictation->title }}</a></td>
                     <td class="align-middle">{{ $dictationResult->user->email }}</td>
                     <td class="align-middle">{{ Str::limit($dictationResult->text_result, 30) }}</td>
+                    <td class="align-middle text-center">
+                        @if ($dictationResult->is_checked)
+                            <span class="badge bg-success text-white">Да</span>
+                        @else
+                            <span class="badge bg-danger text-white">Нет</span>
+                        @endif
+                    </td>
+                    <td class="align-middle text-center">{{ $dictationResult->mark }}</td>
                     <td class="align-middle">{{ $dictationResult->date_time_result }}</td>
                     <td class="align-middle">
                         <div class="d-flex align-items-center gap-1 w-100">

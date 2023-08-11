@@ -2,9 +2,10 @@ import { ROUTES } from '../../utils/consts'
 import { create, update, getItem } from "../../utils/queries"
 import { refreshRecords } from '../refreshRecords'
 import { isClickButtonCreate, isClickButtonEdit, isSubmitFormUpdate, changeModalTitle } from '../../utils/domHelpers'
-import { showMessageError, showMessageSuccess, showValidationErrors, removeValidationErrors } from '../../utils/messages'
+import { showMessageError, showMessageSuccess, showValidationErrors } from '../../utils/messages'
 
 const modal = new bootstrap.Modal(document.querySelector('#modal'))
+document.querySelector('#formUser').addEventListener('submit', handleSubmitFormUser)
 
 document.addEventListener('click', async e => {
     if(isClickButtonEdit(e)){
@@ -15,14 +16,12 @@ document.addEventListener('click', async e => {
 })
 
 async function handleClickButtonCreate(e){
-    try{
-        changeModalTitle('Добавить пользователя')
-        const htmlForm = await getItem(ROUTES.user.create)
-        createForm(htmlForm)
-    }catch(error){
-        modal.hide()
-        showMessageError('Ошибка')
-    }
+    changeModalTitle('Добавить пользователя')
+
+    const formUser = document.forms['formUser']
+    formUser.elements.name.value = null
+    formUser.elements.email.value = null
+    formUser.removeAttribute('data-record')
 }
 
 function createForm(htmlForm){
@@ -46,9 +45,11 @@ async function handleClickButtonEdit(e){
 async function handleSubmitFormUser(e){
     try{
         e.preventDefault()
+        const formUser = e.target
+
         formUser.elements.btn_submit.disabled = true
 
-        const userData = getFormData()
+        const userData = getFormData(formUser)
 
         const response = isSubmitFormUpdate(formUser)
             ? await update(ROUTES.user.update(userData.slug), userData)
@@ -64,7 +65,7 @@ async function handleSubmitFormUser(e){
     }
 }
 
-function getFormData(){
+function getFormData(formUser){
     const userData = Object.fromEntries(new FormData(formUser))
     userData.slug = formUser.getAttribute('data-record')
 

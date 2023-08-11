@@ -22,7 +22,6 @@ export const ROUTES = {
     get: (slug) => `${BASE_ADMIN_URL}/user/edit/${slug}`,
     update: (slug) => `${BASE_ADMIN_URL}/user/update/${slug}`,
     store: `${BASE_ADMIN_URL}/user/store`,
-    create: `${BASE_ADMIN_URL}/user/create`,
     delete: (slug) => `${BASE_ADMIN_URL}/user/delete/${slug}`,
     search: `${BASE_ADMIN_URL}/user/autoCompleteSearch`,
   },

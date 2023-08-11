@@ -34,6 +34,11 @@ function setVisibilityMark(visibility){
     document.querySelector('.mark-field').classList.toggle('d-none', !visibility)
 }
 
+function changeModalTitle(textTitle){
+    const modalTitle = document.querySelector('.title-modal')
+    modalTitle.textContent = textTitle
+}
+
 document.addEventListener('click', async e => {
     if(isClickButtonEdit(e)){
         handleClickButtonEdit(e)
@@ -46,10 +51,6 @@ formDictationResult.elements.is_checked.addEventListener('change', function() {
     setVisibilityMark(this.checked)
 })
 
-function changeModalTitle(textTitle){
-    const modalTitle = document.querySelector('.title-modal')
-    modalTitle.textContent = textTitle
-}
 
 function handleClickButtonCreate(e){
     setVisibilityMark(false)
@@ -77,6 +78,7 @@ async function handleClickButtonEdit(e){
 }
 
 function fillForm(dictationResultData){
+    formDictationResult.elements.slug.value = dictationResultData.slug
     formDictationResult.elements.text_result.value = dictationResultData.text_result
     formDictationResult.elements.is_checked.checked = dictationResultData.is_checked
     formDictationResult.elements.mark.value = dictationResultData.mark
@@ -92,18 +94,14 @@ formDictationResult.addEventListener('submit', async (e) => {
         e.preventDefault()
         formDictationResult.elements.btn_submit.disabled = true
 
-        const dictationData = new FormData(formDictationResult)
-        dictationData.set('is_checked', Number(formDictationResult.elements.is_checked.checked))
+        const dictationResultData = getFormData()
+        const dictationResultSlug = formDictationResult.getAttribute('data-record')
 
-        let response = null
-        if(isSubmitFormUpdate(formDictationResult)){
-            const dictationSlug = formDictationResult.getAttribute('data-record')
-            response = await update(ROUTES.dictationResult.update(dictationSlug), conversionDataUpdating(dictationData))
-        }else{
-            response = await create(ROUTES.dictationResult.create, dictationData)
-            clearForm(formDictationResult)
-        }
+        const response = isSubmitFormUpdate(formDictationResult)
+            ? await update(ROUTES.dictationResult.update(dictationResultSlug), dictationResultData)
+            : await create(ROUTES.dictationResult.create, dictationResultData)
 
+        clearForm(formDictationResult)
         modal.hide()
         await refreshRecords()
         showMessageSuccess(response)
@@ -114,8 +112,15 @@ formDictationResult.addEventListener('submit', async (e) => {
     }
 })
 
-function conversionDataUpdating(data){
-    return Object.fromEntries(data)
+function getFormData(){
+    const dictationResultData = Object.fromEntries(new FormData(formDictationResult))
+    dictationResultData.is_checked = formDictationResult.elements.is_checked.checked
+
+    if(!dictationResultData.is_checked){
+        dictationResultData.mark = null
+    }
+
+    return dictationResultData
 }
 
 function handleFormSubmitError(error) {

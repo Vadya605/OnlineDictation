@@ -21,6 +21,7 @@
                     <div class="col-12">
                         <form id="formDictationResult" action="" method="post">
                             @csrf
+                            <input type="hidden" name="slug">
                             <div class="mb-3">
                                 <label for="dictation_id" class="form-label">Id диктанта *</label>
                                 <select class="form-select" name="dictation_id">

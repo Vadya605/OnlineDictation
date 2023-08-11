@@ -28,13 +28,13 @@ class UpdateDictationResultRequest extends FormRequest
                 'required',
                 'exists:users,id',
                 Rule::unique('dictation_results')->where('dictation_id', $this->dictation_id)
-                    ->ignore($this->id)
+                    ->ignore($this->slug, 'slug')
             ],
             'dictation_id' => [
                 'required',
                 'exists:dictations,id',
                 Rule::unique('dictation_results')->where('user_id', $this->user_id)
-                    ->ignore($this->id)
+                    ->ignore($this->slug, 'slug')
             ],
             'is_checked' => 'required|boolean',
             'mark' => 'nullable|required_if:is_checked,true|integer',

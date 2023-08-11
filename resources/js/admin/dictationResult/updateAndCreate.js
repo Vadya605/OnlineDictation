@@ -78,7 +78,6 @@ async function handleClickButtonEdit(e){
 }
 
 function fillForm(dictationResultData){
-    formDictationResult.elements.slug.value = dictationResultData.slug
     formDictationResult.elements.text_result.value = dictationResultData.text_result
     formDictationResult.elements.is_checked.checked = dictationResultData.is_checked
     formDictationResult.elements.mark.value = dictationResultData.mark
@@ -95,10 +94,10 @@ formDictationResult.addEventListener('submit', async (e) => {
         formDictationResult.elements.btn_submit.disabled = true
 
         const dictationResultData = getFormData()
-        const dictationResultSlug = formDictationResult.getAttribute('data-record')
+        
 
         const response = isSubmitFormUpdate(formDictationResult)
-            ? await update(ROUTES.dictationResult.update(dictationResultSlug), dictationResultData)
+            ? await update(ROUTES.dictationResult.update(dictationResultData.slug), dictationResultData)
             : await create(ROUTES.dictationResult.store, dictationResultData)
 
         modal.hide()
@@ -114,6 +113,7 @@ formDictationResult.addEventListener('submit', async (e) => {
 function getFormData(){
     const dictationResultData = Object.fromEntries(new FormData(formDictationResult))
     dictationResultData.is_checked = formDictationResult.elements.is_checked.checked
+    dictationResultData.slug = formDictationResult.getAttribute('data-record')
 
     if(!dictationResultData.is_checked){
         dictationResultData.mark = null

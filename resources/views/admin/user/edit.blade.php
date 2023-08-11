@@ -1,6 +1,5 @@
 <form id="formUser" action="" method="POST" data-record="{{ $user->slug }}">
     @csrf
-    <input type="hidden" name="slug" value="{{ $user->slug }}">
     <div class="mb-3">
         <label for="name" class="form-label">Имя *</label>
         <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">

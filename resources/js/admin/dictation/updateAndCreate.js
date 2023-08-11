@@ -59,7 +59,6 @@ async function handleClickButtonEdit(e){
 }
 
 function fillForm(dictationData){
-    formDictation.elements.slug.value = dictationData.slug
     formDictation.elements.title.value = dictationData.title
     formDictation.elements.video_link.value = dictationData.video_link
     formDictation.elements.description.value = dictationData.description
@@ -75,10 +74,9 @@ formDictation.addEventListener('submit', async (e) => {
         formDictation.elements.btn_submit.disabled = true
 
         const dictationData = getFormData()
-        const dictationSlug = formDictation.getAttribute('data-record')
 
         const response = isSubmitFormUpdate(formDictation)
-            ? await update(ROUTES.dictation.update(dictationSlug), dictationData)
+            ? await update(ROUTES.dictation.update(dictationData.slug), dictationData)
             : await create(ROUTES.dictation.store, dictationData)
 
         modal.hide()
@@ -94,6 +92,7 @@ formDictation.addEventListener('submit', async (e) => {
 function getFormData(){
     const dictationData = Object.fromEntries(new FormData(formDictation))
     dictationData.is_active = formDictation.elements.is_active.checked
+    dictationData.slug = formDictation.getAttribute('data-record')
 
     return dictationData
 }

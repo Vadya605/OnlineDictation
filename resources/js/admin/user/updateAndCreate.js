@@ -69,10 +69,9 @@ async function handleSubmitFormUser(e){
         formUser.elements.btn_submit.disabled = true
 
         const userData = getFormData()
-        const userSlug = formUser.getAttribute('data-record')
 
         const response = isSubmitFormUpdate(formUser)
-            ? await update(ROUTES.user.update(userSlug), userData)
+            ? await update(ROUTES.user.update(userData.slug), userData)
             : await create(ROUTES.user.store, userData)
 
         modal.hide()
@@ -87,7 +86,10 @@ async function handleSubmitFormUser(e){
 }
 
 function getFormData(){
-    return Object.fromEntries(new FormData(formUser))
+    const userData = Object.fromEntries(new FormData(formUser))
+    userData.slug = formUser.getAttribute('data-record')
+
+    return userData
 }
 
 function handleFormSubmitError(error) {

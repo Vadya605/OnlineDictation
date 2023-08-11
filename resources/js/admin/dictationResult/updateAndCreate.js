@@ -99,9 +99,8 @@ formDictationResult.addEventListener('submit', async (e) => {
 
         const response = isSubmitFormUpdate(formDictationResult)
             ? await update(ROUTES.dictationResult.update(dictationResultSlug), dictationResultData)
-            : await create(ROUTES.dictationResult.create, dictationResultData)
+            : await create(ROUTES.dictationResult.store, dictationResultData)
 
-        clearForm(formDictationResult)
         modal.hide()
         await refreshRecords()
         showMessageSuccess(response)

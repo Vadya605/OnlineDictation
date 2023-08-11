@@ -14,23 +14,23 @@ export const ROUTES = {
   dictation: {
     get: (slug) => `${BASE_ADMIN_URL}/dictation/edit/${slug}`,
     update: (slug) => `${BASE_ADMIN_URL}/dictation/update/${slug}`,
-    create: `${BASE_ADMIN_URL}/dictation/store`,
+    store: `${BASE_ADMIN_URL}/dictation/store`,
     delete: (slug) => `${BASE_ADMIN_URL}/dictation/delete/${slug}`,
     search: `${BASE_ADMIN_URL}/dictation/autoCompleteSearch`,
   },
   user: {
-    get: (id) => `${BASE_ADMIN_URL}/user/edit/${id}`,
-    update: (id) => `${BASE_ADMIN_URL}/user/update/${id}`,
+    get: (slug) => `${BASE_ADMIN_URL}/user/edit/${slug}`,
+    update: (slug) => `${BASE_ADMIN_URL}/user/update/${slug}`,
     store: `${BASE_ADMIN_URL}/user/store`,
     create: `${BASE_ADMIN_URL}/user/create`,
-    delete: (id) => `${BASE_ADMIN_URL}/user/delete/${id}`,
+    delete: (slug) => `${BASE_ADMIN_URL}/user/delete/${slug}`,
     search: `${BASE_ADMIN_URL}/user/autoCompleteSearch`,
   },
   dictationResult: {
-    get: (id) => `${BASE_ADMIN_URL}/dictationResult/edit/${id}`,
-    update: (id) => `${BASE_ADMIN_URL}/dictationResult/update/${id}`,
-    create: `${BASE_ADMIN_URL}/dictationResult/store`,
-    delete: (id) => `${BASE_ADMIN_URL}/dictationResult/delete/${id}`,
+    get: (slug) => `${BASE_ADMIN_URL}/dictationResult/edit/${slug}`,
+    update: (slug) => `${BASE_ADMIN_URL}/dictationResult/update/${slug}`,
+    store: `${BASE_ADMIN_URL}/dictationResult/store`,
+    delete: (slug) => `${BASE_ADMIN_URL}/dictationResult/delete/${slug}`,
     save: `${BASE_URL}/saveDictationResult`
   },
 }

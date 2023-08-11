@@ -79,7 +79,7 @@ formDictation.addEventListener('submit', async (e) => {
 
         const response = isSubmitFormUpdate(formDictation)
             ? await update(ROUTES.dictation.update(dictationSlug), dictationData)
-            : await create(ROUTES.dictation.create, dictationData)
+            : await create(ROUTES.dictation.store, dictationData)
 
         modal.hide()
         await refreshRecords()

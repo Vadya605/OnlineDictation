@@ -2,24 +2,13 @@ import { OPTIONS_PICKER, ROUTES } from '../../utils/consts'
 import { clearForm } from '../clearForm'
 import { create, update, getItem } from "../../utils/queries"
 import { refreshRecords } from '../refreshRecords'
+import { isClickButtonCreate, isClickButtonEdit, isSubmitFormUpdate, changeModalTitle } from '../../utils/domHelpers'
 import { showMessageError, showMessageSuccess, showValidationErrors, removeValidationErrors } from '../../utils/messages'
 
 const modal = new bootstrap.Modal(document.querySelector('#modal'))
 const formDictation = document.forms['formModal']
 const pickrFromDateTime = flatpickr(formDictation.elements.from_date_time, OPTIONS_PICKER)
 const pickrToDateTime = flatpickr(formDictation.elements.to_date_time, OPTIONS_PICKER)
-
-function isClickButtonEdit(e){
-    return e.target.classList.contains('btn-edit')
-}
-
-function isClickButtonCreate(e){
-    return e.target.classList.contains('btn-create')
-}
-
-function isSubmitFormUpdate(form){
-    return form.getAttribute('data-record') !== null
-}
 
 document.addEventListener('click', async e => {
     if(isClickButtonEdit(e)){
@@ -28,11 +17,6 @@ document.addEventListener('click', async e => {
         handleClickButtonCreate(e)
     }
 })
-
-function changeModalTitle(textTitle){
-    const modalTitle = document.querySelector('.title-modal')
-    modalTitle.textContent = textTitle
-}
 
 function handleClickButtonCreate(e){
     clearForm(formDictation)

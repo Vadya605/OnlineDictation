@@ -1,22 +1,10 @@
-import { OPTIONS_PICKER, ROUTES } from '../../utils/consts'
-import { clearForm } from '../clearForm'
+import { ROUTES } from '../../utils/consts'
 import { create, update, getItem } from "../../utils/queries"
 import { refreshRecords } from '../refreshRecords'
+import { isClickButtonCreate, isClickButtonEdit, isSubmitFormUpdate, changeModalTitle } from '../../utils/domHelpers'
 import { showMessageError, showMessageSuccess, showValidationErrors, removeValidationErrors } from '../../utils/messages'
 
 const modal = new bootstrap.Modal(document.querySelector('#modal'))
-
-function isClickButtonEdit(e){
-    return e.target.classList.contains('btn-edit')
-}
-
-function isClickButtonCreate(e){
-    return e.target.classList.contains('btn-create')
-}
-
-function isSubmitFormUpdate(form){
-    return form.getAttribute('data-record') !== null
-}
 
 document.addEventListener('click', async e => {
     if(isClickButtonEdit(e)){
@@ -26,19 +14,12 @@ document.addEventListener('click', async e => {
     }
 })
 
-
-function changeModalTitle(textTitle){
-    const modalTitle = document.querySelector('.title-modal')
-    modalTitle.textContent = textTitle
-}
-
 async function handleClickButtonCreate(e){
     try{
         changeModalTitle('Добавить пользователя')
         const htmlForm = await getItem(ROUTES.user.create)
         createForm(htmlForm)
     }catch(error){
-        console.log(error)
         modal.hide()
         showMessageError('Ошибка')
     }
@@ -57,7 +38,6 @@ async function handleClickButtonEdit(e){
         const htmlForm = await getItem(ROUTES.user.get(userSlug))
         createForm(htmlForm)
     }catch(error){
-        console.log(error)
         modal.hide()
         showMessageError('Не удалось получить запись для изменения')
     }
@@ -78,7 +58,6 @@ async function handleSubmitFormUser(e){
         await refreshRecords()
         showMessageSuccess(response)
     }catch(error){
-        console.log(error)
         handleFormSubmitError(error)
     }finally{
         formUser.elements.btn_submit.disabled = false
@@ -93,7 +72,6 @@ function getFormData(){
 }
 
 function handleFormSubmitError(error) {
-    console.log(error)
     if(error.status === StatusCodes.UNPROCESSABLE_ENTITY){
         showValidationErrors(formUser, error.data.errors)
     }else if(error.status === StatusCodes.INTERNAL_SERVER_ERROR){

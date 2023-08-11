@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Dictation;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateDictationRequest extends FormRequest
 {
@@ -22,7 +23,12 @@ class UpdateDictationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:191',
+            'title' => [
+                'required', 
+                'string', 
+                'max:191', 
+                Rule::unique('dictations')->ignore($this->slug, 'slug')
+            ],
             'video_link' => 'required|string|active_url',
             'is_active' => 'nullable|boolean',
             'description' => 'nullable|string',
@@ -38,6 +44,7 @@ class UpdateDictationRequest extends FormRequest
         return [
             'title.required' => trans('custom_validation.admin.dictations.title.required'),
             'title.string' => trans('custom_validation.admin.dictations.title.string'),
+            'title.unique' => trans('custom_validation.admin.dictations.title.unique'),
             'title.max' => trans('custom_validation.admin.dictations.title.max'),
             'video_link.active_url' => trans('custom_validation.admin.dictations.video_link.active_url'),
             'video_link.required' => trans('custom_validation.admin.dictations.video_link.required'),

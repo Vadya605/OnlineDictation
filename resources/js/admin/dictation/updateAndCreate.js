@@ -59,6 +59,7 @@ async function handleClickButtonEdit(e){
 }
 
 function fillForm(dictationData){
+    formDictation.elements.slug.value = dictationData.slug
     formDictation.elements.title.value = dictationData.title
     formDictation.elements.video_link.value = dictationData.video_link
     formDictation.elements.description.value = dictationData.description
@@ -75,6 +76,7 @@ formDictation.addEventListener('submit', async (e) => {
 
         const dictationData = new FormData(formDictation)
         dictationData.set('is_active', Number(formDictation.elements.is_active.checked))
+        // dictationData.set()
 
         let response = null
         if(isSubmitFormUpdate(formDictation)){

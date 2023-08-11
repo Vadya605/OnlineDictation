@@ -23,7 +23,7 @@ class StoreDictationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:191',
+            'title' => 'required|unique:dictations|string|max:191',
             'video_link' => 'required|active_url',
             'is_active' => 'boolean',
             'description' => 'nullable|string',
@@ -39,6 +39,7 @@ class StoreDictationRequest extends FormRequest
         return [
             'title.required' => trans('custom_validation.admin.dictations.title.required'),
             'title.string' => trans('custom_validation.admin.dictations.title.string'),
+            'title.unique' => trans('custom_validation.admin.dictations.title.unique'),
             'title.max' => trans('custom_validation.admin.dictations.title.max'),
             'video_link.active_url' => trans('custom_validation.admin.dictations.video_link.active_url'),
             'video_link.required' => trans('custom_validation.admin.dictations.video_link.required'),

@@ -23,7 +23,8 @@ class DictationResource extends JsonResource
             'is_active' => $this->is_active,
             'from_date_time' => $this->from_date_time,
             'to_date_time' => $this->to_date_time,
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
+            'slug' => $this->slug,
         ];
     }
 }

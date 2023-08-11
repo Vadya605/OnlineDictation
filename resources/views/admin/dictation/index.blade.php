@@ -21,6 +21,7 @@
                     <div class="col-12">
                         <form id="formModal" action="{{ route('admin.dictation.store') }}" method="post">
                             @csrf
+                            <input type="hidden" name="slug">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Название диктанта *</label>
                                 <input type="text" class="form-control" id="title" name="title">

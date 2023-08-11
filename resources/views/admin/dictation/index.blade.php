@@ -1,7 +1,6 @@
 @push('js')
     @vite(['resources/js/admin/sorting.js', 'resources/js/admin/filter.js', 
             'resources/js/admin/pagination.js', 'resources/js/admin/reset.js',
-            // 'resources/js/admin/dictation/update.js', 'resources/js/admin/dictation/create.js',
             'resources/js/admin/dictation/delete.js', 'resources/js/admin/dictation/updateAndCreate.js'
             ])
 @endpush

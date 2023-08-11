@@ -74,18 +74,12 @@ formDictation.addEventListener('submit', async (e) => {
         e.preventDefault()
         formDictation.elements.btn_submit.disabled = true
 
-        const dictationData = new FormData(formDictation)
-        dictationData.set('is_active', Number(formDictation.elements.is_active.checked))
-        // dictationData.set()
+        const dictationData = getFormData()
+        const dictationSlug = formDictation.getAttribute('data-record')
 
-        let response = null
-        if(isSubmitFormUpdate(formDictation)){
-            const dictationSlug = formDictation.getAttribute('data-record')
-            response = await update(ROUTES.dictation.update(dictationSlug), conversionDataUpdating(dictationData))
-        }else{
-            response = await create(ROUTES.dictation.create, dictationData)
-            clearForm(formDictation)
-        }
+        const response = isSubmitFormUpdate(formDictation)
+            ? await update(ROUTES.dictation.update(dictationSlug), dictationData)
+            : await create(ROUTES.dictation.create, dictationData)
 
         modal.hide()
         await refreshRecords()
@@ -97,8 +91,11 @@ formDictation.addEventListener('submit', async (e) => {
     }
 })
 
-function conversionDataUpdating(data){
-    return Object.fromEntries(data)
+function getFormData(){
+    const dictationData = Object.fromEntries(new FormData(formDictation))
+    dictationData.is_active = formDictation.elements.is_active.checked
+
+    return dictationData
 }
 
 function handleFormSubmitError(error) {

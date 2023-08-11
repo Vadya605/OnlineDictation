@@ -47,16 +47,6 @@ nav{
     color: blue;
 }
 
-/* .btn-create{
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 45px !important;
-    height: 45px !important;
-    font-size: 45px;
-    border-radius: 50%;
-} */
-
 .btn-delete{
     display: flex !important;
     align-items: center !important;
@@ -108,4 +98,8 @@ nav{
 
 td{
     vertical-align: middle;
+}
+
+.wrapper-table{
+    position: relative;
 }

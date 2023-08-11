@@ -8,7 +8,6 @@
 @extends('layouts.adminApp')
 @section('content')
 <x-modal-windows.confirm-deleting /> 
-<x-loader />
 <div>
     <div class="modal fade" id="modal" tabindex="-1"  aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered">
@@ -101,7 +100,8 @@
         </form>
     </div>
 </div>
-<div class="table-records">
+<div class="wrapper-table">
+    <x-loader />
     @include('admin.dictation.table')
 </div>
 @endsection

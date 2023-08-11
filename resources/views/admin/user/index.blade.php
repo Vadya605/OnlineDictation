@@ -7,7 +7,6 @@
 @extends('layouts.adminApp')
 @section('content')
 <x-modal-windows.confirm-deleting /> 
-<x-loader />
 <div class="modal-create">
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered">
@@ -77,7 +76,8 @@
         </form>
     </div>
 </div>
-<div class="table-records">
+<div class="wrapper-table">
+    <x-loader />
     @include('admin.user.table')
 </div>
 @endsection

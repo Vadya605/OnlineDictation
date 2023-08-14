@@ -64,11 +64,11 @@ class DictationResultRepository
 
         $dateTimeResult = Carbon::parse($dictationResultData['date_time_result'])->format('Y-m-d H:i:s');
 
-        $newDictationResult->text_result = $dictationResultData['text_result'];
-        $newDictationResult->dictation_id = $dictationResultData['dictation_id'];
-        $newDictationResult->user_id = $dictationResultData['user_id'];
-        $newDictationResult->is_checked = $dictationResultData['is_checked'];
-        $newDictationResult->mark = $dictationResultData['mark'];
+        $newDictationResult->text_result = Arr::get($dictationResultData, 'text_result');
+        $newDictationResult->dictation_id = Arr::get($dictationResultData, 'dictation_id');
+        $newDictationResult->user_id = Arr::get($dictationResultData, 'user_id');
+        $newDictationResult->is_checked = Arr::get($dictationResultData, 'is_checked');
+        $newDictationResult->mark = Arr::get($dictationResultData, 'mark');
         $newDictationResult->date_time_result = $dateTimeResult;
 
         $newDictationResult->save();

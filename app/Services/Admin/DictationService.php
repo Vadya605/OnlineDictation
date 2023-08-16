@@ -4,6 +4,7 @@ namespace App\Services\Admin;
 
 use App\Repositories\Dictation\DictationRepository;
 use App\Models\Dictation;
+use App\Events\Dictation\DictationAnswerUpdated;
 
 class DictationService
 {
@@ -51,7 +52,13 @@ class DictationService
 
     public function update(Dictation $dictation, $changeDictationData)
     {
-        return $this->dictationRepository->updateDictation($dictation, $changeDictationData);
+        $updatedDictation = $this->dictationRepository->updateDictation($dictation, $changeDictationData);
+
+        if($this->dictationRepository->isDictationAnswerUpdated($updatedDictation)){
+            event(new DictationAnswerUpdated($updatedDictation));
+        }
+
+        return $updatedDictation;
     }
 
     public function delete(Dictation $dictation)

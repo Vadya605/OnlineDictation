@@ -31,6 +31,18 @@ class DictationResultService
         return $dictationResult->text_result === $dictation->answer;
     }
 
+    public function resetResults(Dictation $dictation)
+    {
+        $resettableResults = $dictation->results->filter(fn($result) => $result->is_checked);
+
+        foreach($resettableResults as $resettableResult){
+            $this->dictationResultRepository->updateDictationResult($resettableResult, [
+                'is_checked' => false,
+                'mark' => null
+            ]);
+        }
+    }
+
     public function checkResults(Collection $dictations)
     {
         $dictations = $dictations->filter(fn($dictation) => $dictation->results->count());

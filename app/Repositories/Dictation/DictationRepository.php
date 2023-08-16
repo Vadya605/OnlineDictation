@@ -112,6 +112,11 @@ class DictationRepository
         return $newDictation;
     }
 
+    public function isDictationAnswerUpdated(Dictation $dictation)
+    {
+        return $dictation->wasChanged('answer');
+    }
+
     public function updateDictation(Dictation $dictation, $changeDictationData)
     {
         $changeDictationData['from_date_time'] = Carbon::parse($changeDictationData['from_date_time'])->format('Y-m-d H:i:s');

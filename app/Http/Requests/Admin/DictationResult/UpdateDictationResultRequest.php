@@ -20,6 +20,16 @@ class UpdateDictationResultRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
+
+    public function prepareForValidation()
+    {
+        if (!$this->is_checked) {
+            $this->merge([
+                'mark' => null,
+            ]);
+        }
+    }
+
     public function rules(): array
     {
         return [

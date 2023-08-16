@@ -99,10 +99,6 @@ function getFormData(){
     dictationResultData.is_checked = formDictationResult.elements.is_checked.checked
     dictationResultData.slug = formDictationResult.getAttribute('data-record')
 
-    if(!dictationResultData.is_checked){
-        dictationResultData.mark = null
-    }
-
     return dictationResultData
 }
 

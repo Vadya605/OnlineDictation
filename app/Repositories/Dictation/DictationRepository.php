@@ -68,6 +68,11 @@ class DictationRepository
         return Dictation::where('title', 'like', "%{$searchValue}%")->get();
     }
 
+    public function getDictationsByChunk(callable $callback)
+    {
+        Dictation::chunk(10, $callback);
+    }
+
     public function getCountDictation()
     {
         return Dictation::count();

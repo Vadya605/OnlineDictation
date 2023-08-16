@@ -4,6 +4,7 @@ namespace App\Services\Admin;
 
 use App\Repositories\DictationResult\DictationResultRepository;
 use App\Models\DictationResult;
+use App\Models\Dictation;
 use Illuminate\Database\Eloquent\Collection;
 
 class DictationResultService
@@ -25,18 +26,24 @@ class DictationResultService
         return $this->dictationResultRepository->getCountDictationResult();
     }
 
-    public function isCorrect(DictationResult $dictationResult)
+    public function isCorrect(DictationResult $dictationResult, Dictation $dictation)
     {
-        return $dictationResult->text_result === $dictationResult->dictation->answer;
+        return $dictationResult->text_result === $dictation->answer;
     }
 
-    public function checkResults(Collection $dictationResults)
+    public function checkResults(Collection $dictations)
     {
-        foreach($dictationResults as $dictationResult){
-            if(!$dictationResult->is_checked){
-                $this->update($dictationResult, [
+        $dictations = $dictations->filter(fn($dictation) => $dictation->results->count());
+
+        foreach($dictations as $dictation){
+            $checkableResults = $dictation->results->filter(fn($result) => !$result->is_checked);
+    
+            foreach($checkableResults as $checkableResult){
+                $mark = $this->isCorrect($checkableResult, $dictation) ? 10 : 2;
+    
+                $this->dictationResultRepository->updateDictationResult($checkableResult, [
                     'is_checked' => true,
-                    'mark' => $this->isCorrect($dictationResult) ? 10 : 2
+                    'mark' => $mark
                 ]);
             }
         }

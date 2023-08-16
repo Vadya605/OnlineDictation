@@ -5,6 +5,8 @@ namespace App\Console\Commands\DictationResult;
 use Illuminate\Console\Command;
 use App\Services\Admin\DictationResultService;
 use App\Services\Admin\DictationService;
+use App\Models\Dictation;
+use Illuminate\Database\Eloquent\Collection;
 
 class CheckDictationResult extends Command
 {
@@ -13,7 +15,7 @@ class CheckDictationResult extends Command
      *
      * @var string
      */
-    protected $signature = 'dictation-result:check {--dictation=} {--active} {--all}';
+    protected $signature = 'dictation-result:check {--dictation=} {--active}';
 
     /**
      * The console command description.
@@ -41,19 +43,15 @@ class CheckDictationResult extends Command
         if($dictation = $this->option('dictation')){
             $checkableDictation = $this->dictationService->getBySlug($dictation);
         
-            $this->dictationResultService->checkResults($checkableDictation->results);
+            $this->dictationResultService->checkResults(Collection::make([$checkableDictation]));
         }elseif($this->option('active')){
             $checkableDictation = $this->dictationService->getActive();
-
-            $this->dictationResultService->checkResults($checkableDictation->results);
-        }elseif($this->option('all')){
-            $checkableDictations = $this->dictationService->getResultsAutoCompleteSearch();
-
-            foreach($checkableDictations as $checkableDictation){
-                $this->dictationResultService->checkResults($checkableDictation->results);
-            }
+            
+            $this->dictationResultService->checkResults(Collection::make([$checkableDictation]));
         }else{
-            $this->error('Для проверки необходимо указать одну из опций: --dictation=value, --active или --all');
+            $this->dictationService->getByChunk(function($dictationsChunk){
+                $this->dictationResultService->checkResults($dictationsChunk);
+            });
         }
     }
 }

@@ -34,6 +34,11 @@ class DictationService
         return $this->dictationRepository->getResultsAutoCompleteSearch($searchValue);
     }
 
+    public function getByChunk(callable $callback)
+    {
+        return $this->dictationRepository->getDictationsByChunk($callback);
+    }
+
     public function getBySlug($id)
     {
         return $this->dictationRepository->getDictationBySlug($id);

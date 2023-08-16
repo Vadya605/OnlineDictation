@@ -45,14 +45,16 @@ class DictationResultService
 
     public function checkResults(Collection $dictations)
     {
-        $dictations = $dictations->filter(fn($dictation) => $dictation->results->count());
+        $dictations = $dictations->filter(function ($dictation) {
+            return $dictation->results->contains('is_checked', false);
+        });
 
         foreach($dictations as $dictation){
             $checkableResults = $dictation->results->filter(fn($result) => !$result->is_checked);
-    
+            
             foreach($checkableResults as $checkableResult){
                 $mark = $this->isCorrect($checkableResult, $dictation) ? 10 : 2;
-    
+                
                 $this->dictationResultRepository->updateDictationResult($checkableResult, [
                     'is_checked' => true,
                     'mark' => $mark

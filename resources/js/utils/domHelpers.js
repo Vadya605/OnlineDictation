@@ -10,6 +10,10 @@ export function isSubmitFormUpdate(form){
     return form.getAttribute('data-record') !== null
 }
 
+export function isClickButtonVideo(e){
+    return e.target.classList.contains('btn-video')
+}
+
 export function changeModalTitle(textTitle){
     const modalTitle = document.querySelector('.title-modal')
     modalTitle.textContent = textTitle

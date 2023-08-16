@@ -92,7 +92,13 @@
                     <tr>
                         <td class="align-middle text-center">{{ $dictation->id }}</td>
                         <td class="align-middle">{{ $dictation->title }}</td>
-                        <td class="align-middle"><a target="blank" href="{{ $dictation->video_link }}">{{  Str::limit($dictation->video_link, 20) }}</a></td>
+                        <td class="align-middle text-center">
+                            <button class="btn btn-link btn-video py-0 px-0 bi bi-play-circle fs-3" 
+                                data-video-link="{{ $dictation->video_link }}"
+                                data-bs-toggle="modal" data-bs-target="#modalVideo"
+                            >
+                            </button>
+                        </td>
                         <td class="align-middle text-center">
                             @if ($dictation->is_active)
                                 <span class="badge bg-success text-white">Да</span>

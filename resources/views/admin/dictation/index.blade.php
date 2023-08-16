@@ -1,7 +1,8 @@
 @push('js')
     @vite(['resources/js/admin/sorting.js', 'resources/js/admin/filter.js', 
             'resources/js/admin/pagination.js', 'resources/js/admin/reset.js',
-            'resources/js/admin/dictation/delete.js', 'resources/js/admin/dictation/updateAndCreate.js'
+            'resources/js/admin/dictation/delete.js', 'resources/js/admin/dictation/updateAndCreate.js',
+            'resources/js/admin/dictation/showVideo.js'
             ])
 @endpush
 @extends('layouts.adminApp')
@@ -55,7 +56,23 @@
         </div>
     </div>
 </div>
-
+<div>
+    <div class="modal fade" id="modalVideo" tabindex="-1"  aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="title-modal fs-5 mb-0">Видео</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="embed-responsive d-flex justify-content-center video">
+                        <iframe class="embed-responsive-item" src="" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-12">
         <div class="d-flex align-items-center justify-content-between">

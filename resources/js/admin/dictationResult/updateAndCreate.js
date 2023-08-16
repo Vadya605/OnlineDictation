@@ -65,7 +65,7 @@ function fillForm(dictationResultData){
     formDictationResult.elements.text_result.value = dictationResultData.text_result
     formDictationResult.elements.is_checked.checked = dictationResultData.is_checked
     formDictationResult.elements.mark.value = dictationResultData.mark
-    dictationResultData.date_time_result && pickrDateTimeResult.setDate(new Date(dictationResultData.date_time_result))
+    dictationResultData.date_time_result && pickrDateTimeResult.setDate(dictationResultData.date_time_result)
     
     setVisibilityMark(dictationResultData.is_checked)
     setSelectedDictationId(dictationResultData.dictation.id)

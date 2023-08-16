@@ -48,8 +48,8 @@ function fillForm(dictationData){
     formDictation.elements.description.value = dictationData.description
     formDictation.elements.is_active.checked = dictationData.is_active
     formDictation.elements.answer.value = dictationData.answer
-    dictationData.from_date_time && pickrFromDateTime.setDate(new Date(dictationData.from_date_time))
-    dictationData.to_date_time && pickrToDateTime.setDate(new Date(dictationData.to_date_time))
+    dictationData.from_date_time && pickrFromDateTime.setDate(dictationData.from_date_time)
+    dictationData.to_date_time && pickrToDateTime.setDate(dictationData.to_date_time)
 }
 
 formDictation.addEventListener('submit', async (e) => {

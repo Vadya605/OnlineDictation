@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Carbon\Carbon;
 
 class DictationResult extends Model
 {
@@ -38,5 +39,10 @@ class DictationResult extends Model
         return SlugOptions::create()
             ->generateSlugsFrom(['dictation.title', 'user.name'])
             ->saveSlugsTo('slug');
+    }
+
+    public function getDateTimeResultAttribute($value)
+    {
+       return Carbon::parse($value)->format('d.m.Y H:i');
     }
 }

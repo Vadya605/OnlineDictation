@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Carbon\Carbon;
 
 class Dictation extends Model
 {
@@ -37,5 +38,22 @@ class Dictation extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
+    }
+
+    public function getFromDateTimeAttribute($value)
+    {
+       return Carbon::parse($value)->format('d.m.Y H:i');
+
+    }
+
+    public function getToDateTimeAttribute($value)
+    {
+       return Carbon::parse($value)->format('d.m.Y H:i');
+
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+       return Carbon::parse($value)->format('d.m.Y H:i');
     }
 }

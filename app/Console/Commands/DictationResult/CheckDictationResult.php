@@ -43,14 +43,14 @@ class CheckDictationResult extends Command
         if($dictation = $this->option('dictation')){
             $checkableDictation = $this->dictationService->getBySlug($dictation);
         
-            $this->dictationResultService->checkResults(Collection::make([$checkableDictation]));
+            $this->dictationResultService->checkSingleDictationResults($checkableDictation);
         }elseif($this->option('active')){
             $checkableDictation = $this->dictationService->getActive();
             
-            $this->dictationResultService->checkResults(Collection::make([$checkableDictation]));
+            $this->dictationResultService->checkSingleDictationResults($checkableDictation);
         }else{
             $this->dictationService->getByChunk(function($dictationsChunk){
-                $this->dictationResultService->checkResults($dictationsChunk);
+                $this->dictationResultService->checkCollectionDictationResults($dictationsChunk);
             });
         }
     }

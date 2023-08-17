@@ -43,23 +43,28 @@ class DictationResultService
         }
     }
 
-    public function checkResults(Collection $dictations)
+    public function checkCollectionDictationResults(Collection $dictations)
     {
-        $dictations = $dictations->filter(function ($dictation) {
+        $checkableDictations = $dictations->filter(function ($dictation) {
             return $dictation->results->contains('is_checked', false);
         });
 
-        foreach($dictations as $dictation){
-            $checkableResults = $dictation->results->filter(fn($result) => !$result->is_checked);
+        foreach($checkableDictations as $checkableDictation){
+            $this->checkSingleDictationResults($checkableDictation);
+        }
+    }
+
+    public function checkSingleDictationResults(Dictation $dictation)
+    {
+        $checkableResults = $dictation->results->filter(fn($result) => !$result->is_checked);
             
-            foreach($checkableResults as $checkableResult){
-                $mark = $this->isCorrect($checkableResult, $dictation) ? 10 : 2;
-                
-                $this->dictationResultRepository->updateDictationResult($checkableResult, [
-                    'is_checked' => true,
-                    'mark' => $mark
-                ]);
-            }
+        foreach($checkableResults as $checkableResult){
+            $mark = $this->isCorrect($checkableResult, $dictation) ? 10 : 2;
+            
+            $this->dictationResultRepository->updateDictationResult($checkableResult, [
+                'is_checked' => true,
+                'mark' => $mark
+            ]);
         }
     }
 

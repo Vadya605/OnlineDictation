@@ -50,7 +50,9 @@ class DictationResultRepository
 
     public function getCountDictationResult()
     {
-        return DictationResult::count();
+        return DictationResult::join('dictations', 'dictation_results.dictation_id', '=', 'dictations.id')
+            ->whereNull('dictations.deleted_at')
+            ->count();
     }
 
     public function getDictationResultById($id)
